@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - GIG Algeria</title>
+    <link rel="stylesheet" href="../assets/styles/sign-in.css">
+</head>
+<body>  
+    <div class="container">
+        <!-- Suppression de l’image sur mobile/tablette avec media query -->
+        <div class="left-section">
+            <img src="../assets/images/doctor.png" alt="Médecin souriant" class="doctor-image">
+        </div>
+
+        <div class="right-section">
+            <form class="signup-form">
+                <div class="header">
+                    <h2>Entrez votre information</h2>
+                </div>
+
+                <label for="nom">Nom</label>
+                <input type="text" id="nom" placeholder="Nom" required>
+
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" placeholder="Prénom" required>
+
+                <label for="departement">Département</label>
+                <input type="text" id="departement" placeholder="Département" required>
+
+                <label for="fonction">Fonction</label>
+                <select id="fonction" required>
+                    <option value="employee">Employé</option>
+                    <option value="professeur">Professeur</option>
+                    <option value="admin">Admin</option>
+                </select>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Email" required>
+
+                <label for="telephone">Numéro de téléphone</label>
+                <input type="text" id="telephone" placeholder="Numéro de téléphone" required>
+
+                <label for="password">Mot de passe</label>
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Entrez votre mot de passe" required>
+                    <span class="toggle-password"><img src="../assets/images/Vector.png" alt="password"></span>
+                </div>
+                <label for="confirmer-password" >Confirmer mot de passe</label>
+                <div class="password-container" >
+                    <input type="password" id="confirmer-password" placeholder="Entrez votre mot de passe" required >
+                    <span class="toggle-password1"><img src="../assets/images/Vector.png" alt="password"></span>
+                </div>
+
+                
+
+                <div class="footer">
+                    <button type="submit" class="btn-submit">S’inscrire</button>
+                    <p>Vous avez déjà un compte ? <a href="#" class="btn-submit1">Connectez-vous</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../scripts/sign-in.js"></script>
+</body>
+</html>
