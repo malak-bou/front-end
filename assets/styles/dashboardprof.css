@@ -671,9 +671,9 @@ input:hover {
 
 /* Section contact */
 .contact {
-
+    background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
-    padding: 2rem;
+    padding: 1rem;
 }
 ul {
     list-style: none;
@@ -681,7 +681,6 @@ ul {
   
 .example-2 {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -766,9 +765,9 @@ ul {
 
 .container-contact {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1450px;
     margin: 0 auto;
 }
 
@@ -785,40 +784,44 @@ ul {
     padding-right: 20%;
 }
 
-.gauche {
-    display: flex;
-    justify-content: space-evenly;
+.gauche  {
+  display: flex;
+  justify-content:start;
     align-items: center;
 }
 
-.place-g h1 {
-    font-size: 2rem;
+
+.gauche img, footer {
+    width: 200px;
+    height: 150px;
+    color: white;
 }
 
-.place-g p {
-    font-size: 1rem;
-}
 
-.place-d p {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.down-logo {
-    width: 70px;
-    height: 70px;
-}
 
 .photo-reseau {
     width: 100%;
     max-width: 200px;
+ 
 }
 
 footer {
-    text-align: center;
+    text-align: start;
     font-size: 0.7rem;
     margin-top: 0.5rem;
+    width: auto;
+    height:auto ;
 }
+
+
+@media (max-width: 768px) {
+
+    .container-contact {
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
 .formation{
     background-color: white;
 }
