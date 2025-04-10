@@ -548,11 +548,10 @@ input:hover {
 }
 /* Pied de page */
 
-/* Section contact */
 .contact {
-
+    background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
-    padding: 2rem;
+    padding: 1rem;
 }
 ul {
     list-style: none;
@@ -560,7 +559,6 @@ ul {
   
 .example-2 {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -645,9 +643,9 @@ ul {
 
 .container-contact {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1450px;
     margin: 0 auto;
 }
 
@@ -664,152 +662,40 @@ ul {
     padding-right: 20%;
 }
 
-.gauche {
-    display: flex;
-    justify-content: space-evenly;
+.gauche  {
+  display: flex;
+  justify-content:start;
     align-items: center;
 }
 
-.place-g h1 {
-    font-size: 2rem;
+
+.gauche img, footer {
+    width: 200px;
+    height: 150px;
+    color: white;
 }
 
-.place-g p {
-    font-size: 1rem;
-}
 
-.place-d p {
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.down-logo {
-    width: 70px;
-    height: 70px;
-}
 
 .photo-reseau {
     width: 100%;
     max-width: 200px;
+ 
 }
 
 footer {
-    text-align: center;
+    text-align: start;
     font-size: 0.7rem;
     margin-top: 0.5rem;
-}
-.formation{
-    background-color: white;
+    width: auto;
+    height:auto ;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
-    .top-bar {
+
+    .container-contact {
         flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-  
-
-    header img{
-        display: none;
-    }
-
-    .logo{ 
-        display: flex;
-        justify-content: space-between;
-        width: 80%;
-        margin-top: 10px;
-        margin-right: 25%;
-    }
-    .welcome h1{
-        padding-left:20px ;
-        padding-right:20px ;
-        
-    }
-
-    .search-bar {
-        max-width: 300px;
-        width: 70%;
-    }
-
-    .course-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .course-card {
-        width: 90%;
-        max-width: 300px;
-    }
-}
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-}
-
-.enlarged-img {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    border: 5px solid white;
-    cursor: pointer;
-}
-
-@media (max-width: 768px) { 
-    nav {
-        flex-direction: row; /* Garde la navbar en ligne */
-        justify-content: space-between; /* Sépare les éléments */
-        padding: 10px;
-    }
-
-    .nav-links {
-        display: none; /* Cache le menu si besoin */
-    }
-
-    .profile-pic {
-        width: 50px; /* Augmente la taille pour mobile */
-        height: 50px;
-    }
-}
-.profile-pic {
-    width: 40px; /* Taille de base */
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.profile-pic {
-    display: none; /* Cachée par défaut */
-}
-
-/* Pour les écrans de 768px et moins (mobile & tablette) */
-@media (max-width: 768px) {
-    .profile-pic {
-        display: block;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
+        justify-content: center;
     }
 }
