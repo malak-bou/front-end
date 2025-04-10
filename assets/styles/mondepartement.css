@@ -548,6 +548,7 @@ input:hover {
 }
 /* Pied de page */
 
+/* Section contact */
 .contact {
     background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
@@ -698,4 +699,70 @@ footer {
         flex-direction: column;
         justify-content: center;
     }
+}
+
+.formation{
+    background-color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+  
+
+    header img{
+        display: none;
+    }
+
+    .logo{ 
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin-top: 10px;
+        margin-right: 25%;
+    }
+    .welcome h1{
+        padding-left:20px ;
+        padding-right:20px ;
+        
+    }
+
+    .search-bar {
+        max-width: 300px;
+        width: 70%;
+    }
+
+    .course-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .course-card {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.enlarged-img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 5px solid white;
+    cursor: pointer;
 }
