@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Redirection vers le tableau de bord
             window.location.href = "https://moumouh6.github.io/Users-Dashboard/";
         } else { if(email === validEmail1 && password === validPassword1){
-            window.location.href = "https://am11iin.github.io/dashboard-prof/";
+            window.location.href = "../pages/dashboardprof.html";
             } else{if(email === validEmail2 && password === validPassword2){
                 window.location.href = "https://malak-bou.github.io/RH-dashboard/";
             }else {
