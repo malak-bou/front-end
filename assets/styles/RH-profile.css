@@ -1,0 +1,858 @@
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #342D67, #6759CD);
+    color: white;
+    width: 100%;
+}
+
+/* Barre supérieure */
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.top-bar h1{
+    font-size: 40px;
+}
+
+.menu-icon {
+    font-size: 35px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding-left: 10px;
+}
+
+
+/* 🌟 Sidebar Container */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Sidebar is hidden by default */
+    width: 250px;
+    height: 100%;
+    background: #ffffff;
+    color: #333;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
+}
+
+/* icons */
+
+/* Style for icons */
+.sidebar ul li a i,
+.sidebar-footer a i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Change icon color on hover */
+.sidebar ul li a:hover i,
+.sidebar-footer a:hover i {
+    color: blue;
+}
+.sidebar-footer .logout:hover i{
+    color: red;
+}
+
+/* ✖ Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+/* 📌 Sidebar Navigation Links */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 60px 0 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background: #f0f0f0;
+}
+
+/* 🌟 Sidebar Links */
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
+}
+
+/* 🔵 Active Link */
+.sidebar ul li a.active {
+    color: blue;
+    border-left: 4px solid blue;
+    background: rgba(0, 0, 255, 0.1);
+}
+
+/* ⚙ Sidebar Footer (Settings & Logout) */
+.sidebar-footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-footer a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar-footer a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
+}
+
+/* 🔴 Logout Button */
+.sidebar-footer .logout {
+    color: red;
+    font-weight: bold;
+}
+
+.sidebar-footer .logout:hover {
+    background: rgba(255, 0, 0, 0.1);
+    color: darkred;
+}
+
+/* 📌 Sidebar Visibility */
+.sidebar.active {
+    left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: #333;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
+}
+
+
+/* Style for icons */
+.sidebar ul li a i,
+.sidebar-footer a i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+    gap: 10p;
+}
+
+
+
+/* Change icon color on hover */
+.sidebar ul li a:hover i,
+.sidebar-footer a:hover i {
+    color: blue;
+}
+.sidebar-footer .logout:hover i{
+    color: red;
+}
+
+
+
+
+/* ✖ Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+
+    color: red;
+}
+
+/* 📌 Sidebar Navigation Links */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+.sidebar ul li {
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background: #f0f0f0;
+}
+
+/* 🌟 Sidebar Links */
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px;
+    
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
+}
+
+/* 🔵 Active Link */
+.sidebar ul li a.active {
+    color: blue;
+    border-left: 4px solid blue;
+    background: rgba(0, 0, 255, 0.1);
+}
+
+/* ⚙ Sidebar Footer (Settings & Logout) */
+.sidebar-footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-footer a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.sidebar-footer a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
+}
+
+/* 🔴 Logout Button */
+.sidebar-footer .logout {
+    color: red;
+    font-weight: bold;
+}
+
+.sidebar-footer .logout:hover {
+    background: rgba(255, 0, 0, 0.1);
+    color: darkred;
+}
+
+/* 📌 Sidebar Visibility */
+.sidebar.active {
+    left: 0;
+}
+
+
+
+
+
+
+
+
+.active {
+    color: #000;
+
+}
+
+.sidebar h2, .sidebar p {
+    padding: 8px 10px;
+}
+/* Close button */
+/* .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 36px;
+    color: black;
+    background: none;
+    border: none;
+    cursor: pointer;
+} */
+
+
+
+.upperbare{
+    margin-top: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.profile-picture {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5px;
+}
+.btn-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    display: none;
+}
+
+
+
+#changePicBtn, #deletePicBtn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    
+}
+
+#changePicBtn {
+    background-color: #7c3aed;
+    color: white;
+}
+
+#changePicBtn:hover {
+    background-color: #6d28d9;
+}
+
+#deletePicBtn {
+    background-color: red;
+    color: white;
+}
+
+#deletePicBtn:hover {
+    background-color: darkred;
+}
+
+
+.profile-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding-right: 10px;
+}
+
+.top-bar .edit-icon {
+    position: absolute;
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+
+/* Conteneur du profil */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+form {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    color: black;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    position: relative;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+input {
+    padding: 12px;
+    padding-right: 0%;
+    padding-left: 5px;
+    border: 1px solid #878787;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 100%;
+}
+
+
+
+/* Mot de passe */
+.password-box {
+    position: relative;
+    width: 100%;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    bottom: 12px;
+    cursor: pointer;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 16px; /* Adjust gap as needed */
+}
+
+.btn {
+    width: fit-content;
+    border-radius: 20px; /* Adjust for rounded corners */
+    font-size: 0.875rem; /* Text size */
+    padding: 10px 15px; /* Padding for buttons */
+    height: 50px; /* Fixed height */
+    border: 1px solid transparent; /* Default border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.3s; /* Smooth transition */
+}
+
+.save-btn {
+    background-color: #7c3aed; /* Violet background */
+    color: white; /* Text color */
+    border-color: #7c3aed; /* Border color */
+}
+
+.save-btn:hover {
+    background-color: #6d28d9; /* Darker violet on hover */
+}
+
+.save-btn:focus {
+    background-color: #5b21b6; /* Darker violet on focus */
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.5); /* Focus ring */
+}
+
+.cancel-btn {
+    background-color: transparent; /* Transparent background */
+    color: black; /* Primary text color */
+    border-color: lightgray; /* Primary border color */
+}
+
+.cancel-btn:focus {
+    box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.5); /* Focus ring */
+}
+
+/* ajouter les cours */
+
+.mon-profile{ 
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+}
+/* Statistiques */
+.course-tracking {
+    width: 100%;
+    overflow-x: auto; /* Active le défilement horizontal si nécessaire */
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.stats {
+    text-align: center;
+    background: #eee;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+/* Tableau des cours */
+table {
+    border-collapse: collapse;
+    margin-top: 10px;
+    overflow-x: auto;
+    max-width: 100%;
+    min-width: 600px;
+ 
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+th {
+    background-color: #342D67;
+    color: white;
+}
+
+/* Barre de progression */
+
+.progress-bar {
+    width: 100px;
+    height: 10px;
+    background: #ddd;
+    border-radius: 5px;
+    position: relative;
+}
+
+.progress-bar span {
+    height: 100%;
+    display: block;
+    border-radius: 5px;
+    background: #4CAF50;
+}
+
+/* Compétences Acquises */
+.skills ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.skills ul li {
+    display: inline-block;
+    background: #342D67;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+/* Pied de page */
+/* Section contact */
+.contact {
+    color: #ffffff;
+}
+ul {
+    list-style: none;
+}
+  
+.example-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.example-2 .icon-content {
+    margin: 0 10px;
+    position: relative;
+}
+
+  .example-2 .icon-content a {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #4d4d4d;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .example-2 .icon-content a:hover {
+    box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
+  }
+
+  .example-2 .icon-content a svg {
+    position: relative;
+    z-index: 1;
+    width: 25px;
+    height: 25px;
+  }
+
+  .example-2 .icon-content a:hover {
+    color: white;
+  }
+
+  .example-2 .icon-content a .filled {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #000;
+    transition: all 0.3s ease-in-out;
+  }
+  .example-2 .icon-content a:hover .filled {
+    height: 100%;
+  }
+  
+  .example-2 .icon-content a[data-social="linkedin"] .filled,
+  .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+    background-color: #0274b3;
+  }
+  
+  .example-2 .icon-content a[data-social="facebook"] .filled,
+  .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
+    background-color: #3b5998;
+  }
+  .example-2 .icon-content a[data-social="instagram"] .filled,
+  .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+    background: linear-gradient(
+      45deg,
+      #405de6,
+      #5b51db,
+      #b33ab4,
+      #c135b4,
+      #e1306c,
+      #fd1f1f
+    );
+  }
+  .example-2 .icon-content a[data-social="youtube"] .filled,
+  .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+    background-color: #ff0000;
+  }  
+.couleur{
+    color:  #D28C64;
+}
+
+
+.container-contact {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.partie-d{
+    flex: 0;
+    min-width: 300px;
+    margin: 1rem;
+}
+
+.partie-g{
+    flex: 1;
+    min-width: 300px;
+    margin: 1rem;
+}
+
+.gauche  {
+  display: flex;
+  justify-content:start;
+    align-items: center;
+}
+
+
+.gauche img, footer {
+    width: 200px;
+    height: 150px;
+
+}
+
+
+
+.photo-reseau {
+    width: 100%;
+    max-width: 200px;
+ 
+}
+
+footer {
+    text-align: start;
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    width: auto;
+    height:auto ;
+}
+
+/* Responsive */
+
+
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    }
+    .profile-container{
+        width: 90%;
+    }
+    form {
+        width: 90%;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    .input-box {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .container-contact {
+        flex-direction: column;
+        align-items: center;
+    }
+    footer{
+        margin-top: 0.5rem;
+    }
+    
+
+}
+@media (max-width: 768px) {
+    /* Centrer le header */
+    .top-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+        justify-content: space-between;
+    }
+    header{
+        width: 90%;
+    }
+
+    /* Faire monter le titre */
+    .top-bar h1 {
+        font-size: 32px;
+    }
+
+    /* Centrer la photo de profil */
+    .profile-picture {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Ajuster la taille de la photo */
+    .profile-picture img {
+        width: 80px;
+        height: 80px;
+        padding-right: 5px;
+        background-color: transparent;
+    }
+    .menu-icon{
+        padding-left: 5px;
+    }
+
+
+}
