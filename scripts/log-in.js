@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else { if(email === validEmail1 && password === validPassword1){
             window.location.href = "../pages/dashboardprof.html";
             } else{if(email === validEmail2 && password === validPassword2){
-                window.location.href = "https://malak-bou.github.io/RH-dashboard/";
+                window.location.href = "../pages/RH-dashboard.html";
             }else {
                 alert("Email ou mot de passe incorrect.");
             }
