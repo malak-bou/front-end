@@ -9,14 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Gestion des boutons de connexion et d'inscription
     document.querySelector(".button2").addEventListener("click", function () {
-        window.location.href = "https://moumouh6.github.io/sign-in-/";
+        window.location.href = "pages/Sign-in.html";
     });
 
     document.querySelector(".button3").addEventListener("click", function () {
-        window.location.href = "https://moumouh6.github.io/Log-in/";
+        window.location.href = "pages/log-in.html";
        
     });
     document.querySelector(".button1").addEventListener("click", function () {
-        window.location.href = "https://moumouh6.github.io/Log-in/";
+        window.location.href = "pages/log-in.html";
     });
 });
