@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plateforme de Formation</title>
-    <link rel="stylesheet" href="../assets/styles/dashboardprof.css">
+    <link rel="stylesheet" href="../assets/styles/mescours.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -12,14 +12,41 @@
 <!-- Barre de navigation -->
 <header class="top-bar">
     <div class="logo">
-      
+        <div>
             <!-- Bouton pour ouvrir la Sidebar -->
-            <div class="menuicon" onclick="toggleSidebar()">☰</div>
-        
+            <div class="menu-icon" id="toggleSidebar">☰</div>
 
+   <!-- Sidebar -->
+ <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <button class="close-btn" id="closeSidebar">☰</button>
     </div>
     
-    <div>
+    <ul class="sidebar-menu">
+      <li><a href="dashboardprof.html" > <i class="fas fa-home"></i> Accueil</a></li>
+      <li><a href="profileprof.html "><i class="fas fa-user"></i> Profil</a></li>
+      <li><a href="mondepartement.html"><i class="fa-solid fa-users-line"></i></i> Mon département</a></li>
+      <li><a href="#" class="active"><i class="fa-solid fa-chalkboard-user"></i> Mes cours</a></li>
+      <li><a href="https://am11iin.github.io/formation/"><i class="fa-solid fa-video"></i>Formation</a></li>
+      <li><a href="https://nesrine-fl.github.io/formation/"><i class="fa-solid fa-sliders"></i>Statut des demandes</a></li>
+      <li><a href="https://am11iin.github.io/message-prof/">  <i class="fas fa-envelope"></i> Messages</a></li>
+      <li><a href="https://am11iin.github.io/notification-prof/"><i class="fas fa-bell"></i> Notifications</a></li>
+      <li><a href="https://am11iin.github.io/aide-prof/"><i class="fas fa-question-circle"></i> Aide</a></li>
+    </ul>
+   
+  
+       <!-- Footer de la sidebar avec Paramètres et Déconnexion -->
+       <div class="sidebar-footer">
+        <a href="#" id="settings"><i class="fas fa-cog"></i> Paramètres</a>
+        <a href="https://moumouh6.github.io/Interface/" id="logout" class="logout">
+          <i class="fas fa-sign-out-alt"></i> Se déconnecter
+        </a>
+      </div>
+  
+    
+    
+    </div>
+
         <!-- Barre de recherche indépendante -->
         <div class="group">
             <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
@@ -31,39 +58,8 @@
             </svg>
             <input class="input" id="searchInput" type="search" placeholder="Search" />
         </div>
-        <div class="profile-container">
-          <img src="../assets/images/profil-pic.png" alt="Profil" class="profile-pic">
-        </div>
     </div>
 
-
-    
-    <div id="sidebar" class="sidebar">
-
-      <div>
-          <button class="close-btn" onclick="toggleSidebar()">☰</button>
-          <ul >
-            <li><a href="#" class="active"> <i class="fas fa-home"></i> Accueil</a></li>
-            <li><a href="profileprof.html"><i class="fas fa-user"></i> Profil</a></li>
-            <li><a href="mondepartement.html"><i class="fa-solid fa-users-line"></i></i> Mon département</a></li>
-            <li><a href="mescours.html"><i class="fa-solid fa-chalkboard-user"></i> Mes cours</a></li>
-            <li><a href="formation.html"><i class="fa-solid fa-video"></i>Formation</a></li>
-            <li><a href="statut.html"><i class="fa-solid fa-sliders"></i>Statut des demandes</a></li>
-            <li><a href="messagesprof.html">  <i class="fas fa-envelope"></i> Messages</a></li>
-            <li><a href="nottifprof.html"><i class="fas fa-bell"></i> Notifications</a></li>
-            <li><a href="aideprof.html"><i class="fas fa-question-circle"></i> Aide</a></li>
-          </ul>
-      </div>
-  
-      <div class="sidebar-footer">
-        <a href="#" id="settings"><i class="fas fa-cog"></i> Paramètres</a>
-        <a href="https://moumouh6.github.io/Interface/" id="logout" class="logout">
-          <i class="fas fa-sign-out-alt"></i> Se déconnecter
-        </a>
-      </div>
-
-
-    </div>
     
 </header>
 
@@ -73,166 +69,147 @@
     <p>Votre espace de formation professionnelle</p>
     <h2>Bon apprentissage !</h2>
 </section>
-
-    <!-- Contenu principal -->
-    <main>
+<!-- Contenu principal -->
+<main>
     <section class="formation">
-        <!-- Section des cours récents -->
-        <section class="recent-courses">
-            <h2>Les cours les plus récents</h2>
-            <div class="course-container">
-                <div class="course-card">
-                    <img src="../assets/images/nextjs.png" alt="React">
-                    <span class="department">IT</span>
-                    <h3>Mastering React & Next.js</h3>
-                    <p>By M.hacene</p>
+        <div class="courses-wrapper"> <!-- Nouveau conteneur blanc -->
+            <!-- mes cours -->
+            <section class="recent-courses">
+                <!-- Conteneur titre + bouton -->
+                <div class="courses-header">
+                    <h2>Mes cours</h2>
+                    <div class="see-all" onclick="showAllCourses()">SEE ALL →</div>
                 </div>
-                <div class="course-card">
-                    <img src="../assets/images/img-fe.png" alt="Front-end">
-                    <span class="department">IT</span>
-                    <h3>Front-end Development</h3>
-                    <p>By M. Bazouzi</p>
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/11-single-default.jpg" alt="Finance">
-                    <span class="department">Finance</span>
-                    <h3>Introduction à la finance d’entreprise</h3>
-                    <p>By M. mohamed</p>
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/management.jpg" alt="Management">
-                    <span class="department">Business</span>
-                    <h3>Gestion du changement et transformation digitale</h3>
-                    <p>By M. amine</p>
-                </div>
-            </div>
-            >
-        </section>
 
-        <!-- Section des départements -->
-        <section class="departments">
-            <h2>Les départements</h2>
-          
-            <div class="radio-inputs">
-                <label class="radio">
-                    <input type="radio" name="radio" value="Tous" checked>
-                    <span class="name">Tous</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="IT">
-                    <span class="name">IT</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="RH">
-                    <span class="name">RH</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Marketing">
-                    <span class="name">Marketing</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Networks">
-                    <span class="name">Network</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Legal">
-                    <span class="name">Legal and Compliance</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Business Development</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Claims</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Reinsurance</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Prevention</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Finance & Accounting</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Quality & Internal Control</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Executive Management</span>
-                </label>
-                <label class="radio">
-                    <input type="radio" name="radio" value="Business Development">
-                    <span class="name">Center Regional Delegation</span>
-                </label>
-           
-        </div>  
+                <div class="course-container">
+                    <div class="course-card"> 
+                        <img src="../assets/images/nextjs.png" alt="React">
+                        <span class="department">Front-end</span>
+                        <h3>Mastering React & Next.js</h3>
+                    </div>
+                    
+                    <div class="course-card">
+                        <img src="../assets/images/img-fe.png" alt="Front-end">
+                        <span class="department">Front-end</span>
+                        <h3>Mastering React & Next.js for Scalable Web Apps</h3>
+                    </div>
+                    <div class="course-card">
+                        <img src="../assets/images/auth.png" alt="Finance">
+                        <span class="department">Backend</span>
+                        <h3>Gestion des Identités et Authentification Sécurisée</h3>
+                    </div>
+                    <div class="course-card">
+                        <img src="../assets/images/Docker et Kubernetes.png" alt="Management">
+                        <span class="department">Backend</span>
+                        <h3>Docker et Kubernetes : Conteneurisation et Orchestration</h3>
+                    </div>
+                    
+                  
+                </div>
+            </section>
+
+            <!-- Barre de filtre et bouton -->
+            <div class="filter-bar">
+                <select id="course-filter" class="filter-select">
+                    <option value="all">All Courses</option>
+                    <option value="backend">Backend</option>
+                    <option value="Front-end">Front-end</option>
+                    <option value="ai">AI</option>
+                </select>
+                
+
+                <a href="https://nesrine-fl.github.io/cour/" > <!-- target="_blank" bch ytafth f nv onglett -->
+                  <button class="new-course-btn">
+                      <span class="plus-icon">+</span> NOUVEAU COURS
+                  </button>
+              </a>
+              
+            </div>
+
+
             <div class="course-container">
                 <div class="course-card">
-                    <img src="../assets/images/sql.png" alt="SQL">
-                    <span class="department">IT</span>
-                    <h3>Mastering Databases: SQL & NoSQL Fundamentals</h3>
-                    <p>By M.sellami</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/python.png" alt="Python">
-                    <span class="department">IT</span>
-                    <h3>Python for Absolute Beginners</h3>
-                    <p>By M. Dupont</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/téléchargement (1).jpg" alt="Marketing">
-                    <span class="department">Marketing</span>
-                    <h3>Fondamentaux du Marketing</h3>
-                    <p>By Mme Martin</p>
+                    <img src="../assets/images/ml.png" alt="Marketing">
+                    <span class="department">AI</span>
+                    <h3>Machine Learning with Python: A Hands-on Approach</h3>
+                    
                 </div>
             
                 <div class="course-card">
                     <img src="../assets/images/cloud.jpg" alt="Cloud">
-                    <span class="department">Network</span>
+                    <span class="department">Backend</span>
                     <h3>Cloud Computing et Réseaux Virtuels</h3>
-                    <p>By M. Lefebvre</p>
+                    
                 </div>
             
                 <div class="course-card">
                     <img src="../assets/images/rgpd.jpg" alt="RGPD">
-                    <span class="department">Legal and Compliance</span>
+                    <span class="department">Backend</span>
                     <h3>RGPD et Protection des Données</h3>
-                    <p>By Mme malak</p>
+                    
                 </div>
             
                 <div class="course-card">
-                    <img src="../assets/images/téléchargement.png" alt="Risques">
-                    <span class="department">Legal and Compliance</span>
-                    <h3>Gestion des Risques Juridiques</h3>
-                    <p>By M. moumouh</p>
+                    <img src="../assets/images/python-django-1024x576.jpg" alt="Risques">
+                    <span class="department">Backend</span>
+                    <h3>Django & Python: Backend Development Made Easy</h3>
+                    
                 </div>
             
                 <div class="course-card">
-                    <img src="../assets/images/téléchargement.jpg" alt="Growth">
-                    <span class="department">Business Development</span>
-                    <h3>Growth Hacking pour les Entreprises</h3>
-                    <p>By Mme nessrin</p>
+                    <img src="../assets/images/nodejs.png" alt="Growth">
+                    <span class="department">Backend</span>
+                    <h3>Backend avec Node.js et Express</h3>
+                    
                 </div>
-            
+                <div class="course-card"> 
+                    <img src="../assets/images/nextjs.png" alt="React">
+                    <span class="department">Front-end</span>
+                    <h3>Mastering React & Next.js</h3>
+                </div>
+                
                 <div class="course-card">
-                    <img src="../assets/images/téléchargement (1).jpg" alt="Négociation">
-                    <span class="department">Business Development</span>
-                    <h3>Techniques de Négociation en Vente</h3>
-                    <p>By M.sellami</p>
+                    <img src="../assets/images/img-fe.png" alt="Front-end">
+                    <span class="department">Front-end</span>
+                    <h3>Mastering React & Next.js for Scalable Web Apps</h3>
                 </div>
+                <div class="course-card">
+                    <img src="../assets/images/auth.png" alt="Finance">
+                    <span class="department">Backend</span>
+                    <h3>Gestion des Identités et Authentification Sécurisée</h3>
+                </div>
+                <div class="course-card">
+                    <img src="../assets/images/Docker et Kubernetes.png" alt="Management">
+                    <span class="department">Backend</span>
+                    <h3>Docker et Kubernetes : Conteneurisation et Orchestration</h3>
+                </div>
+                
+                <div class="course-card">
+                    <img src="../assets/images/python-django-1024x576.jpg" alt="Négociation">
+                    <span class="department">AI</span>
+                    <h3>Machine Learning with Python: A Hands-on Approach</h3>
+                   
+                </div>
+                <div class="course-card">
+                    <img src="../assets/images/chatgpt.png" alt="Négociation">
+                    <span class="department">AI</span>
+                    <h3>IA Générative et ChatGPT pour les Entreprises</h3>
+                   
+                </div>
+                <div class="course-card">
+                    <img src="../assets/images/deep.png" alt="Négociation">
+                    <span class="department">AI</span>
+                    <h3>Deep Learning avec TensorFlow et PyTorch</h3>
+                   
+                </div>
+                 
             </div>
         </section>
-       
+        </div> <!-- Fin du wrapper -->
     </section>
-       <section class="contact" id="contact">
+
+
+<section class="contact" id="contact">
         <div class="container-contact">
             <div class="partie-g">
                 <div class="gauche">
@@ -346,10 +323,5 @@
             </div>
         </div>
     </section>
-    </main>
-
-   
-  <script src="../scripts/dashboardprof.js"></script>
-
-</body>
-</html
+</main>
+        <script src="../scripts/mescours.js"></script>
