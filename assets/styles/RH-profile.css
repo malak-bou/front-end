@@ -641,8 +641,11 @@ th {
 
 /* Pied de page */
 /* Section contact */
+
 .contact {
+    background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
+    padding: 1rem;
 }
 ul {
     list-style: none;
@@ -650,7 +653,6 @@ ul {
   
 .example-2 {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 10px;
@@ -735,9 +737,9 @@ ul {
 
 .container-contact {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1450px;
     margin: 0 auto;
 }
 
@@ -751,6 +753,7 @@ ul {
     flex: 1;
     min-width: 300px;
     margin: 1rem;
+    padding-right: 20%;
 }
 
 .gauche  {
@@ -763,7 +766,7 @@ ul {
 .gauche img, footer {
     width: 200px;
     height: 150px;
-
+    color: white;
 }
 
 
@@ -811,9 +814,6 @@ footer {
     .container-contact {
         flex-direction: column;
         align-items: center;
-    }
-    footer{
-        margin-top: 0.5rem;
     }
     
 
