@@ -1,0 +1,1071 @@
+/* Styles globaux */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #6759CD, #342D67);
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Barre de navigation */
+header {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.logo, .search-bar {
+    display: flex;
+    align-items: center;
+    padding-left: 5rem;
+}
+
+/* Centrer la barre de recherche légèrement à droite */
+.group {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: 5px 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    left: 50%;  /* Déplace un peu plus à droite */
+    transform: translateX(-50%);
+    width: 200px;
+    top: 1rem;
+}
+/* Style de l'input */
+.group .input {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+    width: 200px;
+    left: 30%;
+    padding-left: 20%;
+}
+.group .icon {
+    width: 20px;
+    height: 20px;
+    fill: #555; /* Change la couleur de l'icône */
+    margin-right: 10px; /* Espacement entre l'icône et l'input */
+}
+
+
+.input {
+  width: 100%;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #f3f3f4;
+  color: #0d0c22;
+  transition: 0.3s ease;
+}
+
+.input::placeholder {
+  color: #9e9ea7;
+}
+
+.input:focus,
+input:hover {
+  outline: none;
+  border-color: rgba(234, 226, 183, 0.4);
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgb(234 226 183 / 10%);
+}
+
+.icon {
+  position: absolute;
+  left: 1rem;
+  fill: #9e9ea7;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 10px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+
+/* Section de bienvenue */
+.welcome {
+    text-align: center;
+}
+
+.welcome h1 {
+    font-size: 45px;
+}
+
+.welcome span {
+    color: #D28C64;
+}
+
+.welcome p {
+    font-size: 16px;
+}
+
+/* Icône du menu */
+.menuicon {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 5px;
+   
+}
+/* 🌟 Sidebar Links */
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
+}
+
+/* Style for icons */
+.sidebar ul li a i,
+.sidebar-footer a i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+/* 📌 Sidebar Navigation Links */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 60px 0 0;
+}
+
+.sidebar ul li {
+    padding: 8px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background: #f0f0f0;
+}
+
+
+/* icons */
+
+/* Style for icons */
+.sidebar ul li a i,
+.sidebar-footer a i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Change icon color on hover */
+.sidebar ul li a:hover i,
+.sidebar-footer a:hover i {
+    color: blue;
+}
+.sidebar-footer .logout:hover i{
+    color: red;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px; /* Ajuste la largeur */
+    height: 100%; /* Pleine hauteur */
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%); /* Cachée par défaut */
+    transition: transform 0.3s ease-in-out;
+}
+.sidebar {
+    position: fixed; /* ou absolute si nécessaire */
+    top: 0;
+    left: 0;
+    width: 220px; /* Ajuste selon ta sidebar */
+    height: 100vh; /* Pour qu'elle prenne toute la hauteur */
+    background-color: #f5f5f5; /* Couleur de fond */
+    z-index: 10; /* Assure qu'elle reste en dessous */
+}
+
+.departments-bar {
+    position: relative;
+    margin-top: 100px; /* Ajuste pour descendre la barre */
+    z-index: 5; /* Doit être inférieur à celui de la sidebar */
+}
+
+#sidebar.active {
+    transform: translateX(0); /* Affichée quand active */
+}
+
+/* Styles de la sidebar */
+.sidebar {
+    width: 150px; /* Ajuste la largeur selon ton besoin */
+    height: 100vh; /* Prend toute la hauteur de l'écran */
+    overflow-y: auto; /* Active le défilement vertical si nécessaire */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Espace bien les éléments */
+    background: white;
+    position: fixed; /* Fixe la barre à gauche */
+    top: 0;
+    left: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px; /* Réduit l’espace intérieur */
+}
+/* Ajuster l’espacement des liens du menu */
+.sidebar-menu {
+    flex-grow: 1; /* Permet au menu de prendre tout l’espace dispo */
+}
+
+.sidebar-menu li {
+    margin-bottom: 10px; /* Réduit l’espace entre les éléments */
+}
+
+/* Le footer reste en bas mais peut défiler si nécessaire */
+.sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: start; /* Alignement à gauche */
+    gap: 10px; /* Espace entre les éléments */
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #ddd; /* Séparateur propre */
+}
+.sidebar-footer a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+.sidebar-footer a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
+}
+
+/* 🔴 Logout Button */
+.sidebar-footer .logout {
+    color: red;
+    font-weight: bold;
+}
+
+.sidebar-footer .logout:hover {
+    background: rgba(255, 0, 0, 0.1);
+    color: darkred;
+}
+/* 📌 Sidebar Visibility */
+.sidebar.active {
+    left: 0;
+}
+
+.grand-titre{
+    text-align: center;
+    font-size: 40px;
+}
+.text{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.text span{
+    color: #D28C64; 
+    font-weight: bold;
+}
+.sidebar {
+    min-height: 100vh; /* Utilise toute la hauteur de l'écran */
+    overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
+}
+
+
+.sidebar-menu img,
+.sidebar-menu i {
+    width: 25px; /* Taille uniforme */
+    height: 25px;
+    display: inline-block; /* Toujours affiché */
+}
+
+/* Masquer la sidebar par défaut */
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Styles du bouton menu */
+.menu-icon {
+    font-size: 25px;
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+}
+
+/* Bouton de fermeture */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 22px;
+    cursor: pointer;
+   
+}
+
+
+/* Menu de la sidebar */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.sidebar-menu li {
+   
+}
+
+.sidebar-menu a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+/* Le footer reste en bas mais peut défiler si nécessaire */
+.sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: start; /* Alignement à gauche */
+    gap: 5px; /* Espace entre les éléments */
+    margin-top: 0px;
+    padding-top: 15px;
+    margin-bottom: 30px;
+    border-top: 1px solid #ddd; /* Séparateur propre */
+}
+.sidebar-footer a {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacement entre l’icône et le texte */
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 0px;
+    
+    color: #000;
+}
+
+.sidebar-footer a img {
+    width: 20px; /* Taille des icônes */
+    height: 20px;
+    margin-left: 10px;
+}
+
+.sidebar-footer a.logout {
+    color: red; /* Se déconnecter en rouge */
+}
+.sidebar-footer img,
+.sidebar-footer i {
+    width: 25px; /* Taille uniforme */
+    height: 25px;
+    display: inline-block; /* Toujours affiché */
+}
+
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: black; /* Couleur normale */
+    text-decoration: none;
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.sidebar-menu li a img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.sidebar-menu li a:hover {
+    color: #1A0495; /* Bleu au survol */
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #6a5acd; /* Fond violet */
+    color: black;
+}
+
+.container {
+    
+    margin: 0 auto; /* Centre le contenu */
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    max-width: auto;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 jours */
+    gap: 20px;
+    align-items: start; /* Alignement en haut */
+}
+.schedule-container {
+    position: relative;
+}
+
+.time-slot {
+    position: absolute;
+    left: 50px; /* Ajustez selon la disposition */
+    width: 150px;
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.upcoming-lessons {
+    background: white;
+    padding: 15px;
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+.time-slot {
+    position: absolute;
+    width: 100%; /* Pour garder une largeur uniforme */
+    left: 50%;
+    transform: translateX(-50%); /* Centre horizontalement */
+}
+
+
+h2 {
+    color: black;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    padding: 20px;
+    width: auto;
+}
+
+/* Variables CSS */
+:root {
+    --primary-color: #ffffff;
+    --secondary-color: #e6f7ff; /* Légèrement plus clair pour un aspect moderne */
+    --background-color: #f8f9fa; /* Gris très clair pour le fond */
+    --text-color: #343a40; /* Gris foncé pour le texte */
+    --border-color: #dee2e6; /* Gris clair pour les bordures */
+    --white: #fff;
+    --red: #dc3545; /* Rouge pour les erreurs ou les alertes */
+    --blue: #007bff; /* Bleu pour les éléments interactifs */
+    --blue-dark: #0056b3; /* Bleu foncé pour les hover */
+    --gray-light: #f0f0f0; /* Gris clair pour les hover */
+    --gray-medium: #6c757d; /* Gris moyen pour le texte secondaire */
+}
+
+/* Général */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police moderne */
+    margin: 20px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alignement vertical */
+    padding: 20px;
+    background-color: var(--white);
+    max-width: 1000px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Conteneur de l'agenda */
+.agenda-container {
+    width: 95%;
+    max-width: auto;
+    margin: 20px auto;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Ombre plus douce */
+    padding: 20px;
+}
+
+.date {
+    font-size: 1.2em;
+    font-weight: 600; /* Légèrement moins gras */
+    color: var(--text-color);
+}
+
+.today {
+    color: var(--blue);
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.today:hover {
+    color: var(--blue-dark);
+}
+
+/* Tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th, td {
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    text-align: center;
+    font-size: 15px;
+}
+
+th {
+    background-color: var(--white);
+    color: var(--gray-medium); /* Gris moyen pour les en-têtes */
+    font-weight: 500;
+}
+
+td {
+    height: 60px; /* Hauteur légèrement augmentée */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+td:hover, th:hover {
+    background-color: var(--gray-light);
+}
+
+th.active, .day-header.active {
+    background-color: var(--blue);
+    color: var(--white);
+}
+
+.day-header {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Événements */
+.event {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Styles pour la barre de navigation "TODAY" et les boutons */
+.today-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 12px;
+    background-color: var(--white);
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.today-button {
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+    color: var(--blue);
+    transition: color 0.3s ease;
+}
+
+.today-button:hover {
+    color: var(--blue-dark);
+}
+
+/* Styles pour les boutons de navigation */
+.navigation-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.navigation-buttons button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--blue);
+    color: var(--white);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.navigation-buttons button:hover {
+    background-color: var(--blue-dark);
+    transform: translateY(-2px);
+}
+
+.navigation-buttons button:active {
+    transform: translateY(1px);
+}
+
+/* Styles par défaut pour les écrans larges */
+.agenda-container {
+    width: 95%;
+    max-width: 1000px;
+    overflow-x: auto; /* Ajoute un défilement horizontal */
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    /* ... autres styles ... */
+}
+
+table {
+    width: auto; /* Ajuste la largeur du tableau */
+}
+
+/* Styles pour les écrans de taille moyenne (tablettes) */
+@media (max-width: 768px) {
+    .agenda-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    .event {
+        font-size: 12px;
+    }
+}
+
+
+.start-conference-container {
+    padding: 1rem;
+    text-align: center; /* Centre le bouton */
+}
+
+.start-conference-btn {
+    width: 100%; /* Prend toute la largeur du conteneur */
+    max-width: 220px; /* Largeur maximale */
+    background: linear-gradient(135deg, #3f51b5, #1a237e); /* Dégradé bleu */
+    color: #fff;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 30px; /* Coins bien arrondis */
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Ombre plus profonde */
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet lumineux */
+.start-conference-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.4s ease-out;
+}
+
+.start-conference-btn:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.start-conference-btn:hover {
+    background: linear-gradient(135deg, #283593, #0d47a1);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+/* Icône */
+.start-conference-btn span {
+    margin-right: 12px;
+    font-size: 1.3rem;
+}
+
+/* Pied de page */
+
+/* Section contact */
+.contact {
+    background: linear-gradient(to right, #6759CD, #342D67);
+    color: #ffffff;
+    padding: 1rem;
+}
+ul {
+    list-style: none;
+}
+  
+.example-2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.example-2 .icon-content {
+    margin: 0 10px;
+    position: relative;
+}
+
+  .example-2 .icon-content a {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #4d4d4d;
+    background-color: #fff;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .example-2 .icon-content a:hover {
+    box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
+  }
+
+  .example-2 .icon-content a svg {
+    position: relative;
+    z-index: 1;
+    width: 25px;
+    height: 25px;
+  }
+
+  .example-2 .icon-content a:hover {
+    color: white;
+  }
+
+  .example-2 .icon-content a .filled {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: #000;
+    transition: all 0.3s ease-in-out;
+  }
+  .example-2 .icon-content a:hover .filled {
+    height: 100%;
+  }
+  
+  .example-2 .icon-content a[data-social="linkedin"] .filled,
+  .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+    background-color: #0274b3;
+  }
+  
+  .example-2 .icon-content a[data-social="facebook"] .filled,
+  .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
+    background-color: #3b5998;
+  }
+  .example-2 .icon-content a[data-social="instagram"] .filled,
+  .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+    background: linear-gradient(
+      45deg,
+      #405de6,
+      #5b51db,
+      #b33ab4,
+      #c135b4,
+      #e1306c,
+      #fd1f1f
+    );
+  }
+  .example-2 .icon-content a[data-social="youtube"] .filled,
+  .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+    background-color: #ff0000;
+  }  
+.couleur{
+    color:  #D28C64;
+}
+
+
+.container-contact {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 1450px;
+    margin: 0 auto;
+}
+
+.partie-d{
+    flex: 0;
+    min-width: 300px;
+    margin: 1rem;
+}
+
+.partie-g{
+    flex: 1;
+    min-width: 300px;
+    margin: 1rem;
+    padding-right: 20%;
+}
+
+.gauche  {
+  display: flex;
+  justify-content:start;
+    align-items: center;
+}
+
+
+.gauche img, footer {
+    width: 200px;
+    height: 150px;
+    color: white;
+}
+
+
+
+.photo-reseau {
+    width: 100%;
+    max-width: 200px;
+ 
+}
+
+footer {
+    text-align: start;
+    font-size: 0.7rem;
+    margin-top: 0.5rem;
+    width: auto;
+    height:auto ;
+}
+
+
+@media (max-width: 768px) {
+
+    .container-contact {
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.formation{
+    background-color: rgb(255, 255, 255);
+    width: 95%;
+    height:auto;
+    margin-top: 35px;
+
+
+}  
+.container1{
+    display: flex;
+    justify-content: center;
+   
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+  
+
+    header img{
+        display: none;
+    }
+
+    .logo{ 
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin-top: 10px;
+        margin-right: 25%;
+    }
+    .welcome h1{
+        padding-left:20px ;
+        padding-right:20px ;
+        
+    }
+
+    .search-bar {
+        max-width: 300px;
+        width: 70%;
+    }
+
+    .course-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .course-card {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.enlarged-img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 5px solid white;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 1010px) {
+    .agenda {
+      width: 90%; /* L'agenda occupe toute la largeur de l'écran */
+      font-size: 14px; /* Taille de police de base pour l'agenda */
+      overflow-x: auto; /* Permet le défilement horizontal si nécessaire */
+    }
+    .header{
+        width: 100%;
+    }
+  
+    .days {
+      display: flex; /* Utilise flexbox pour la disposition des jours */
+      white-space: nowrap; /* Empêche les jours de passer à la ligne */
+      padding: 8px 0; /* Ajoute un peu d'espace autour des jours */
+    }
+  
+    .day {
+      min-width: 100px; /* Largeur minimale pour chaque jour */
+      padding: 8px 10px; /* Ajoute un peu de rembourrage à chaque jour */
+      margin-right: 8px; /* Ajoute un peu d'espace entre les jours */
+      border: 1px solid #ddd; /* Ajoute une bordure légère pour la séparation */
+      border-radius: 6px; /* Ajoute des coins arrondis */
+      font-size: 15px; /* Taille de police pour les jours */
+    }
+  
+    .hours {
+        flex-direction: column; /* Disposition verticale des heures */
+      }
+    
+      .hour {
+        font-size: 15px; /* Réduire la taille de police des heures */
+        padding: 15px; /* Réduire le rembourrage des heures */
+        border-bottom: 2px solid #e0e0e0;
+        color: #777;
+        font-size: 0.9em;
+      }
+
+      
+      .events .event .event-heure {
+        display: block; /* Afficher l'heure pour chaque événement */
+        font-size: 10px;
+        color: #666;
+    }
+
+    
+    .events {
+      padding: 10px; /* Ajoute un peu de rembourrage autour des événements */
+    }
+  
+    .events .event {
+      font-size: 12px; /* Taille de police pour les événements */
+      padding: 8px; /* Ajoute un peu de rembourrage à chaque événement */
+      margin-bottom: auto; /* Ajoute un peu d'espace entre les événements */
+      border: 1px solid #eee; /* Ajoute une bordure légère pour la séparation */
+      border-radius: 4px; /* Ajoute des coins arrondis */
+      position: relative; /* Permet le positionnement relatif des éléments à l'intérieur */
+    }
+  
+    .events .event .event-title {
+      font-weight: bold; /* Rend le titre de l'événement en gras */
+      margin-bottom: 3px; /* Ajoute un peu d'espace sous le titre */
+    }
+  
+    .events .event .event-departement,
+    .events .event .event-heure {
+      font-size: 10px; /* Taille de police plus petite pour le département et l'heure */
+      color: #666; /* Couleur de texte plus claire */
+    }
+    body {
+        overflow-x: hidden;
+      }
+
+    .events .event {
+        max-width: 100%;
+        margin-right: 80%;
+      }
+
+    .events .event {
+        word-wrap: break-word;
+      }
+    
+
+      .events {
+        display: flex;
+        flex-wrap: wrap; /* Permet aux événements de bien se repositionner */
+        justify-content: center; /* Centre les événements */
+    }
+    .events .event {
+        width: 90%; /* Ajuster la largeur des événements */
+        max-width: 300px; /* Limite la taille pour éviter trop d'étalement */
+        text-align: center; /* Centrer le texte */
+    }
+    body {
+        overflow-x: hidden;
+    }
+    
+    
+  }
