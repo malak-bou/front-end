@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (email === validEmail && password === validPassword) {
             // Redirection vers le tableau de bord
-            window.location.href = "https://moumouh6.github.io/Users-Dashboard/";
+            window.location.href = "../pages/user-dashboard.html";
         } else { if(email === validEmail1 && password === validPassword1){
             window.location.href = "../pages/dashboardprof.html";
             } else{if(email === validEmail2 && password === validPassword2){
