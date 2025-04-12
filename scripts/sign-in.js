@@ -21,13 +21,13 @@ const togglePassword = document.querySelector(".toggle-password");
     const redirectButton = document.querySelector(".btn-submit");
     if (redirectButton) {
         redirectButton.addEventListener("click", function () {
-            window.location.href = "https://moumouh6.github.io/Users-Dashboard/";
+            window.location.href = "../pages/user/user-dashboard.html";
         });
     }
 
     const redirectButton1 = document.querySelector(".btn-submit1");
     if (redirectButton1) {
         redirectButton1.addEventListener("click", function () {
-            window.location.href = "https://moumouh6.github.io/Log-in/";
+            window.location.href = "../pages/log-in.html";
         });
     }
