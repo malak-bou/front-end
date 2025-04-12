@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         navLinks.classList.toggle("active");
     });
 
-    // // Gestion des boutons de connexion et d'inscription
+    // Gestion des boutons de connexion et d'inscription
     document.querySelector(".button2").addEventListener("click", function () {
         window.location.href = "pages/Sign-in.html";
     });

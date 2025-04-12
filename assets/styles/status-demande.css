@@ -1,0 +1,761 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #3E367B;;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0; 
+  overflow-x: hidden;
+}
+.partie-g, .partie-d {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+header {
+    background-color: #3E367B;
+    color: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex;
+    padding: 20px 20px;
+  }
+  #add-formation {
+    background-color: #007bff; /* Blue color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    overflow-y: auto;  
+    margin-left: 80%;  
+    top:auto;
+}
+
+#add-formation:hover {
+    background-color: #0056b3; /* Darker blue */
+    
+}
+
+
+.search-bar input {
+    width: 60%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    margin: 20px;
+}
+
+.add-training {
+    background: #1A0495;
+    color: white;
+    padding: 20px 30px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+   align-items: right;
+}
+
+.table-container {
+
+    width: 90%;
+    margin: 20px auto;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    overflow: hidden;
+    top: 8PX;
+}
+
+table {
+    width: 90%;
+    border-collapse: collapse;
+    color: black;
+}
+
+th, td {
+  border: 1px solid #9a999998;
+  padding: 8px;
+  text-align:left;
+}
+.add-training {
+  background: #1A0495;
+  color: white;
+  padding: 20px 30px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  align-items: right;
+}
+
+
+.table-container {
+  width: 100%;
+  margin: 20px auto;
+  background: rgb(255, 255, 255);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: black;
+}
+
+th, td {
+border: 1px solid #9a999998;
+padding: 8px;
+text-align: left;
+}
+.actions {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-top: 25px;
+  margin:0 5PX;
+  transition: color 0.3s;
+}
+
+.actions i  {
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.actions .fa-edit:hover {
+  color: #ffc107;
+}
+
+.actions .fa-trash:hover {
+  color: #dc3545;
+}
+
+.actions .fa-share:hover {
+  color: #007bff;
+}
+
+.actions i:hover {
+  color: #007bff;
+}
+
+
+button {
+padding: 12px 20px;
+border: none;
+border-radius: 25px;
+cursor: pointer;
+font-weight: bold;
+transition: all 0.3s ease-in-out;
+display: inline-flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+text-transform: uppercase;
+font-size: 14px;
+} 
+
+
+
+.failed {
+background-color: #ffc6cf;
+color: rgb(249, 77, 77);
+border-radius: 20px;
+padding: 8px 12px;
+}
+
+.warning {
+background-color: #ffeac2;
+color: #000000;
+border-radius: 20px;
+padding: 8px 12px;
+}
+
+.processing {
+background-color: #cbe9ff;
+color: rgb(0, 0, 0);
+border-radius: 20px;
+padding: 8px 12px;
+}
+
+.verified {
+background-color: #deffd2;
+color: rgb(0, 0, 0);
+border-radius: 20px;
+padding: 8px 12px;
+}
+
+
+
+
+.form-container {
+    background: white;
+    color: black;
+    width: 50%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+form input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.cancel{
+  border: 2px solid #1A0495;
+  background:#ffffff ;
+  border-radius: 10px;
+  padding: 10 px 20px;
+}
+
+
+.submit {
+    background: #D28C64;
+    padding: 10px 20px;
+    color: rgb(0, 0, 0);
+    border-radius: 5px;
+    border-color: #3E367B;
+    border: 1234px;
+}
+.status-dropdown {
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #3E367B;
+  cursor: pointer;
+}
+
+
+footer {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.socials i {
+    margin: 0 10px;
+    font-size: 20px;
+    cursor: pointer;
+    padding: auto;
+}
+
+
+.menu-icon {
+
+    font-size: 25px;
+    cursor: pointer;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+
+}
+
+
+
+
+/* 🌟 Sidebar Container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  overflow-y: auto; /* Active le défilement vertical si nécessaire */
+  left: -250px; /* Sidebar is hidden by default */
+  width: 250px;
+  height: 100%;
+  background: #ffffff;
+  color: #333;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #ddd;
+}
+
+/* icons */
+
+/* Style for icons */
+.sidebar ul li a i,
+.sidebar-footer a i {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #555;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Change icon color on hover */
+.sidebar ul li a:hover i,
+.sidebar-footer a:hover i {
+  color: blue;
+}
+.sidebar-footer .logout:hover i{
+  color: red;
+}
+
+/* ✖ Close Button */
+.close-btn {
+ 
+    all: unset; /* THIS is the key: removes all inherited/global button styles */
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #404040;
+    font-size: 22px;
+    cursor: pointer;
+  
+  
+ 
+}
+
+
+/* 📌 Sidebar Navigation Links */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 60px 0 0;
+}
+
+.sidebar ul li {
+  padding: 15px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  background: #f0f0f0;
+}
+
+/* 🌟 Sidebar Links */
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+  background: rgba(0, 0, 255, 0.1);
+  color: blue;
+  transform: translateX(5px);
+}
+
+/* 🔵 Active Link */
+.sidebar ul li a.active {
+  color: blue;
+  border-left: 4px solid blue;
+  background: rgba(0, 0, 255, 0.1);
+}
+
+/* ⚙ Sidebar Footer (Settings & Logout) */
+.sidebar-footer {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-footer a {
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-footer a:hover {
+  background: rgba(0, 0, 255, 0.1);
+  color: blue;
+  transform: translateX(5px);
+}
+
+/* 🔴 Logout Button */
+.sidebar-footer .logout {
+  color: red;
+  font-weight: bold;
+}
+
+.sidebar-footer .logout:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: darkred;
+}
+
+/* 📌 Sidebar Visibility */
+.sidebar.active {
+  left: 0;
+}
+
+* Le footer reste en bas mais peut défiler si nécessaire */
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: start; /* Alignement à gauche */
+  gap: 5px; /* Espace entre les éléments */
+  margin-top: 0px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd; /* Séparateur propre */
+}
+.sidebar-footer a {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Espacement entre l’icône et le texte */
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 0px;
+  margin-bottom: 30px;
+  color: #000;
+}
+
+.sidebar-footer a img {
+  width: 20px; /* Taille des icônes */
+  height: 20px;
+  margin-left: 10px;
+}
+
+.sidebar-footer a.logout {
+  color: red; /* Se déconnecter en rouge */
+}
+.sidebar-footer img,
+.sidebar-footer i {
+  width: 25px; /* Taille uniforme */
+  height: 25px;
+  display: inline-block; /* Toujours affiché */
+}
+
+
+.sidebar-menu li a {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: black; /* Couleur normale */
+  text-decoration: none;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.sidebar-menu li a img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.sidebar-menu li a:hover {
+  color: #1A0495; /* Bleu au survol */
+}
+
+  
+  /* Affichage du menu */
+  .sidebar.active {
+    left: 0;
+  }
+
+  
+  /* Styling for the card modal */
+.edit-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+}
+
+.card h3 {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.card form label {
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.card form input,
+.card form textarea {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.card form .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card form .buttons button {
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card form .cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.card form .submit {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+  .profile-icon {
+    position: right; /* Freely position it */
+    top: 10px; /* Distance from the top */
+    right: 10px; /* Moves it to the right */
+    width: 40px; /* Size of the icon */
+    height: 40px;
+    background-color: #ffffff; /* White background */
+    border-radius: 50%; /* Makes it a circle */
+    border: 2px solid #7162E1; /* Purple border */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  /* SVG Icon inside */
+  .profile-icon svg {
+    width: 2px;
+    height: 24px;
+    fill: #7162E1; /* Purple color */
+  }
+  
+  
+  main {
+    padding: 0px;
+  }
+  /* Section contact */
+
+.contact {
+  background: linear-gradient(to right, #6759CD, #342D67);
+  color: #ffffff;
+  padding: 2rem;
+}
+ul {
+  list-style: none;
+}
+
+.example-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.example-2 .icon-content {
+  margin: 0 10px;
+  position: relative;
+}
+
+.example-2 .icon-content a {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #4d4d4d;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.example-2 .icon-content a:hover {
+  box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
+}
+
+.example-2 .icon-content a svg {
+  position: relative;
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+}
+
+.example-2 .icon-content a:hover {
+  color: white;
+}
+
+.example-2 .icon-content a .filled {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: #000;
+  transition: all 0.3s ease-in-out;
+}
+.example-2 .icon-content a:hover .filled {
+  height: 100%;
+}
+
+.example-2 .icon-content a[data-social="linkedin"] .filled,
+.example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+  background-color: #0274b3;
+}
+
+.example-2 .icon-content a[data-social="facebook"] .filled,
+.example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
+  background-color: #3b5998;
+}
+.example-2 .icon-content a[data-social="instagram"] .filled,
+.example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5b51db,
+    #b33ab4,
+    #c135b4,
+    #e1306c,
+    #fd1f1f
+  );
+}
+.example-2 .icon-content a[data-social="youtube"] .filled,
+.example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+  background-color: #ff0000;
+}  
+.couleur{
+  color:  #D28C64;
+}
+
+
+.container-contact {
+  width: 100%; /* S'assure que ça ne dépasse pas */
+  max-width: 1200px; /* Ajuste selon ton design */
+  margin: 0 auto; /* Centre horizontalement */
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.partie-d{
+  flex: 0;
+  min-width: 300px;
+  margin: 1rem;
+}
+
+.partie-g{
+  flex: 1;
+  min-width: 300px;
+  margin: 1rem;
+  padding-right: 20%;
+}
+
+.gauche  {
+display: flex;
+justify-content:start;
+  align-items: center;
+}
+
+
+.gauche img, footer {
+  width: 200px;
+  height: 150px;
+  color: white;
+}
+
+
+
+.photo-reseau {
+  width: 100%;
+  max-width: 200px;
+
+}
+
+footer {
+  text-align: start;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  width: auto;
+  height:auto ;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  /* Centrer le header */
+  .top-bar {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      text-align: center;
+      justify-content: space-between;
+  }
+  header{
+      width: 90%;
+  }
+
+  /* Faire monter le titre */
+  .top-bar h1 {
+      font-size: 32px;
+  }
+
+  /* Centrer la photo de profil */
+  .profile-picture {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  /* Ajuster la taille de la photo */
+  .profile-picture img {
+      width: 80px;
+      height: 80px;
+      padding-right: 5px;
+      background-color: transparent;
+  }
+  .menu-icon{
+      padding-left: 5px;
+  }
+
+
+}

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (email === validEmail && password === validPassword) {
             // Redirection vers le tableau de bord
-            window.location.href = "https://moumouh6.github.io/Users-Dashboard/";
+            window.location.href = "../pages/user/user-dashboard.html";
         } else { if(email === validEmail1 && password === validPassword1){
             window.location.href = "../pages/dashboardprof.html";
             } else{if(email === validEmail2 && password === validPassword2){
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const redirectButton = document.querySelector(".btn-submit1");
     if (redirectButton) {
         redirectButton.addEventListener("click", function () {
-            window.location.href = "https://moumouh6.github.io/sign-in-/";
+            window.location.href = "../pages/Sign-in.html";
         });
     }
 });
