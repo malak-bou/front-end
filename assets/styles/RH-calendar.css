@@ -307,7 +307,7 @@ body{
 
   .profile-side-bar{
     width:270px;
-    height: 200px;
+    height: 180px;
     background: #1A0495;
     border-radius: 10px;
     display: flex;
@@ -359,8 +359,8 @@ body{
 
 
 .profileimg {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
 }
 .welcome-sign-container{
     display: flex;
@@ -1924,3 +1924,6 @@ footer {
     }
 }
 
+.profile-sidebar-text{
+    color: white;
+}

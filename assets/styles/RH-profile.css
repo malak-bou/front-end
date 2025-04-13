@@ -442,8 +442,8 @@ body {
 
 
 .profile-picture img {
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     padding-right: 10px;
 }
@@ -642,6 +642,7 @@ th {
 /* Pied de page */
 /* Section contact */
 
+
 .contact {
     background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
@@ -785,6 +786,8 @@ footer {
     height:auto ;
 }
 
+
+
 /* Responsive */
 
 
@@ -813,7 +816,10 @@ footer {
     
     .container-contact {
         flex-direction: column;
-        align-items: center;
+        width: 100%;
+    }
+    .contact{
+        width: 100%;
     }
     
 
@@ -845,8 +851,8 @@ footer {
 
     /* Ajuster la taille de la photo */
     .profile-picture img {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         padding-right: 5px;
         background-color: transparent;
     }
