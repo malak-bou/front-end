@@ -759,7 +759,6 @@ footer {
     transform: translateY(-50%); /* Vertically center the icon */
     color: gray; /* Icon color */
     cursor: pointer;
-    pointer-events: none; 
     font-size: 18px; /* Adjust icon size */
 }
 .menu-container {
