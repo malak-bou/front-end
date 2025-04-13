@@ -8,7 +8,7 @@
     background: linear-gradient(to bottom, #6c52d9, #5a46ba);
     color: white;
   }
-  .upbar, .departments, .request, .calendar-section, .message-section, footer {
+  .upbar, .departments, .request, .calendar-section, .message-section{
     padding: 20px;
   }
   .departments button, .calendar-section button, .request button, .message-section button {
@@ -89,8 +89,8 @@
 }
 
 .profileimg {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
 }
 .upbar {
     height: 10vh;

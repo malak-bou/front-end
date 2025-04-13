@@ -42,7 +42,7 @@ function toggleSidebar() {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Sélection des éléments
-    const searchInput = document.querySelector(".group .input") || document.querySelector(".search-bar input");
+    const searchInput = document.querySelector(".search-wrapper .input") || document.querySelector(".search-bar input");
     const courses = document.querySelectorAll(".course-card");
     const domainFilters = document.querySelectorAll(".radio-inputs input");
     const sidebar = document.getElementById("sidebar");
@@ -70,20 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Appliquer le filtre au chargement
     filterCourses();
 
-    // Gestion de la Sidebar
-    // if (toggleBtn && sidebar) {
-    //     toggleBtn.addEventListener("click", function () {
-    //         sidebar.classList.toggle("active");
-    //     });
-    // }
-
-    // Fermer la sidebar en cliquant en dehors
-    // document.addEventListener("click", function (event) {
-    //     if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
-    //         sidebar.classList.remove("active");
-    //     }
-    // });
-
+   
     
     // Désactiver les boutons "site-mzl"
     document.querySelectorAll(".site-mzl").forEach(button => {
@@ -157,4 +144,32 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const profileLink = document.getElementById("profile-link");
+    const sidebar = document.getElementById("sidebar2");
+    const closeSidebar = document.getElementById("close-sidebar2");
+    const overlay = document.getElementById("overlay");
+
+    // Open Sidebar
+    profileLink.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default link behavior
+        sidebar.classList.add("show");
+        sidebar.classList.remove("hide");
+        overlay.classList.add("show");
+    });
+
+    // Close Sidebar
+    function closeMenu() {
+        sidebar.classList.add("hide"); // Move it out completely
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+    }
+
+    closeSidebar.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
 });
