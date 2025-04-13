@@ -79,6 +79,10 @@ body {
   cursor: pointer;
   font-size: 18px; /* Adjust icon size */
 }
+.profileimg{
+    width: 70px;
+    height: 70px;
+}
 
 /* Main Content */
 main {
