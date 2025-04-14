@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Sélection des éléments
-    const searchInput = document.querySelector(".group .input") || document.querySelector(".search-bar input");
+    const searchInput = document.querySelector(".search-wrapper .input");
     const courses = document.querySelectorAll(".course-card");
     const domainFilters = document.querySelectorAll(".radio-inputs input");
     const sidebar = document.getElementById("sidebar");
