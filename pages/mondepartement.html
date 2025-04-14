@@ -12,10 +12,22 @@
 <!-- Barre de navigation -->
 <header class="top-bar">
     <div class="logo">
-        <div>
+        
             <!-- Bouton pour ouvrir la Sidebar -->
             <div class="menu-icon" id="toggleSidebar">☰</div>
 
+
+            <div class="search-wrapper">
+              <input type="text" class="input-container input" placeholder="Rechercher" />
+
+              <i class="fa fa-search search-icon"></i>
+            </div>
+            
+            
+            <a href="#" id="profile-link">
+              <img src="../assets/images/profil-pic.png" class="profileimg" >
+              </a>
+    </div>
    <!-- Sidebar -->
  <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
@@ -33,7 +45,7 @@
       <li><a href="https://am11iin.github.io/notification-prof/"><i class="fas fa-bell"></i> Notifications</a></li>
       <li><a href="https://am11iin.github.io/aide-prof/"><i class="fas fa-question-circle"></i> Aide</a></li>
     </ul>
-   </ul>
+   
   
        <!-- Footer de la sidebar avec Paramètres et Déconnexion -->
       <div class="sidebar-footer">
@@ -44,24 +56,15 @@
   
     
     
-    </div>
+    
 
        
         
         <!-- Barre de recherche indépendante -->
-        <div class="group">
-            <svg viewBox="0 0 24 24" aria-hidden="true" class="icon">
-                <g>
-                    <path
-                        d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
-                    </path>
-                </g>
-            </svg>
-            <input class="input" id="searchInput" type="search" placeholder="Search" />
-        </div>
-    </div>
+        
 
     
+</div>
 </header>
 
 <!-- Section de bienvenue -->
@@ -285,3 +288,8 @@
     </section>
 </main>
         <script src="../scripts/mondepartement.js"></script>
+
+      
+
+</body>
+</html>
