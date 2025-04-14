@@ -1,0 +1,652 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20 px;
+  color: white;
+  text-align:center;
+  background-color: #7162E1};
+
+  /* header {
+    background-color: #7162E1;
+    color: #ffffff;
+    padding: 10px 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+  } */
+  
+/* Barre de navigation  */
+/*  */
+/* Search Bar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.upbar {
+  height: 10vh;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 25px;
+  display : flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+
+}
+.upbar > * {
+  display: flex;
+  align-items: center;
+}
+
+.menuicon{
+  width: 30px;
+  cursor: pointer;
+}
+.search-wrapper {
+  position: relative;
+  width: 40%;
+}
+.input-container {
+  width: 100%;
+  height: 40px;
+  padding: 0 30px 0 15px; /* Padding to leave space for the icon on the right */
+  border-radius: 10px;
+  border: 3px solid transparent;
+  box-shadow: 0px 3px 4px gray;
+  background: rgb(231, 231, 231);
+  outline: none;
+  padding: 0 40px 0 15px;
+}
+
+.input-container:focus {
+  border: 3px solid gray;
+  box-shadow: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px; /* Distance from the right side */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center the icon */
+  color: gray; /* Icon color */
+  cursor: pointer;
+  font-size: 18px; /* Adjust icon size */
+}
+.profileimg{
+    width: 70px;
+    height: 70px;
+}
+
+/* Main Content */
+main {
+    margin: 0px; /* Prevent sidebar overlap */
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Icône du menu */
+.menu-icon {
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px 15px;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+  position: absolute; /* Allows it to be placed anywhere */
+  top: 10px; /* Adjust to move it down from the top */
+  left: 10px; /* Adjust to move it from the left */
+}
+
+
+/* Barre latérale */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: 0.5s;
+  color: #333;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #ddd;
+}
+
+
+/* Style for icons */
+.sidebar ul li a i,
+.sidebar-footer a i {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #555;
+  transition: color 0.3s ease-in-out;
+}
+
+
+
+/* Change icon color on hover */
+.sidebar ul li a:hover i,
+.sidebar-footer a:hover i {
+  color: blue;
+}
+.sidebar-footer .logout:hover i{
+  color: red;
+}
+
+
+
+
+/* ✖ Close Button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+  color: red;
+}
+
+/* 📌 Sidebar Navigation Links */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 60px 0 0;
+}
+
+.sidebar ul li {
+  padding: 15px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.sidebar ul li:hover {
+  background: #f0f0f0;
+}
+
+/* 🌟 Sidebar Links */
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+  background: rgba(0, 0, 255, 0.1);
+  color: blue;
+  transform: translateX(5px);
+}
+
+/* 🔵 Active Link */
+.sidebar ul li a.active {
+  color: blue;
+  border-left: 4px solid blue;
+  background: rgba(0, 0, 255, 0.1);
+}
+
+/* ⚙ Sidebar Footer (Settings & Logout) */
+.sidebar-footer {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-footer a {
+  display: flex;
+  align-items: center;
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-footer a:hover {
+  background: rgba(0, 0, 255, 0.1);
+  color: blue;
+  transform: translateX(5px);
+}
+
+/* 🔴 Logout Button */
+.sidebar-footer .logout {
+  color: red;
+  font-weight: bold;
+}
+
+.sidebar-footer .logout:hover {
+  background: rgba(255, 0, 0, 0.1);
+  color: darkred;
+}
+
+/* 📌 Sidebar Visibility */
+.sidebar.active {
+  left: 0;
+}
+
+
+
+
+
+
+
+
+.active {
+  color: #000;
+
+}
+
+.sidebar h2, .sidebar p {
+  padding: 8px 10px;
+}
+
+
+
+
+
+
+
+/* Sidebar Styling */
+.sidebar2 {
+  position: fixed;
+  top: 0;
+  right: -350px; /* Move further out */
+  width: 300px;
+  height: 100vh;
+  background:white;
+  color: black;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* Close Button */
+.close-btn2 {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #000;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none; /* Hidden initially */
+  z-index: 999;
+}
+
+/* Show Sidebar */
+.sidebar2.show {
+  right: 0;
+}
+
+/* Hide Sidebar (force it to move completely out) */
+.sidebar2.hide {
+  right: -320px; /* Move further left */
+}
+
+/* Show Overlay */
+.overlay.show {
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input[type="text"] {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+.profile-icon {
+  position: right; /* Freely position it */
+  top: 10px; /* Distance from the top */
+  right: 10px; /* Moves it to the right */
+  width: 40px; /* Size of the icon */
+  height: 40px;
+  background-color: #ffffff; /* White background */
+  border-radius: 50%; /* Makes it a circle */
+  border: 2px solid #7162E1; /* Purple border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* SVG Icon inside */
+.profile-icon svg {
+  width: 2px;
+  height: 24px;
+  fill: #7162E1; /* Purple color */
+}
+
+
+main {
+  padding:  0px; 
+}
+
+
+section {
+  background-color:#1A0495;
+  border-radius: 0px;
+  padding: 100px;
+  margin:0 auto;
+}
+
+
+table {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  width: 90%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+th, td {
+  border: 1px solid #9a999998;
+  padding: 8px;
+  text-align:center;
+}
+
+th {
+  background-color:#f2f2f2;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+ 
+
+  
+}
+
+.create {
+  background-color: #B9EAA7;
+  color: rgb(0, 0, 0);
+}
+
+.modify {
+  background-color: #D0C8FF;
+  color: rgb(0, 0, 0);
+}
+
+.delete {
+  background-color: #e86f6f;
+  color: rgb(9, 9, 9);
+}
+
+.corbeille {
+  position: relative;
+  background: #fff;
+  color: #1A0495;
+  border: 2px solid #1A0495;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-block; /* Keeps it in place */
+}
+
+.corbeille:hover {
+  background: #1A0495;
+  color: #fff;
+}
+
+
+
+/* Section contact */
+
+.contact {
+  background: linear-gradient(to right, #6759CD, #342D67);
+  color: #ffffff;
+  padding: 1rem;
+}
+ul {
+  list-style: none;
+}
+
+.example-2 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.example-2 .icon-content {
+  margin: 0 10px;
+  position: relative;
+}
+
+.example-2 .icon-content a {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #4d4d4d;
+  background-color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.example-2 .icon-content a:hover {
+  box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
+}
+
+.example-2 .icon-content a svg {
+  position: relative;
+  z-index: 1;
+  width: 25px;
+  height: 25px;
+}
+
+.example-2 .icon-content a:hover {
+  color: white;
+}
+
+.example-2 .icon-content a .filled {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background-color: #000;
+  transition: all 0.3s ease-in-out;
+}
+.example-2 .icon-content a:hover .filled {
+  height: 100%;
+}
+
+.example-2 .icon-content a[data-social="linkedin"] .filled,
+.example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+  background-color: #0274b3;
+}
+
+.example-2 .icon-content a[data-social="facebook"] .filled,
+.example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
+  background-color: #3b5998;
+}
+.example-2 .icon-content a[data-social="instagram"] .filled,
+.example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+  background: linear-gradient(
+    45deg,
+    #405de6,
+    #5b51db,
+    #b33ab4,
+    #c135b4,
+    #e1306c,
+    #fd1f1f
+  );
+}
+.example-2 .icon-content a[data-social="youtube"] .filled,
+.example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+  background-color: #ff0000;
+}  
+.couleur{
+  color:  #D28C64;
+}
+
+
+.container-contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
+.partie-d{
+  flex: 0;
+  min-width: 300px;
+  margin: 1rem;
+}
+
+.partie-g{
+  flex: 1;
+  min-width: 300px;
+  margin: 1rem;
+  padding-right: 20%;
+}
+
+.gauche  {
+display: flex;
+justify-content:start;
+  align-items: center;
+}
+
+
+.gauche img, footer {
+  width: 200px;
+  height: 150px;
+  color: white;
+}
+
+
+
+.photo-reseau {
+  width: 100%;
+  max-width: 200px;
+
+}
+
+footer {
+  text-align: start;
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+  width: auto;
+  height:auto ;
+}
+.partie-d{
+  text-align: start;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1500px) {
+  .hero-text {
+      text-align: center;
+      padding-bottom: 5%;
+  }
+
+  .buttons {
+      justify-content: center;
+  }
+
+}
+@media (max-width: 768px) {
+  .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: white;
+  }
+
+  .nav-links.active {
+      display: flex;
+  }
+
+  .hamburger {
+      display: flex;
+  }
+
+  .hero {
+      flex-direction: column;
+      text-align: center;
+  }
+
+  .hero-text {
+      text-align: center;
+  }
+
+
+  .buttons {
+      justify-content: center;
+  }
+
+  .container-contact {
+      flex-direction: column;
+  }
+}
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}

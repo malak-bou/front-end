@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
+    <link rel="stylesheet" href="../../assets/styles/user/course.css">
+</head>
+<body>
+    <header>
+        <a href="user-dashboard.html">⬅ Back</a>
+        <h1 id="course-title">Course Title</h1>
+    </header>
+    <main>
+        <!-- Bouton pour commencer le cours -->
+        <button id="start-course-btn">Commencer le cours</button>
+        
+        <!-- Contenu du cours (caché au départ) -->
+        <div id="main-content" class="hidden">
+            <h2 id="course-title"></h2>
+            <p id="course-description"></p>
+            <p><strong>Professeur :</strong> <span id="course-teacher"></span></p>
+            <p><strong>Département :</strong> <span id="course-department"></span></p>
+    
+            <h3>📖 Contenu du Cours</h3>
+            <div id="dynamic-content"></div>
+    
+            <button id="complete-course-btn">Terminer le cours</button>
+            <button id="exit-course-btn">Quitter le cours</button>
+        </div>
+    </main>
+    
+
+    <script src="../../scripts/user/course.js"></script>
+</body>
+</html>

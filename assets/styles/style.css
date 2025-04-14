@@ -376,11 +376,12 @@ td {
     font-weight: bold;
 }
 
+/* Section contact */
+
 .contact {
   background: linear-gradient(to right, #6759CD, #342D67);
   color: #ffffff;
   padding: 1rem;
-  width: 100%;
 }
 ul {
   list-style: none;
@@ -523,20 +524,6 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Responsive Design */
 @media (max-width: 1500px) {
     .hero-text {
@@ -578,9 +565,9 @@ footer {
     .buttons {
         justify-content: center;
     }
+
     .container-contact {
       flex-direction: column;
       justify-content: center;
   }
-   
 }
