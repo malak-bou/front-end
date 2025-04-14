@@ -1,5 +1,4 @@
 
-
 // Function to open/close the sidebar
 function toggleSidebar() {
     var sidebar = document.getElementById("sidebar");
