@@ -1,40 +1,41 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 /* Styles globaux */
 body {
-    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #6759CD, #342D67);
     color: white;
     margin: 0;
     padding: 0;
-} 
+    
+}
 
 /* Barre de navigation */
-header {
+/* header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 15px 30px;
-}
+} */
 
-.logo, .search-bar {
+/* .logo, .search-bar {
     display: flex;
     align-items: center;
     padding-left: 5rem;
-}
+} */
 
 
 
 
 
 .sidebar {
-    height: 100vh;
-    
+    height: 100%;
+    width: 0;
     position: fixed;
     top: 0;
     left: 0;
     background-color: #fff;
-    overflow-y: auto;
+    overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
     color: #333;
     transition: left 0.3s ease-in-out;
     z-index: 1000;
@@ -45,10 +46,6 @@ header {
     border-right: 1px solid #ddd;
 }
 
-.sidebar-menu {
-    flex-grow: 1; /* Permet au menu de prendre tout l’espace dispo */
-   margin-top: auto;
-}
 
 /* Style for icons */
 .sidebar ul li a i,
@@ -60,6 +57,15 @@ header {
 }
 
 
+
+/* Change icon color on hover */
+.sidebar ul li a:hover i,
+.sidebar-footer a:hover i {
+    color: blue;
+}
+.sidebar-footer .logout:hover i{
+    color: red;
+}
 
 
 
@@ -74,9 +80,12 @@ header {
     color: #333;
     font-size: 22px;
     cursor: pointer;
-   
+    transition: transform 0.2s ease-in-out;
 }
 
+.close-btn:hover {
+    color: red;
+}
 
 /* 📌 Sidebar Navigation Links */
 .sidebar ul {
@@ -121,32 +130,6 @@ header {
     background: rgba(0, 0, 255, 0.1);
 }
 
-.sidebar {
-    height: 100vh; /* Utilise la hauteur de la fenêtre d'affichage */
-    max-height: 100vh;
-    width: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #fff;
-    overflow-y: auto; /* Permet le défilement vertical */
-    transition: 0.5s;
-    color: #333;
-    transition: left 0.3s ease-in-out;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-    border-right: 1px solid #ddd;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; /* Supprime la marge supérieure  (hdik li mlfouq prblm lundii*/
-    flex-grow: 1; /* Prend tout l'espace disponible */
-}
-
 /* ⚙ Sidebar Footer (Settings & Logout) */
 .sidebar-footer {
     padding: 15px;
@@ -189,74 +172,9 @@ header {
 }
 
 
-.sidebar-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: start; /* Alignement à gauche */
-    gap: 5px; /* Espace entre les éléments */
-    margin-top: 0px;
-    padding-top: 15px;
-    border-top: 1px solid #ddd; /* Séparateur propre */
-    
-}
-.sidebar-footer{
-    margin-bottom: 50px;
-    gap: 10px;
-    
-}
-.sidebar-footer a {
-    display: flex;
-    align-items: center;
-    gap: 5px; /* Espacement entre l’icône et le texte */
-    text-decoration: none;
-    font-weight: bold;
-    margin-left: 0px;
-    color: #000;
-}
-
-.sidebar-footer a img {
-    width: 20px; /* Taille des icônes */
-    height: 20px;
-    margin-left: 10px;
-}
-
-.sidebar-footer a.logout {
-    color: red; /* Se déconnecter en rouge */
-}
-.sidebar-footer img,
-.sidebar-footer i {
-    width: 25px; /* Taille uniforme */
-    height: 25px;
-    display: inline-block; /* Toujours affiché */
-}
 
 
-.sidebar-menu li a {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-    color: black; /* Couleur normale */
-    text-decoration: none;
-    padding: 10px;
-    transition: 0.3s;
-}
 
-.sidebar-menu li a img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-}
-
-.sidebar-menu li a:hover {
-    color: #1A0495; /* Bleu au survol */
-}
-
-
-/* 📌 Sidebar Visibility */
-.sidebar.active {
-    left: 0;
-}
 
 
 
@@ -271,115 +189,42 @@ header {
 
 
 
-/* Centrer la barre de recherche légèrement à droite */
-.group {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 20px;
-    padding: 5px 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    position: absolute;
-    left: 50%;  /* Déplace un peu plus à droite */
-    transform: translateX(-50%);
-    width: 200px;
-    top: 1rem;
-}
-/* Style de l'input */
-.group .input {
-    border: none;
-    outline: none;
-    font-size: 16px;
-    padding: 5px;
-    width: 200px;
-    left: 30%;
-    padding-left: 20%;
-}
-.group .icon {
-    width: 20px;
-    height: 20px;
-    fill: #555; /* Change la couleur de l'icône */
-    margin-right: 10px; /* Espacement entre l'icône et l'input */
-}
 
 
-.input {
-  width: 100%;
-  height: 40px;
-  line-height: 28px;
-  padding: 0 1rem;
-  padding-left: 2.5rem;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  outline: none;
-  background-color: #f3f3f4;
-  color: #0d0c22;
-  transition: 0.3s ease;
-}
-
-.input::placeholder {
-  color: #9e9ea7;
-}
-
-.input:focus,
-input:hover {
-  outline: none;
-  border-color: rgba(234, 226, 183, 0.4);
-  background-color: #fff;
-  box-shadow: 0 0 0 4px rgb(234 226 183 / 10%);
-}
-
-.icon {
-  position: absolute;
-  left: 1rem;
-  fill: #9e9ea7;
-  width: 1rem;
-  height: 1rem;
-  margin-right: 10px;
-}
-
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-}
-
-/* Profil agrandi */
-
-/* Header */
 
 
-/* Profil dans le header */
-.profile-container {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
 
-.profile-pic {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 3px solid white; /* Ajuster l'épaisseur si nécessaire */
-    transition: transform 0.3s ease-in-out;
-    margin-left: 10px;
 
-    /* Supprimer le padding qui crée un écart */
-    padding: 0;
 
-    /* S'assurer que l'image est bien centrée */
-    display: block;
-}
-.profile {
-    position: absolute;
-    top: 10px; /* Ajuste la hauteur pour ne pas chevaucher la barre */
-    right: 10px; /* Ajuste pour bien aligner à droite */
-    width: 50px; /* Taille réduite pour mobile */
-    height: 50px;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* 🔹 Ajustement pour les petits écrans */
 @media (max-width: 600px) { 
@@ -430,9 +275,6 @@ input:hover {
 .menuicon {
     font-size: 25px;
     cursor: pointer;
-    position: fixed;
-    top: 15px;
-    left: 15px;
 }
 
 
@@ -673,7 +515,7 @@ input:hover {
 .contact {
     background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
-    padding: 1rem;
+
 }
 ul {
     list-style: none;
@@ -814,38 +656,18 @@ footer {
 }
 
 
-@media (max-width: 768px) {
-
-    .container-contact {
-        flex-direction: column;
-        justify-content: center;
-    }
-}
-
 .formation{
     background-color: white;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .top-bar {
+    
+  .container-contact {
         flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-  
-
-    header img{
-        display: none;
+        justify-content: center;
     }
 
-    .logo{ 
-        display: flex;
-        justify-content: space-between;
-        width: 80%;
-        margin-top: 10px;
-        margin-right: 25%;
-    }
     .welcome h1{
         padding-left:20px ;
         padding-right:20px ;
@@ -886,4 +708,354 @@ footer {
     border-radius: 50%;
     border: 5px solid white;
     cursor: pointer;
+}
+
+
+.upbar {
+    height: 10vh;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 25px;
+    display : flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+
+}
+.upbar > * {
+    display: flex;
+    align-items: center;
+  }
+  
+.menuicon{
+    width: 30px;
+    cursor: pointer;
+}
+.search-wrapper {
+    position: relative;
+    width: 40%;
+}
+.input-container {
+    width: 100%;
+    height: 40px;
+    padding: 0 30px 0 15px; /* Padding to leave space for the icon on the right */
+    border-radius: 10px;
+    border: 3px solid transparent;
+    box-shadow: 0px 3px 4px gray;
+    background: rgb(231, 231, 231);
+    outline: none;
+    padding: 0 40px 0 15px;
+}
+
+.input-container:focus {
+    border: 3px solid gray;
+    box-shadow: none;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px; /* Distance from the right side */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the icon */
+    color: gray; /* Icon color */
+    cursor: pointer;
+    font-size: 18px; /* Adjust icon size */
+}
+.menu-container {
+    display: flex;
+    align-items: center;
+  }
+
+/* seconde side bar  */
+  .sidebar2 {
+    position: fixed;
+    top: 0;
+    right: -350px; /* Move further out */
+    width: 250px;
+    height: 100%;
+    background:white;
+    color: black;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    
+  }
+  
+  /* Close Button */
+  .close-btn2 {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+  }
+  
+  /* Overlay */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Hidden initially */
+    z-index: 999;
+  }
+  
+  /* Show Sidebar */
+  .sidebar2.show {
+    right: 0;
+  }
+  
+  /* Hide Sidebar (force it to move completely out) */
+  .sidebar2.hide {
+    right: -350px; /* Move further left */
+  }
+  
+  /* Show Overlay */
+  .overlay.show {
+    display: block;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .profile-side-bar{
+    width:270px;
+    height: 180px;
+    background: #1A0495;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 25px;
+    gap: 10px;
+    padding-top:20px ;
+  }
+
+
+
+.rh-commun{
+    border-radius:10px;
+    width: 90px;
+    height: 60px;
+}
+
+.wrapper2{
+    margin-top: 30px;
+    background:  #1A0495;
+    border-radius: 10px;
+    width: 270px;
+    color: white;
+}
+.wrapper2 header{
+    display: flex;
+    align-items: center;
+    padding-top:10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-content: space-between;
+  
+}
+header .icons2{
+    display: flex;
+    gap: 10px;
+}
+header .icons2 img{
+    height: 38px;
+    width: 38px;
+    margin: 0 1px;
+    cursor: pointer;
+    color: #878787;
+    text-align: center;
+    line-height: 38px;
+    font-size: 1.9rem;
+    user-select: none;            
+    border-radius: 50%;
+
+}
+.icons2 img:last-child{
+    margin-right: -10px;
+}
+header .icons2 img:hover {
+    background: #f2f2f2;
+}
+header .current-date2 {
+    font-size: 1.45rem;
+    font-weight: 500;
+    color: white !important;
+}
+.calendar2{
+    padding: 20px;
+    padding-top: 10px;
+
+}
+
+.calendar2 ul{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    color: black;
+    text-align: center;
+}
+.calendar2 .days{
+    margin-bottom: 20px;
+}
+.calendar2 li{
+    color: white;
+
+    width: calc(100% / 7);
+    font-size: 15px;
+}
+.calendar2 .weeks li {
+    font-weight: 500;
+    cursor: default;
+}
+.calendar2 .days li {
+    z-index: 1;
+    cursor: pointer;
+    position: relative;
+    margin-top: 30px;
+    /* background-color: red; */
+}
+.course{
+    background: red;
+    width: 30px;
+    border-radius: 50%;
+    height: 30px;
+    
+}
+/* .calendar ul li {
+    position: relative;
+    width: calc(100% / 7);
+} */
+
+.days2 li.inactive{
+    color: #aaa;
+    
+  }
+  .days2 li.active{
+    color: #fff;
+  }
+  .days2 li::before{
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  /* .days .cours::before{
+    position: absolute;
+    content: "";
+    left: 50%;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+    z-index: -1;
+    border-radius: 50%;
+    /* transform: translate(-50%, -50%); */
+  
+  .days2 li.active::before{
+    background: #1A0495;
+  }
+  .days2 li:not(.active):hover::before{
+    background: #f2f2f2;
+  }
+  /* .course {
+    background: red;
+    /* background: #f2f2f2; */
+  
+
+
+  .cours {
+    background: #D28C64;
+    border-radius: 50%;
+    color: black!important;
+  }
+
+
+
+
+/* .header p{
+    color: black;
+}
+.weeks li{
+    color: black;
+}
+.days li{
+    color: black;
+    
+} */
+
+
+.cours-sidebar{
+    width: 16.875rem;
+    height: 3.75rem;
+    margin-top: 20px;
+    border-radius: 10px;
+    background: #d4d4d4;
+    position: center;
+    display: flex;
+    flex-direction: row;
+
+}
+.cours-sidebar p{
+    font-size: 10px;
+    color: black;
+    
+} 
+.infooo{
+    margin-left: 10px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5px;
+    font-weight: bold;
+}
+.nom-cour{
+    font-size: 10px;
+    color: black;
+
+}
+.date-cour2{
+    color: #1A0495 !important;
+}
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins",sans-serif;
+    /* box-sizing: border-box; */
+}
+
+.profileimg {
+    margin-top: 10px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+}
+.profile-sidebar-text{
+    color: white;
 }
