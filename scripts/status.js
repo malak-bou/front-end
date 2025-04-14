@@ -209,7 +209,7 @@ document.querySelectorAll(".fa-share").forEach((shareIcon) => {
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="32" height="32">
                 </a>
                 <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" width="32" height="32">
+                    <img src="assets/images/LinkedIn.png">
                 </a>
             </div>
         `;
