@@ -530,8 +530,7 @@ footer {
         justify-content: space-between;
     }
   
-
-    header img{
+    .image{
         display: none;
     }
 
