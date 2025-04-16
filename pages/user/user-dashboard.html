@@ -9,42 +9,167 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     </head>
 <body>
-    <header class="top-bar">
-        <div class="logo">
-          <div>
-            <div class="menu-icon" onclick="toggleNav()">☰</div>
-            <!-- Navbar cachée au départ -->
-            <div class="sidebar" id="sidebar">
-              <div>
-                  <button class="close-btn" onclick="toggleNav()">✖</button>
-                  <ul>
-                      <li><a href="#" class="active">
-                          <i class="fas fa-home"></i> Accueil</a></li>
-                      <li><a href="Profile-user.html">
-                          <i class="fas fa-user"></i> Profile</a></li>
-                      <li><a href="user-messages.html">
-                          <i class="fas fa-envelope"></i> Messages</a></li>
-                      <li><a href="user-notif.html">
-                          <i class="fas fa-bell"></i> Notifications</a></li>
-                      <li><a href="user-aide.html">
-                          <i class="fas fa-question-circle"></i> Aide</a></li>
-                  </ul>
-              </div>
-          
-              <div class="sidebar-footer">
-                  <a href="user-setting.html"><i class="fas fa-cog"></i> Paramètres</a>
-                  <a href="../../index.html" class="logout">
-                      <i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
-              </div>
-            </div>
 
-          </div>
-            <div class="search-bar">
-              <input type="text" placeholder="🔍 Rechercher"> 
-            </div>
-        </div>
-        <a href="Profile-user.html" class="image"><img class="profile" src="../../assets/images/profil-pic.png" alt="Profile-pic"></a>
+
+
+
+    <header class="upbar">
+      <div class="menu-container">
+        <img src="../../assets/images/menuicon.svg" onclick="toggleNav()" class="menuicon">
+      </div>
+      
+      <div class="search-wrapper">
+          <input class="input-container" type="text" placeholder="Rechercher" id="searchInput">
+          <i class="fas fa-search search-icon"></i>
+      </div>
+  
+      <div class="profile-container">
+        <a href="#" id="profile-link">
+          <img src="../../assets/images/profil-pic.png" class="profileimg">
+        </a>
+      </div>
+  
     </header>
+    <div class="sidebar2" id="sidebar2">
+      <span class="close-btn2" id="close-sidebar2">&times;</span>
+      <div class="profile-side-bar">
+          <img src="../../assets/images/profil-pic.png" class="profileimg" >
+          <h4 class="profile-sidebar-text">Employer</h4>
+          <p class="profile-sidebar-text">RH</p>
+      </div>
+      <div class="wrapper2">
+          <header class="header" class="month-white">
+              <p class="current-date2">Mars 2025</p>
+              <div class="icons2">
+                  <span style="display: inline-flex; align-items: center; justify-content: center;margin-right: 10px;"id="prev"><i class="fas fa-chevron-left icon" style="color: gray;font-size: 25px;"></i></span>
+          
+                  <span style="display: inline-flex; align-items: center; justify-content: center;" id="next"><i class="fas fa-chevron-right icon" style="color: gray;font-size: 25px;" ></i></span>
+              </div>
+          </header >
+          <div class="calendar2">
+              <ul class="weeks2">
+                  <li>Dim</li>
+                  <li>Lun</li>
+                  <li>Mar</li>
+                  <li>Mer</li>
+                  <li>Jeu</li>
+                  <li>Ven</li>
+                  <li>Sam</li>
+              </ul>
+               <ul class="days2">
+                  <li>23</li>
+                  <li>24</li>
+                  <li>25</li>
+                  <li>26</li>
+                  <li>27</li>
+                  <li>28</li>
+                  <li>1</li>
+                  <li>2</li>
+                  <li class="cours">3</li>
+                  <li>4</li>
+                  <li>5</li>
+                  <li>6</li>
+                  <li>7</li>
+                  <li>8</li>
+                  <li>9</li>
+                  <li>10</li>
+                  <li>11</li>
+                  <li>12</li>
+                  <li>13</li>
+                  <li>14</li>
+                  <li>15</li>
+                  <li>16</li>
+                  <li>17</li>
+                  <li>18</li>
+                  <li>19</li>
+                  <li>20</li>
+                  <li>21</li>
+                  <li class="cours">22</li>
+                  <li>23</li>
+                  <li>24</li>
+                  <li>25</li>
+                  <li>26</li>
+                  <li>27</li>
+                  <li>28</li>
+                  <li>29</li>
+  
+              </ul>
+          </div>
+  
+  
+  
+  
+  
+      </div>
+  
+      <div class="cours-sidebar">
+          <img src="../../assets/images/logiciel-rh.webp" class="rh-commun">
+          <div class="infooo">
+              <p class="date-cour2">3 mars 2025</p>
+              <p class="nom-cour">Droit du travail et relations professionnelles</p>
+          </div>
+      </div>
+      <div class="cours-sidebar">
+          <img src="../../assets/images/rh2.jpg" class="rh-commun">
+          <div class="infooo">
+              <p class="date-cour2">22 mars 2025</p>
+              <p class="nom-cour">Recrutement et sÃ©lection des talents</p>
+          </div>
+      </div>
+  
+  
+  
+  
+  
+      
+   </div>
+  <div class="overlay" id="overlay"></div>
+  
+    <div class="sidebar" id="sidebar">
+      <div>
+          <button class="close-btn" onclick="toggleNav()">✖</button>
+          <ul>
+              <li><a href="#" class="active">
+                  <i class="fas fa-home"></i> Accueil</a></li>
+              <li><a href="Profile-user.html">
+                  <i class="fas fa-user"></i> Profile</a></li>
+              <li><a href="user-messages.html">
+                  <i class="fas fa-envelope"></i> Messages</a></li>
+              <li><a href="user-notif.html">
+                  <i class="fas fa-bell"></i> Notifications</a></li>
+              <li><a href="user-aide.html">
+                  <i class="fas fa-question-circle"></i> Aide</a></li>
+          </ul>
+      </div>
+  
+      <div class="sidebar-footer">
+          <a href="user-setting.html"><i class="fas fa-cog"></i> Paramètres</a>
+          <a href="../../index.html" class="logout">
+              <i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+      </div>
+    </div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <section class="welcome">
         <h1>Bienvenue sur <span>GIG !</span></h1>
