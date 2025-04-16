@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Sélection des éléments nécessaires
-    const searchInput = document.querySelector(".search-bar input");
+    const searchInput = document.querySelector(".search-wrapper input");
     const courses = document.querySelectorAll(".course-card");
     const domainFilters = document.querySelectorAll(".category-filter input");
 
@@ -35,7 +35,7 @@ function toggleNav() {
 
 document.addEventListener("DOMContentLoaded", function () {
     // Sélection des éléments nécessaires
-    const searchInput = document.querySelector(".search-bar input");
+    const searchInput = document.querySelector(".search-wrapper input");
     const courses = document.querySelectorAll(".course-card");
     const domainFilters = document.querySelectorAll(".category-filter input");
 
@@ -118,4 +118,28 @@ document.addEventListener("DOMContentLoaded", function () {
             alert(`Le cours "${courseTitle}" a été ajouté à votre suivi.`);
         });
     });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const profileLink = document.getElementById("profile-link");
+    const sidebar = document.getElementById("sidebar2");
+    const closeSidebar = document.getElementById("close-sidebar2");
+    const overlay = document.getElementById("overlay");
+
+    // Open Sidebar
+    profileLink.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent default link behavior
+        sidebar.classList.add("show");
+        sidebar.classList.remove("hide");
+        overlay.classList.add("show");
+    });
+
+    // Close Sidebar
+    function closeMenu() {
+        sidebar.classList.add("hide"); // Move it out completely
+        sidebar.classList.remove("show");
+        overlay.classList.remove("show");
+    }
+
+    closeSidebar.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
 });
