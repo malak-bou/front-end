@@ -498,7 +498,8 @@ body {
 /* Général */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police moderne */
-    margin: 20px;
+    margin: 0px;
+    padding: 0px;
     background-color: var(--background-color);
     color: var(--text-color);
     text-align: center;
