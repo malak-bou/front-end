@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Validation du formulaire
     const form = document.querySelector("form");
-    form.addEventListener("submit", function (event) {
+    form.addEventListener("submit", async function (event) {
         event.preventDefault(); // Empêche l'envoi par défaut
 
         const email = emailInput.value.trim();
@@ -23,25 +23,48 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Vérification des identifiants
-        const validEmail = "moumouhalem6@gmail.com";
-        const validPassword = "123456";
-        const validEmail1 = "sellamiamine@gmail.com";
-        const validPassword1 = "123456";
-        const validEmail2 = "Bazouzimohammed@gmail.com";
-        const validPassword2 = "123456";
+        try {
+            // URL de l'API backend pour l'authentification
+            const apiUrl = "https://backend-m6sm.onrender.com/api/auth/login";
+            
+            // Afficher un indicateur de chargement si nécessaire
+            // document.querySelector(".btn-submit").textContent = "Chargement...";
+            
+            // Envoyer les données au backend
+            const response = await fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-        if (email === validEmail && password === validPassword) {
-            // Redirection vers le tableau de bord
-            window.location.href = "../pages/user/user-dashboard.html";
-        } else { if(email === validEmail1 && password === validPassword1){
-            window.location.href = "../pages/dashboardprof.html";
-            } else{if(email === validEmail2 && password === validPassword2){
-                window.location.href = "../pages/RH-dashboard.html";
-            }else {
-                alert("Email ou mot de passe incorrect.");
+            const data = await response.json();
+
+            if (response.ok) {
+                // Authentification réussie
+                console.log("Connexion réussie!", data);
+                
+                // Sauvegarder le token dans localStorage si disponible
+                if (data.token) {
+                    localStorage.setItem("authToken", data.token);
+                }
+                
+                // Redirection basée sur le rôle de l'utilisateur si disponible
+                if (data.role === "admin") {
+                    window.location.href = "../pages/RH-dashboard.html";
+                } else if (data.role === "teacher") {
+                    window.location.href = "../pages/dashboardprof.html";
+                } else {
+                    window.location.href = "../pages/user/user-dashboard.html";
+                }
+            } else {
+                // Erreur d'authentification
+                alert(data.message || "Email ou mot de passe incorrect.");
             }
-            }
+        } catch (error) {
+            console.error("Erreur lors de la connexion:", error);
+            alert("Une erreur est survenue lors de la connexion. Veuillez réessayer plus tard.");
         }
     });
 
