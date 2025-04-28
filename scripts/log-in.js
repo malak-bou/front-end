@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Gestion de l'affichage du mot de passe
     const togglePassword = document.querySelector(".toggle-password");
     const passwordInput = document.getElementById("password");
     const emailInput = document.getElementById("email");
@@ -10,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Validation du formulaire
     const form = document.querySelector("form");
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -24,13 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            // Préparation des données pour l'API
+            // URL du backend hébergé
+            const backendURL = 'https://backend-m6sm.onrender.com';
+            
             const formData = new URLSearchParams();
-            formData.append('username', email); // Le backend attend 'username'
+            formData.append('username', email);
             formData.append('password', password);
 
-            // Appel à l'API de connexion
-            const response = await fetch('http://localhost:8000/token', {
+            const response = await fetch(`${backendURL}/token`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
@@ -41,11 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             if (response.ok) {
-                // Stockage du token
                 localStorage.setItem('access_token', data.access_token);
 
-                // Récupération des informations de l'utilisateur
-                const userResponse = await fetch('http://localhost:8000/users/me', {
+                const userResponse = await fetch(`${backendURL}/users/me`, {
                     headers: {
                         'Authorization': `Bearer ${data.access_token}`
                     }
@@ -60,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Redirection selon le rôle
                 switch(userData.profile.fonction) {
                     case 'admin':
-                        window.location.href = "../pages/RH-dashboard.html"; // Admin redirigé vers RH-dashboard
+                        window.location.href = "../pages/RH-dashboard.html";
                         break;
                     case 'prof':
                         window.location.href = "../pages/dashboardprof.html";
@@ -72,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         window.location.href = "../pages/user/user-dashboard.html";
                 }
             } else {
-                // Gestion des erreurs de connexion
                 if (data.detail === "Account not approved yet. Please wait for admin approval.") {
                     alert("Votre compte n'est pas encore approuvé. Veuillez attendre l'approbation de l'administrateur.");
                 } else {
@@ -85,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Redirection vers la page d'inscription
     const redirectButton = document.querySelector(".btn-submit1");
     if (redirectButton) {
         redirectButton.addEventListener("click", function () {
