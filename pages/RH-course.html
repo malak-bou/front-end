@@ -1,142 +1,44 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
-    <link rel="stylesheet" href="../assets/styles/profileprof.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <title>Course Details</title>
+    <link rel="stylesheet" href="../assets/styles/RH-course.css">
 </head>
 <body>
-    <header class="top-bar">
-        <div class="menu-icon" onclick="toggleNav()">☰</div>
-        <div class="sidebar" id="sidebar">
-          <div>
-              <button class="close-btn" onclick="toggleNav()">☰</button>
-              <ul >
-                <li><a href="dashboardprof.html" > <i class="fas fa-home"></i> Accueil</a></li>
-                <li><a href="#" class="active"><i class="fas fa-user"></i> Profil</a></li>
-                <li><a href="mondepartement.html"><i class="fa-solid fa-users-line"></i></i> Mon département</a></li>
-                <li><a href="mescours.html"><i class="fa-solid fa-chalkboard-user"></i> Mes cours</a></li>
-                <li><a href="formation.html"><i class="fa-solid fa-video"></i>Formation</a></li>
-                <li><a href="status.html"><i class="fa-solid fa-sliders"></i>Statut des demandes</a></li>
-                <li><a href="messagesprof.html"> <i class="fas fa-envelope"></i> Messages</a></li>
-                <li><a href="nottifprof.html"><i class="fas fa-bell"></i> Notifications</a></li>
-                <li><a href="aideprof.html"><i class="fas fa-question-circle"></i> Aide</a></li>
-              </ul>
-          </div>
-      
-          <div class="sidebar-footer">
-              <a href="settingsprof.html"><i class="fas fa-cog"></i> Paramètres</a>
-              <a href="../index.html" class="logout">
-                  <i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
-          </div>
-      </div>
-      
-        <h1>Profile</h1>
+    <header>
+        <a href="RH-dashboard.html">⬅ </a>
 
-        <div class="profile-picture">
-          <img src="../assets/images/profil-pic.png" alt="Photo de profil" class="profile-pic" id="profilePic">
-          <input type="file" id="uploadProfilePic" accept="image/*" style="display: none;">
-            <div class="btn-container">
-               <button id="changePicBtn">Modifier</button>
-               <button id="deletePicBtn">Supprimer</button>
-            </div>
-        </div>
+            <img src="../assets/images/profil-pic.png" class="profileimg" >
 
-      
+
     </header>
+    <main>
+        <div class="depdiv"> <p class="info" id="course-domain"></p></div>
+        <img class="info" id="course-image" src="" alt="">
+        <p class="info" id="course-title"></p>
+        <p class="info" id="course-teacher"></p>
+        <p class="info" id="course-description"></p>
+        <p class="info" id="course-field"></p>
 
-    <main class="profile-container">
-      
+        <button class="info" id="start-course-btn">Commencer le cours</button>
         
-        <form>
-          <h2 class="mon-profile">Mon Profil</h2>
-            <div class="form-group">
-              <div class="input-box">
-                  <label>Nom</label>
-                  <input type="text" id="nom" value="nom" readonly>
-              </div>
-              <div class="input-box">
-                  <label>Prénom</label>
-                  <input type="text" id="prenom" value="prenom" readonly>
-              </div>
-            </div>
-          
-            <div class="form-group">
-              <div class="input-box">
-                  <label>Email</label>
-                  <input type="email" id="email" value="bazouzichafik@gmail.com" readonly>
-              </div>
-            </div>
-          
-            <div class="form-group">
-              <div class="input-box">
-                  <label>Numéro de Téléphone</label>
-                  <input type="text" id="telephone" value="0555555555" readonly>
-              </div>
-            </div>
-          
-            <div class="form-group">
-              <div class="input-box">
-                  <label>Département</label>
-                  <input type="text" id="departement" value="IT" readonly>
-              </div>
-              <div class="input-box">
-                  <label>Function</label>
-                  <input type="text" id="fonction" value="professeur" readonly>
-              </div>
-            </div>
+        <!-- Contenu du cours (caché au départ) -->
+        
+        <div id="course-resources" style="display:none; margin-top:20px;"></div>
+     <button id="quit-course-btn" style="display:none;">Quitter le cours</button>
+<button id="finish-course-btn" style="display:none;">Finir le cours</button>
 
-            
-                  <!-- 🟢 Statistiques Générales -->
-        <section class="stats">
-          <h3>📊 Statistiques Globales</h3>
-          <p><strong>Total des Cours Suivis :</strong> <span id="totalCourses">0</span></p>
-          <p><strong>Cours Terminés :</strong> <span id="completedCourses">0</span></p>
-          <p><strong>Progression Moyenne :</strong> <span id="averageProgress">0%</span></p>
-        </section>
-
-      
-
-      <!-- 🟢 Suivi des Cours -->
-      <section class="course-tracking">
-          <h3>📚 Mes Cours Suivis</h3>
-          <table>
-              <thead>
-                  <tr>
-                      <th>Nom du Cours</th>
-                      <th>Progrès</th>
-                      <th>Date de Début</th>
-                      <th>Date de Fin</th>
-                      <th>Statut</th>
-                  </tr>
-              </thead>
-              <tbody id="courseTableBody">
-                  <!-- Les cours seront ajoutés dynamiquement avec JavaScript -->
-              </tbody>
-          </table>
-      </section>
-
-      <!-- 🟢 Compétences Acquises -->
-      <section class="skills">
-          <h3>🎯 Compétences Acquises</h3>
-          <ul id="skillsList">
-              <!-- Les compétences seront ajoutées dynamiquement -->
-          </ul>
-      </section>
-      </form>
-    
     </main>
-
+    
     <section class="contact" id="contact">
         <div class="container-contact">
             <div class="partie-g">
                 <div class="gauche">
-                  <div>
-                    <img src="../assets/images/logo-gig1.png" alt="logo">
-                  </div>
+                      <div>
+                        <img src="../assets/images/logo-gig1.png" alt="logo">
+                      </div>
                 </div>
                 <footer>©2025 – GIG.DZ – GULF INSURANCE GROUP – Tous droits réservés.</footer>
             </div>
@@ -146,7 +48,7 @@
                     <ul class="example-2">
                         <li class="icon-content">
                           <a
-                            href=https://www.linkedin.com/company/gigalgeria/"
+                            href="https://www.linkedin.com/company/gigalgeria/"
                             aria-label="LinkedIn"
                             data-social="linkedin"
                           >
@@ -166,7 +68,7 @@
                               ></path>
                             </svg>
                           </a>
-
+    
                         </li>
                         <li class="icon-content">
                           <a
@@ -214,7 +116,7 @@
                               ></path>
                             </svg>
                           </a>
-
+    
                         </li>
                         <li class="icon-content">
                           <a href="https://www.youtube.com/@GIGAlgeria" aria-label="Youtube" data-social="youtube">
@@ -244,6 +146,127 @@
             </div>
         </div>
     </section>
-    <script src="../scripts/profileprof.js"></script>
+    <script src="../../scripts/RH-course.js"></script>
+    <script>
+    // --- Dynamic Course Logic using localStorage and robust selectors ---
+  const course = JSON.parse(localStorage.getItem('selectedCourse'));
+
+function showNoCourse() {
+    document.getElementById('course-domain').innerHTML = '<strong>Aucun cours sélectionné</strong>';
+    document.getElementById('course-image').style.display = 'none';
+    document.getElementById('course-title').innerHTML = '';
+    document.getElementById('course-teacher').innerHTML = '';
+    document.getElementById('course-description').innerHTML = '';
+    document.getElementById('course-field').innerHTML = '';
+    document.getElementById('start-course-btn').style.display = 'none';
+}
+
+function renderCourseDetails(course) {
+    document.getElementById('course-domain').innerHTML = `<strong>Département :</strong> <span style="color: purple; font-weight: bold;">${course.domain}</span>`;
+    document.getElementById('course-image').src = course.image;
+    document.getElementById('course-image').alt = course.title;
+    document.getElementById('course-image').style.display = '';
+    document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
+    document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
+    document.getElementById('course-description').innerHTML = `<strong>Description :</strong> ${course.description}`;
+    document.getElementById('course-field').innerHTML = `<strong>Domaine :</strong> ${course.field}`;
+    document.getElementById('start-course-btn').style.display = '';
+}
+
+if (course) {
+    renderCourseDetails(course);
+} else {
+    showNoCourse();
+}
+
+document.getElementById('start-course-btn').addEventListener('click', function() {
+    if (!course) return;
+
+    const r = course.resources || {};
+    let html = '<h3>🎯 Ressources du cours</h3>';
+
+    if (r.record) {
+    html += `
+        <div class="resource-item">
+            📹 <h4>Regarder l'enregistrement :</h4>
+            <video controls width="600">
+                <source src="${r.record}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture vidéo.
+            </video>
+        </div>`;
+}
+if (r.pdf) {
+    html += `
+        <div class="resource-item">
+            📄 <h4>Consulter le document PDF :</h4>
+            <iframe src="${r.pdf}" width="100%" height="600px" style="border:none;"></iframe>
+        </div>`;
+}
+    if (r.quiz) {
+        html += `
+            <div class="resource-item">
+                ❓ <a href="${r.quiz}" target="_blank">Passer le quiz</a>
+            </div>`;
+    }
+    if (r.extraLinks && r.extraLinks.length > 0) {
+        html += `
+            <div class="resource-item">
+                🔗 Liens supplémentaires :
+                <ul style="margin-left: 20px;">`;
+        r.extraLinks.forEach(link => {
+            html += `<li><a href="${link.url}" target="_blank">${link.label}</a></li>`;
+        });
+        html += '</ul></div>';
+    }
+
+    if (html === '<h3>🎯 Ressources du cours</h3>') {
+        html += '<div>Aucune ressource disponible pour ce cours.</div>';
+    }
+
+    const resourcesDiv = document.getElementById('course-resources');
+    resourcesDiv.innerHTML = html;
+    resourcesDiv.style.display = 'block';
+    this.disabled = true;
+});
+const quitCourseBtn = document.getElementById('quit-course-btn');
+const finishCourseBtn = document.getElementById('finish-course-btn');
+
+document.getElementById('start-course-btn').addEventListener('click', function() {
+    if (!course) return;
+
+    const r = course.resources || {};
+    let html = '<h3>🎯 Ressources du cours</h3>';
+
+    // (TON CODE POUR AFFICHER LES RESSOURCES...)
+
+    const resourcesDiv = document.getElementById('course-resources');
+    resourcesDiv.innerHTML = html;
+    resourcesDiv.style.display = 'block';
+    this.disabled = true;
+
+    // --> Quand on commence : montrer "Quitter" et "Finir"
+    quitCourseBtn.style.display = 'inline-block';
+    finishCourseBtn.style.display = 'inline-block';
+});
+
+// Quitter le cours
+quitCourseBtn.addEventListener('click', function() {
+    document.getElementById('course-resources').style.display = 'none';
+    document.getElementById('start-course-btn').disabled = false;
+    quitCourseBtn.style.display = 'none';
+    finishCourseBtn.style.display = 'none';
+});
+
+// Finir le cours
+finishCourseBtn.addEventListener('click', function() {
+    alert('Vous avez terminé ce cours!');
+    document.getElementById('course-resources').style.display = 'none';
+    document.getElementById('start-course-btn').disabled = false;
+    quitCourseBtn.style.display = 'none';
+    finishCourseBtn.style.display = 'none';
+    // Tu pourrais aussi ici envoyer une requête pour "marquer terminé" si tu as un backend
+});
+
+    </script>
 </body>
 </html>

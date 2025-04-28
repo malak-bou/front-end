@@ -12,9 +12,28 @@ function toggleSidebar() {
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    const courses = document.querySelectorAll(".course-card");
 
+    courses.forEach(course => {
+        course.addEventListener("click", function () {
+            const courseData = {
+                title: this.getAttribute("data-title"),
+                description: this.getAttribute("data-description"),
+                teacher: this.getAttribute("data-teacher"),
+                department: this.getAttribute("data-department"),
+                mainContent: this.getAttribute("data-main-content"),
+                type: this.getAttribute("data-type")
+            };
 
+            // Save course data in localStorage
+            localStorage.setItem("selectedCourse", JSON.stringify(courseData));
 
+            // Redirect to the course details page
+            window.location.href = "../../pages/user/course.html";
+        });
+    });
+});
 
 
 

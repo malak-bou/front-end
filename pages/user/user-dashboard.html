@@ -19,7 +19,7 @@
       </div>
       
       <div class="search-wrapper">
-          <input class="input-container" type="text" placeholder="Rechercher" id="searchInput">
+          <input class="input-container input" type="text" placeholder="Rechercher" >
           <i class="fas fa-search search-icon"></i>
       </div>
   
@@ -35,7 +35,7 @@
       <div class="profile-side-bar">
           <img src="../../assets/images/profil-pic.png" class="profileimg" >
           <h4 class="profile-sidebar-text">Employer</h4>
-          <p class="profile-sidebar-text">RH</p>
+          <p class="profile-sidebar-text">IT</p>
       </div>
       <div class="wrapper2">
           <header class="header" class="month-white">
@@ -65,14 +65,14 @@
                   <li>28</li>
                   <li>1</li>
                   <li>2</li>
-                  <li class="cours">3</li>
+                  <li>3</li>
                   <li>4</li>
                   <li>5</li>
                   <li>6</li>
                   <li>7</li>
                   <li>8</li>
                   <li>9</li>
-                  <li>10</li>
+                 <li>10</li>
                   <li>11</li>
                   <li>12</li>
                   <li>13</li>
@@ -84,7 +84,7 @@
                   <li>19</li>
                   <li>20</li>
                   <li>21</li>
-                  <li class="cours">22</li>
+                  <li>22</li>
                   <li>23</li>
                   <li>24</li>
                   <li>25</li>
@@ -107,15 +107,11 @@
           <div class="infooo">
               <p class="date-cour2">3 mars 2025</p>
               <p class="nom-cour">Droit du travail et relations professionnelles</p>
+             
+             
           </div>
       </div>
-      <div class="cours-sidebar">
-          <img src="../../assets/images/rh2.jpg" class="rh-commun">
-          <div class="infooo">
-              <p class="date-cour2">22 mars 2025</p>
-              <p class="nom-cour">Recrutement et sÃ©lection des talents</p>
-          </div>
-      </div>
+     
   
   
   
@@ -176,97 +172,103 @@
         <p>Votre espace de formation professionnelle</p>
         <h2>Bon apprentissage !</h2>
     </section>
-<section class="formation">
-    <section class="recent-courses">
-        <h2>Les cours les plus récents</h2>
-        <div class="course-container">
-          <div class="course-card" data-id="1" data-title="Mastering React & Next.js"
-              data-description="Learn how to build scalable web apps with React and Next.js."
-              data-teacher="Mr Bazouzi" data-department="IT"
-              data-main-content="videos/react-course.mp4" data-type="video">
-              <img src="../../assets/images/nextjs.png" alt="React">
-              <p>Mastering React & Next.js</p>
-          </div>
+    <main>
+      <section class="formation">
+          <!-- Section des cours récents -->
+          <section class="recent-courses">
+              <!-- Conteneur titre + bouton -->
+              <div class="courses-header">
+                  <h2>Les cours les plus récents</h2>
+                  
+              </div>
       
-          <div class="course-card" data-id="2" data-title="SQL & NoSQL Databases"
-              data-description="Deep dive into SQL and NoSQL database fundamentals."
-              data-teacher="Mr himrane" data-department="IT"
-              data-main-content="./files/SQL.pdf" data-type="pdf">
-              <img src="../../assets/images/sql.png" alt="SQL">
-              <p>SQL & NoSQL Databases</p>
-          </div>
-      
-          <div class="course-card" data-id="3" data-title="Python for Beginners"
-              data-description="Start coding in Python from scratch."
-              data-teacher="Mme oulefki" data-department="IT"
-              data-main-content="./Video/pytho.mp4" data-type="video">
-              <img src="../../assets/images/python.png" alt="Python">
-              <p>Python for Beginners</p>
-          </div>
-        </div>
-      
-    </section>
-
-    <section class="domains">
-        <h2>Les domaines</h2>
-        <div class="mydict" >
-            <div class="category-filter">
-                <label>
-                    <input type="radio" name="domain" value="All">
-                    <span>All</span>
-                </label>
-                <label>
-                    <input type="radio" name="domain" value="Back-End" checked>
-                    <span>Back-End</span>
-                </label>
-                <label>
-                    <input type="radio" name="domain" value="Front-End">
-                    <span>Front-End</span>
-                </label>
-                <label>
-                    <input type="radio" name="domain" value="AI">
-                    <span>AI</span>
-                </label>
-                
-            </div>
-        </div>
-        <div class="course-container">
-          <div class="course-card" data-id="1" data-category="Back-End">
-            <img src="../../assets/images/sql.png" alt="SQL">
-            <p>Mastering Databases: SQL & NoSQL Fundamentals</p>
-           </div>
-           <div class="course-card" data-id="2" data-category="Back-End">
-            <img src="../../assets/images/python.png" alt="Python">
-            <p>Python for Absolute Beginners</p>
-          </div>
-          <div class="course-card" data-id="3" data-category="Back-End">
-            <img src="../../assets/images/backend.png" alt="Django">
-            <p>Mastering Back-end Development</p>
-          </div>
-          <div class="course-card" data-id="4" data-category="Back-End"> 
-            <img src="../../assets/images/java.png" alt="Java">
-            <p>Mastering Java</p>
-          </div>
-          <div class="course-card" data-id="5" data-category="Front-End">
-            <img src="../../assets/images/sql.png" alt="SQL">
-            <p>Mastering React & Next.js For Scalable Web Apps</p>
-          </div>
-          <div class="course-card" data-id="6" data-category="Front-End">
-            <img src="../../assets/images/python.png" alt="Python">
-            <p>Mastering Front-end Development</p>
-          </div>
-          <div class="course-card" data-id="7" data-category="AI">
-            <img src="../../assets/images/backend.png" alt="Django">
-            <p>Mastering Back-end Development</p>
-          </div>
-          <div class="course-card" data-id="8" data-category="AI">
-            <img src="../../assets/images/java.png" alt="Java">
-            <p>Mastering Java</p>
-          </div>
-        
-        </div>
-    </section>
-</section>
+              <div class="course-container">
+                  <div class="course-card">
+                      <span class="badge">new</span> 
+                      <img src="../../assets/images/nextjs.png" alt="React">
+                      <span class="department">IT</span>
+                      <h3>Mastering React & Next.js</h3>
+                      <p>By Mr. Sellami</p>
+                  </div>
+                  
+                  <div class="course-card">
+                      <img src="../../assets/images/img-fe.png" alt="Front-end">
+                      <span class="department">IT</span>
+                      <h3>Mastering React & Next.js for Scalable Web Apps</h3>
+                      <p>By Mme. nessrin</p>
+                  </div>
+                  <div class="course-card">
+                      <img src="../../assets/images/auth.png" alt="Finance">
+                      <span class="department">IT</span>
+                      <h3>Gestion des Identités et Authentification Sécurisée</h3>
+                      <p>By Mr. alem</p>
+                  </div>
+                  <div class="course-card">
+                      <img src="../../assets/images/Docker et Kubernetes.png" alt="Management">
+                      <span class="department">IT</span>
+                      <h3>Docker et Kubernetes : Conteneurisation et Orchestration</h3>
+                      <p>By Mr. Sellami</p>
+                  </div>
+                  <div class="course-card">
+                      <img src="../../assets/images/sql.png" alt="SQL">
+                      <span class="department">IT</span>
+                      <h3>Mastering Databases: SQL & NoSQL Fundamentals</h3>
+                      <p>By Mr.hacene</p>
+                  </div>
+              
+                  <div class="course-card">
+                      <img src="../../assets/images/python.png" alt="Python">
+                      <span class="department">IT</span>
+                      <h3>Python for Absolute Beginners</h3>
+                      <p>By Mr.ilyes</p>
+                  </div>
+              
+                  <div class="course-card">
+                      <img src="../../assets/images/ml.png" alt="Marketing">
+                      <span class="department">IT</span>
+                      <h3>Machine Learning with Python: A Hands-on Approach</h3>
+                      <p>By Mr.bazouzi</p>
+                  </div>
+              
+                  <div class="course-card">
+                      <img src="../../assets/images/cloud.jpg" alt="Cloud">
+                      <span class="department">IT</span>
+                      <h3>Cloud Computing et Réseaux Virtuels</h3>
+                      <p>By Mme.leila</p>
+                  </div>
+              
+                  <div class="course-card">
+                      <img src="../../assets/images/rgpd.jpg" alt="RGPD">
+                      <span class="department">IT</span>
+                      <h3>RGPD et Protection des Données</h3>
+                      <p>By Mr.adel</p>
+                  </div>
+              
+                  <div class="course-card">
+                      <img src="../../assets/images/python-django-1024x576.jpg" alt="Risques">
+                      <span class="department">IT</span>
+                      <h3>Django & Python: Backend Development Made Easy</h3>
+                      <p>By Mr.sellami</p>
+                  </div>
+              
+                  <div class="course-card">
+                      <img src="../../assets/images/nodejs.png" alt="Growth">
+                      <span class="department">IT</span>
+                      <h3>Backend avec Node.js et Express</h3>
+                      <p>By Mr.sellami</p>
+                  </div>
+              
+                  <div class="course-card">
+                      <img src="../../assets/images/bigdata.png" alt="Négociation">
+                      <span class="department">IT</span>
+                      <h3>Big Data et Analyse de Données</h3>
+                      <p>By Mme malak</p>
+                  </div>
+              </div>
+          </section>
+      </section>
+           
+  </section>
 <section class="contact" id="contact">
     <div class="container-contact">
         <div class="partie-g">

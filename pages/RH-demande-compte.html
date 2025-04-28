@@ -13,7 +13,7 @@
 
     <img src="../assets/images/menuicon.svg" onclick="toggleSidebar()"  class="menuicon">
     <div class="search-wrapper">
-        <input class="input-container" type="text" placeholder="Rechercher">
+        <input class="input-container" type="text" placeholder="Rechercher" id="search-bar">
         <i class="fas fa-search search-icon"></i>
     </div>
     <a href="RH-profile.html">
@@ -66,14 +66,14 @@
       
        <section class="requests">
            <h2>Les demandes</h2>
-           <table>
-               <thead>
+           <table id="tableId">
+               <thead class="table-head">
                    <tr>
                        <th>Nom</th>
                        <th>Prenom</th>
                        <th>Department</th>
                        <th>Function</th>
-                       <th>Créer</th>
+                       <th>Valider</th>
                        <th>Supprimer</th>
                    </tr>
                </thead>
@@ -83,7 +83,7 @@
                        <td>Nesrine</td>
                        <td>IT</td>
                        <td>Etudiant</td>
-                       <td><button class="create">Créer</button></td>
+                       <td><button class="create">Valider</button></td>
                        <td><button class="delete">Supprimer</button></td>
                    </tr>
                    <tr>
@@ -91,7 +91,7 @@
                        <td>Mohamed</td>
                        <td>IT</td>
                        <td>Etudiant</td>
-                       <td><button class="create">Créer</button></td>
+                       <td><button class="create">Valider</button></td>
                        <td><button class="delete">Supprimer</button></td>
                    </tr>
                    <tr>
@@ -99,7 +99,7 @@
                        <td>Amine</td>
                        <td>IT</td>
                        <td>Etudiant</td>
-                       <td><button class="create">Créer</button></td>
+                       <td><button class="create">Valider</button></td>
                        <td><button class="delete">Supprimer</button></td>
                    </tr>
                </tbody>
@@ -121,10 +121,10 @@
                        <th>Supprimer</th>
                    </tr>
                </thead>
-               <tbody id="accounts-body"></tbody>
+               <tbody id="accounts-body">
                    <tr>
                        <td>Alami</td>
-                       <td>Mohamed/td>
+                       <td>Mohamed</td>
                        <td>IT</td>
                        <td>Etudiant</td>
                        <td><button class="modify">Modifier</button></td>
@@ -188,7 +188,6 @@
                    </tr>
                </tbody>
            </table>
-           <button class="corbeille">🗑️ Corbeille </button>
        </section>
       
    </main>
@@ -308,5 +307,32 @@
   </div>
 </section>
 <script src="../scripts/RH-demande-compte.js"></script>
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <p class="textS">Voulez-vous vraiment valider cette demande et créer le compte ?</p>
+    <div class="modal-buttons">
+      <button id="confirmBtn">Oui</button>
+      <button id="cancelBtn">Non</button>
+    </div>
+  </div>
+</div>
+<div class="popup-overlay" id="confirmEditPopup">
+  <div class="popup-box">
+    <h3>Confirmer la modification</h3>
+    <p>Êtes-vous sûr de vouloir modifier ces informations ?</p>
+    <button id="confirmEditBtn">Oui</button>
+    <button onclick="closeEditConfirmPopup() " id="dontmodifybotton">Annuler</button>
+  </div>
+</div>
+<div id="confirmDeletePopup" class="popup">
+  <div class="popup-content">
+    <p class="text-delet">Êtes-vous sûr de vouloir supprimer cette ligne ?</p>
+    <div class="popup-buttons">
+      <button id="confirmDeleteBtn">Oui</button>
+      <button onclick="closeDeleteConfirmPopup()">Annuler</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

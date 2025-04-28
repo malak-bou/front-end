@@ -516,37 +516,22 @@ here*/
 
 
 
-.dep-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    
-}
-.see-more-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+  
+
+
 
 
 
 /* Button Container */
-.button-container {
-    width: 900px;  /* Adjust width as needed */
-    overflow: hidden; /* Hide the buttons that are off-screen */
-    position: center;
-  }
+
   
-  /* Buttons inside container */
-  .buttons {
-    display: flex;
-    transition: transform 0.5s ease; /* Smooth transition */
-    will-change: transform;
-  }
+.buttons-dep{
+    align-items: center;
+
+}
   
   /* Individual buttons */
-  .button {
+  .button-dep {
     background-color: #2a1d77;
     color: white;
     padding: 10px 20px;
@@ -558,34 +543,20 @@ here*/
   }
 
 
-    .button:hover,
-    .button:focus,
-    .button.active {
+    .button-dep:hover,
+    .button-dep:focus,
+    .button-dep.active {
     border-color: #D28C64; /* Couleur quand survolé, sélectionné ou cliqué */
     outline: none; /* Supprime la bordure bleue par défaut */
 }
 
   
   /* Hide the extra buttons initially */
-  .button-container .buttons {
-    transform: translateX(0);
-  }
+  
   
   /* Hide extra buttons and shift them to the right when toggled */
-  .button-container.show-more .buttons {
-    transform: translateX(-100%);  /* Adjust this to control the transition distance */
-  }
   
-  /* Button to toggle showing more buttons */
-  .see-more {
-    background-color: #D28C64;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+  
   
 
 
@@ -834,11 +805,12 @@ header .current-date2 {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 150px;
 }
 .wrapper{
     background: white;
     border-radius: 10px;
-    width: 450px;
+    width: 150vh;
 }
 .wrapper header{
     display: flex;
@@ -905,6 +877,27 @@ header .current-date {
     margin-top: 30px;
     /* background-color: red; */
 }
+.calendar .days li.courss {
+    background-color: #f8eed5; /* Beige color for days with courses */
+    cursor: pointer;
+    position: relative;
+    color: #333;
+}
+.calendar .days li.courss:hover {
+    background-color: #f3e4be; /* Slightly darker beige on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Make sure the courss class has higher priority than other styles */
+.calendar .days li.courss::before {
+    background-color: transparent !important;
+}
+
+.calendar .days li.courss.active::before {
+    background-color: #1A0495 !important;
+}
 .course{
     background: red;
     width: 30px;
@@ -949,7 +942,8 @@ header .current-date {
     background: #1A0495;
   }
   .days li:not(.active):hover::before{
-    background: #f2f2f2;
+   background-color: #f2f2f2;
+   
   }
   /* .course {
     background: red;
@@ -1159,7 +1153,6 @@ header .current-date {
 }
 
 .dot3{
-    display: none;
     width: 16px;
     height: 16px;
     cursor: pointer;
@@ -1290,17 +1283,18 @@ header .current-date {
     color: white;
 }
 
-.cancel-btn {
-    background: red;
+/* .cancel-btn {
+    background: rgb(215, 98, 98);
     color: white;
-}
+} */
 
 
 #confirm-delete{
-    background: green;
+    background: #1A0495;
+    color: white;
 }
 #cancel-delete{
-    background: red;
+    background: rgb(241, 112, 112);
 }
 
 
@@ -1623,11 +1617,7 @@ footer {
     }
 
     /* Button Container */
-.button-container {
-    width: 90%;  /* Adjust width as needed */
-    /* overflow: hidden; Hide the buttons that are off-screen */
-    position: center;
-  }
+
   
   /* Buttons inside container */
   .buttons {
@@ -1853,77 +1843,306 @@ footer {
         padding-left:20px ;
         padding-top: 10px;
     }
-    .formation-pic {
-        height: 146px;
-        width: 278px;
-        /* width: 100%;
-        height: 100%; */
-        border-radius: 10px;
-    }
-   
-    .date-info{
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: start;
-        gap: 10px;
-       
-
-    }
-    .date-info .date{
-        font-size: 15px;
-    }
-    .date-info .nom-de-cour{
-        font-size: 14px;
-    }
-    .photo-dateinfo {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: start;
-    
-    }
-    
-
-  
-    
  
-    .middle-dot {
-        font-size: 50px;
-    }
-    .dep-type-time {
-        margin-left :15vh ;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
-        width: 70%;
-        height: 100%;
-        font-size: 16px;
-    }
-    
-    .trash {
-        margin-right: 10px;
-        height: 100%;
-        margin-bottom: 10px;
-        cursor: pointer;
-        
-    }
-    
-    .aligned {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .trash-icon {
-        width: 50px;
-        height: 37px;
-        margin-top: 0px;
-        
-    }
 }
 
 .profile-sidebar-text{
     color: white;
+}
+.courss{
+    background: #D28C64;
+}
+li.courss:hover {
+    background: #D28C64 !important;
+    color: white;
+  }
+
+/* Timetable Modal Styles */
+.timetable-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.timetable-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 900px;
+    color: #333;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close-timetable {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-timetable:hover {
+    color: #e74c3c;
+}
+
+#timetable-date {
+    color: #7162E1;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.timetable-container {
+    margin-top: 20px;
+}
+
+.timetable {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.time-slot {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s;
+}
+
+.time-slot:hover {
+    background-color: #f9f9f9;
+}
+
+.time {
+    width: 150px;
+    padding: 15px;
+    background-color: #f4f4f4;
+    font-weight: bold;
+    border-right: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.slot-content {
+    flex: 1;
+    padding: 15px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.empty-slot {
+    color: #999;
+    justify-content: center;
+}
+
+.course-slot {
+    background-color: #f8eed5; /* Beige color for course slots */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.course-info {
+    flex: 1;
+}
+
+.course-info h4 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.course-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.course-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-course-btn, .delete-course-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.edit-course-btn {
+    background-color: #2a1d77;
+    color: white;
+}
+
+.edit-course-btn:hover {
+    background-color: #2a1d77;
+    transform: translateY(-2px);
+}
+
+.delete-course-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.delete-course-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Edit Course Modal */
+.edit-course-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000; /* Higher than timetable modal */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.edit-course-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    color: #333;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+}
+
+.close-edit-course {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-edit-course:hover {
+    color: #e74c3c;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+#save-course, #cancel-edit {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#save-course {
+    background-color: #7162E1;
+    color: white;
+}
+
+#save-course:hover {
+    background-color: #6450d6;
+    transform: translateY(-2px);
+}
+
+#cancel-edit {
+    background-color: #ddd;
+    color: #555;
+}
+
+#cancel-edit:hover {
+    background-color: #ccc;
+}
+
+/* Add styles for clickable course dates */
+.calendar .days li.courss {
+    background-color: #f8eed5; /* Beige color for days with courses */
+    cursor: pointer;
+    position: relative;
+}
+
+.calendar .days li.courss:hover {
+    background-color: #f3e4be; /* Slightly darker beige on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .timetable-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .time-slot {
+        flex-direction: column;
+    }
+    
+    .time {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .course-slot {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .course-actions {
+        margin-top: 15px;
+        width: 100%;
+        flex-direction: row;
+    }
+    
+    .edit-course-content {
+        width: 95%;
+    }
+}
+
+
+header .icons{
+    cursor: pointer;
 }

@@ -8,6 +8,114 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .day-schedule {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 15px;
+      padding: 15px;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .schedule-header {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    
+    .schedule-header h4 {
+      margin: 0 0 5px 0;
+      color: #333;
+    }
+    
+    .schedule-content {
+      font-size: 14px;
+    }
+    
+    .schedule-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .schedule-list li {
+      padding: 8px;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .schedule-list li.time-conflict {
+      background-color: #ffebee;
+      border-left: 3px solid #f44336;
+    }
+    
+    .course-time {
+      font-weight: bold;
+      width: 30%;
+    }
+    
+    .course-title {
+      width: 40%;
+    }
+    
+    .course-dept {
+      width: 20%;
+      text-align: right;
+      color: #666;
+    }
+    
+    .conflict-warning {
+      color: #d32f2f;
+      font-weight: bold;
+    }
+    
+    .no-conflict {
+      color: #388e3c;
+      font-weight: bold;
+    }
+    
+    .loading-spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      margin: 10px auto;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Style pour les jours avec cours */
+    .days li.has-courses {
+      background-color: #F5F5DC; /* Beige */
+      position: relative;
+    }
+    
+    .days li.has-courses::after {
+      content: "•";
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #FF6347;
+      font-size: 14px;
+    }
+    
+    /* Style pour les sections cachées */
+    .hidden-section {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -80,19 +188,23 @@
             <p><strong id="department">Département IT</strong></p>
             </div>
         </div>
+        <img id="formationImage" src="../assets/images/placeholder.png" alt="Image de la formation" class="formation-image-preview">
         <div class="information">
             <p><strong>Professeur :</strong><span id="prof"> Azouzi Alaa</span></p>
-            <p class="center"><strong>Nom de cour :</strong><span id="course"> Dev web using python </span></p>
+            <p class="center"><strong>Nom de cour :</strong><span id="course"> AWS Cloud Practitioner Essentials </span></p>
             <p><strong>Date :</strong> <span id="date">17/02/2025</span> </p>
+            <p><strong>Heure :</strong> <span id="hour">14:00-16:00</span> </p>
+            <p><strong>Description :</strong> <span id="description">[Description placeholder]</span></p>
             <p><strong>Type de cour :</strong><span id="type"> Enligne </span></p>
+            <p id="meetingLinkContainer"><strong>Lien de meet :</strong> <span id="meetingLink">[Meeting Link placeholder]</span></p>
         </div>
       <div class="button-container">
-        <button id="messageBtn">Message</button>
-        <button class="Ajoute-button" onclick="toggleSections()">Ajouter</button>
+        <!-- <button id="messageBtn">Message</button> -->
+        <button id="traiterBtn" class="Ajoute-button">Traiter</button>
       </div>
     </div>
   </section>
-  <div class="text-container hidden-section" >
+  <div class="text-container hidden-section">
     <p class="t">Les jours en bleu sont réservés pour d'autres formations du Département.</p>
     <p class="t">Si le jour est réservé, informez le professeur qui a fait la demande
         et fournissez-lui les jours non réservés par message .</p>
@@ -123,20 +235,17 @@
           <ul class="days"></ul>
         </div>
       </div>
-      <div class="buttons-calendar">
-      <button class="Annuler-button">Annuler</button>
-      <button id="messagebtn2">Message</button>
       
-     </div>
     </div>
     <div class="info">
       <h4>Formation Information</h4>
       <p class="space"><strong>Professeur :</strong> Azouzi Alaa</p>
       <p class="space"><strong>Nom de cour :</strong> Dev web using python</p>
       <p class="space"><strong>Date :</strong> 17/02/2025</p>
+      <p class="space"><strong>Heure :</strong> <span id="calendarHour">14:00-16:00</span></p>
       <p class="space"><strong>Type :</strong> Enligne</p>
-      <button class="Annuler-button" >Annuler</button>
-      <button class="Ajoute-button" id="addDayBtn">Ajouter</button>
+      <button class="Annuler-button" >Refuser</button>
+      <button class="Ajoute-button" id="addDayBtn">Valider</button>
     </div>
   </section>
 
@@ -144,6 +253,16 @@
     <h4 style="text-align:center;">Entrez votre message ici pour informer le professeur</h4>
     <textarea placeholder="Enter votre message"></textarea>
     <button class="Ajoute-button">Envoyer</button>
+  </section>
+
+  <section class="saved-messages-section hidden-section">
+    <h4 style="text-align:center;">Messages envoyés aux professeurs</h4>
+    <div class="messages-list-container">
+      <div id="messagesList" class="messages-list">
+        <div class="no-messages-info">Aucun message envoyé</div>
+      </div>
+    </div>
+    <button class="close-messages-btn">Fermer</button>
   </section>
 
   <section class="contact" id="contact">
@@ -261,5 +380,204 @@
     </div>
 </section>
   <script src="../scripts/RH-demande-formation.js"></script>
+  <script src="../scripts/test.js"></script>
+  <script>
+  // S'assurer que les sections sont cachées au chargement de la page
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOM chargé - réinitialisation des états");
+    
+    // Forcer le masquage des sections qui doivent être cachées initialement
+    const hiddenSections = document.querySelectorAll('.hidden-section');
+    hiddenSections.forEach(function(section) {
+      section.style.display = 'none';
+      section.style.visibility = 'hidden';
+    });
+    
+    console.log("Sections cachées:", hiddenSections.length);
+    
+    // Ensure the traiterBtn has an event listener
+    const traiterBtn = document.getElementById('traiterBtn');
+    if (traiterBtn) {
+      console.log("Verifying traiterBtn event listener in HTML");
+      traiterBtn.addEventListener('click', function() {
+        console.log("traiterBtn clicked from HTML listener");
+        if (typeof showSections === 'function') {
+          showSections();
+        } else {
+          console.error("showSections function not found in HTML context");
+        }
+      });
+    } else {
+      console.error("traiterBtn not found in DOM content loaded in HTML");
+    }
+  });
+  
+  function updateCalendarInfo() {
+    console.log("Mise à jour des informations du calendrier");
+    // Récupérer les informations actuelles de la demande
+    const currentDemande = document.getElementById('course') ? document.getElementById('course').textContent : '';
+    const currentProfessor = document.getElementById('prof') ? document.getElementById('prof').textContent : '';
+    const currentDate = document.getElementById('date') ? document.getElementById('date').textContent : '';
+    const currentHour = document.getElementById('hour') ? document.getElementById('hour').textContent : '';
+    const currentType = document.getElementById('type') ? document.getElementById('type').textContent : '';
+    const currentImage = document.getElementById('formationImage') ? document.getElementById('formationImage').src : '';
+    
+    console.log("Informations récupérées:", {
+      demande: currentDemande,
+      professeur: currentProfessor,
+      date: currentDate,
+      heure: currentHour,
+      type: currentType,
+      image: currentImage
+    });
+    
+    // Mettre à jour la section d'information à côté du calendrier
+    const infoSection = document.querySelector('.info');
+    if (infoSection) {
+      // Mettre à jour les informations
+      const professorElement = infoSection.querySelector('p:nth-child(2)');
+      const courseElement = infoSection.querySelector('p:nth-child(3)');
+      const dateElement = infoSection.querySelector('p:nth-child(4)');
+      const hourElement = infoSection.querySelector('#calendarHour');
+      const typeElement = infoSection.querySelector('p:nth-child(6)');
+      
+      if (professorElement) professorElement.innerHTML = `<strong>Professeur :</strong> ${currentProfessor}`;
+      if (courseElement) courseElement.innerHTML = `<strong>Nom de cour :</strong> ${currentDemande}`;
+      if (dateElement) dateElement.innerHTML = `<strong>Date :</strong> ${currentDate}`;
+      if (hourElement) hourElement.innerText = currentHour;
+      if (typeElement) typeElement.innerHTML = `<strong>Type :</strong> ${currentType}`;
+      
+      // Ajouter un effet visuel à la section d'info pour attirer l'attention
+      infoSection.style.transition = 'background-color 0.3s ease';
+      infoSection.style.backgroundColor = '#f0f8ff';
+      setTimeout(() => {
+        infoSection.style.backgroundColor = '';
+      }, 800);
+    }
+    
+    // Si une date est disponible, tenter de mettre à jour le calendrier pour afficher cette date
+    if (currentDate && typeof afficherCalendrier === 'function') {
+      try {
+        // Convertir la date au format nécessaire (par exemple, de 'JJ/MM/AAAA' à 'YYYY-MM-DD')
+        const dateParts = currentDate.split('/');
+        if (dateParts.length === 3) {
+          const year = dateParts[2];
+          const month = dateParts[1] - 1; // Les mois sont indexés de 0 à 11 en JavaScript
+          const day = dateParts[0];
+          
+          console.log(`Tentative d'affichage du calendrier pour la date: ${year}-${month}-${day}`);
+          
+          // Afficher le calendrier pour le mois correspondant
+          setTimeout(() => {
+            try {
+              afficherCalendrier(month, year);
+              
+              // Après l'affichage du calendrier, sélectionner le jour correspondant
+              setTimeout(() => {
+                try {
+                  const days = document.querySelectorAll('.days li:not(.inactive)');
+                  days.forEach(dayElement => {
+                    if (parseInt(dayElement.textContent) === parseInt(day)) {
+                      dayElement.click(); // Cliquer sur le jour pour afficher son planning
+                      dayElement.classList.add('selected');
+                      // Ajouter un effet de focus sur le jour sélectionné
+                      dayElement.style.transition = 'all 0.3s ease';
+                      dayElement.style.transform = 'scale(1.1)';
+                      setTimeout(() => {
+                        dayElement.style.transform = '';
+                      }, 300);
+                    }
+                  });
+                } catch (err) {
+                  console.error("Erreur lors de la sélection du jour:", err);
+                }
+              }, 300);
+            } catch (err) {
+              console.error("Erreur lors de l'affichage du calendrier:", err);
+            }
+          }, 100);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du calendrier:", error);
+      }
+    }
+  }
+  
+  // Fonction pour afficher et animer les sections
+  function showSections() {
+    console.log("showSections called");
+    
+    const textContainer = document.querySelector('.text-container');
+    const calendarSection = document.querySelector('.calendar-section');
+    
+    if (!textContainer || !calendarSection) {
+      console.error("Cannot find sections to show");
+      return;
+    }
+    
+    try {
+      // Text container animation first
+      textContainer.classList.remove('hidden-section');
+      textContainer.style.display = 'block';
+      textContainer.style.visibility = 'visible';
+      textContainer.style.opacity = '0';
+      textContainer.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        textContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        textContainer.style.opacity = '1';
+        textContainer.style.transform = 'translateY(0)';
+        
+        // Add highlight effect
+        textContainer.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.5)';
+        
+        // Scroll to text container
+        textContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Remove highlight after animation
+        setTimeout(() => {
+          textContainer.style.boxShadow = 'none';
+        }, 1500);
+        
+        // Calendar section animation with delay
+        setTimeout(() => {
+          calendarSection.classList.remove('hidden-section');
+          calendarSection.style.display = 'flex'; // Important - ensure flex display
+          calendarSection.style.visibility = 'visible';
+          calendarSection.style.opacity = '0';
+          calendarSection.style.transform = 'translateY(20px)';
+          
+          setTimeout(() => {
+            calendarSection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            calendarSection.style.opacity = '1';
+            calendarSection.style.transform = 'translateY(0)';
+            console.log("Calendar section visible with flex display");
+          }, 50);
+        }, 300);
+        
+        // Update calendar information if the function exists
+        if (typeof updateCalendarInfo === 'function') {
+          console.log("Updating calendar information");
+          updateCalendarInfo();
+        } else {
+          console.warn("updateCalendarInfo function not found");
+        }
+      }, 50);
+    } catch (error) {
+      console.error("Error in showSections:", error);
+      
+      // Fallback display in case of error
+      textContainer.classList.remove('hidden-section');
+      textContainer.style.display = 'block';
+      textContainer.style.visibility = 'visible';
+      
+      calendarSection.classList.remove('hidden-section');
+      calendarSection.style.display = 'flex'; // Ensure flex display in fallback too
+      calendarSection.style.visibility = 'visible';
+      
+      console.log("Used fallback display method due to error");
+    }
+  }
+  </script>
 </body>
 </html>

@@ -14,7 +14,7 @@
         </div>
 
         <div class="right-section">
-            <form class="signup-form">
+            <form class="signup-form" id="signupForm">
                 <div class="header">
                     <h2>Entrez votre information</h2>
                 </div>
@@ -26,17 +26,46 @@
                 <input type="text" id="prenom" placeholder="Prénom" required>
 
                 <label for="departement">Département</label>
-                <input type="text" id="departement" placeholder="Département" required>
+                <select id="departement" required>
+                <option class="graytext" value="" disabled selected >Département</option>
+                <option value="Center Regional Delegation">Center Regional Delegation</option>
+                <option value="Human Resources">Human Resources</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Network">Network</option>
+                <option value="Underwriting">Underwriting</option>
+                <option value="Network">Legal and Compliance</option>
+                <option value="Business Development">Business Development</option>
+                <option value="Claims">Claims</option>
+                <option value="Reinsurance">Reinsurance</option>
+                <option value="Prevention">Prevention</option>
+                <option value="Finance & Accounting">Finance & Accounting</option>
+                <option value="Quality & Internal Control">Quality & Internal Control</option>
+                <option value="Executive Management">Executive Management</option>
+              
+                <!-- Ajoute ici tous les autres départements dont tu as besoin -->
+                </select>
+
+
+
+
+
+
 
                 <label for="fonction">Fonction</label>
                 <select id="fonction" required>
+                    <option value="" disabled selected class="graytext">Fonction</option>
                     <option value="employee">Employé</option>
                     <option value="professeur">Professeur</option>
-                    <option value="admin">Admin</option>
                 </select>
 
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Email" required>
+                
+                <label for="email">Email Professionnel</label>
+                <input type="email" id="email" placeholder="prenom.nom@GIG.com" required 
+                    pattern="^[a-z]+(?:\.[a-z]+)*@GIG\.com$">
+                <div class="error" id="emailError" style="color:red; display:none;">
+                     Veuillez vous connecter en utilisant votre adresse e-mail d'entreprise (ex. : nom.prenom@GIG.com) 
+                </div>
 
                 <label for="telephone">Numéro de téléphone</label>
                 <input type="text" id="telephone" placeholder="Numéro de téléphone" required>

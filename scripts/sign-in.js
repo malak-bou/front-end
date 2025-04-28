@@ -31,3 +31,38 @@ const togglePassword = document.querySelector(".toggle-password");
             window.location.href = "../pages/log-in.html";
         });
     }
+
+
+    const departementSelect = document.getElementById("departement");
+    const departementChoisi = departementSelect.value;
+    console.log("Département choisi :", departementChoisi);
+    
+    departementSelect.addEventListener("change", function() {
+        console.log("Nouvelle sélection :", this.value);
+      });
+
+      
+      const form = document.getElementById('signupForm');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    const emailRegex = /^[a-z]+(?:\.[a-z]+)*@GIG\.com$/;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        
+        if (!emailRegex.test(email)) {
+            emailError.style.display = 'block';
+            emailInput.focus();
+            return;
+        }
+
+        emailError.style.display = 'none';
+        // Le formulaire peut être envoyé ici si tout est valide
+        alert('Inscription réussie !');
+        form.reset(); // Réinitialise le formulaire
+    });
+
+    emailInput.addEventListener('input', () => {
+        emailError.style.display = 'none';
+    });
