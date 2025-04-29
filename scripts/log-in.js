@@ -1,55 +1,41 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Gestion de l'affichage du mot de passe
-    const togglePassword = document.querySelector(".toggle-password");
-    const passwordInput = document.getElementById("password");
-    const emailInput = document.getElementById("email");
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="../assets/styles/log-in.css">
+</head>
+<body>
+    <main class="container">
+        <div class="left-section">
+            <h2>Connectez-vous</h2>
+            <p>Bienvenue</p>
+            <hr class="divider">
+            <form>
+                <label for="email">Email Professionnel</label>
+                <input type="email" id="email" placeholder="Entrez votre email" required>
 
-    if (togglePassword) {
-        togglePassword.addEventListener("click", function () {
-            passwordInput.type = passwordInput.type === "password" ? "text" : "password";
-        });
-    }
+                <label for="password">Mot de passe</label>
+                <div class="password-container">
+                    <input type="password" id="password" placeholder="Entrez votre mot de passe" required>
+                    <span class="toggle-password"><img src="../assets/images/Vector-log-in.png" alt="password"></span>
+                </div>
 
-    // Validation du formulaire
-    const form = document.querySelector("form");
-    form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Empêche l'envoi par défaut
+                <div class="options">
+                    <a href="reset-password.htm">Mot de passe oublié ?</a>
+                </div>
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
+                <button type="submit" class="btn-submit">Se connecter</button>
+            </form>
 
-        if (!email || !password) {
-            alert("Veuillez remplir tous les champs.");
-            return;
-        }
+            <p class="register-link">Pas encore inscrit ? <a href="#" class="btn-submit1">Créez un compte</a></p>
+        </div>
 
-        // Vérification des identifiants
-        const validEmail = "moumouhalem6@gmail.com";
-        const validPassword = "123456";
-        const validEmail1 = "sellamiamine@gmail.com";
-        const validPassword1 = "123456";
-        const validEmail2 = "Bazouzimohammed@gmail.com";
-        const validPassword2 = "123456";
-
-        if (email === validEmail && password === validPassword) {
-            // Redirection vers le tableau de bord
-            window.location.href = "../pages/user/user-dashboard.html";
-        } else { if(email === validEmail1 && password === validPassword1){
-            window.location.href = "../pages/dashboardprof.html";
-            } else{if(email === validEmail2 && password === validPassword2){
-                window.location.href = "../pages/RH-dashboard.html";
-            }else {
-                alert("Email ou mot de passe incorrect.");
-            }
-            }
-        }
-    });
-
-    // Redirection si on clique sur un bouton spécifique
-    const redirectButton = document.querySelector(".btn-submit1");
-    if (redirectButton) {
-        redirectButton.addEventListener("click", function () {
-            window.location.href = "../pages/Sign-in.html";
-        });
-    }
-});
+        <div class="right-section">
+            <img src="../assets/images/log-in-img.png" alt="Bureau de travail">
+        </div>
+    </main>
+    <script src="../scripts/log-in.js"></script>
+</body>
+</html>
