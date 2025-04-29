@@ -63,10 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
                         window.location.href = "../pages/dashboardprof.html";
                         break;
                     case 'employer':
-                        window.location.href = "../pages/RH-dashboard.html";
-                        break;
-                    default:
                         window.location.href = "../pages/user/user-dashboard.html";
+                        break;
+                    
                 }
             } else {
                 if (data.detail === "Account not approved yet. Please wait for admin approval.") {
