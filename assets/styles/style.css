@@ -371,6 +371,7 @@ button:hover .arrow:before {
 
 .first-one{
   border-top-left-radius: 15px;
+
 }
 .second-one{
   border-top-left-radius:0;
@@ -402,8 +403,9 @@ td {
 }
 
 .first-one {
-    background-color: #D2D2D2;
+    background-color: #D28C64;
     font-weight: bold;
+    color: white;
 }
 
 /* Section contact */

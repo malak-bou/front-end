@@ -153,10 +153,11 @@ body {
 .sidebar ul {
   list-style: none;
   padding: 0;
-  margin: 60px 0 0;
+  margin: 50px 0 0;
 }
 
 .sidebar ul li {
+  position: relative;
   padding: 15px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
@@ -948,4 +949,21 @@ table {
 
 .space2{
   margin-bottom: 12px;
+}
+
+/* Style pour la boule de notification */
+.notification-dot {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+  display: none;
+}
+
+.sidebar ul li i {
+  position: relative;
+  display: inline-block;
 }
