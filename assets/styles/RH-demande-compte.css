@@ -595,7 +595,27 @@ footer {
 }
 
 
+.demande-container, .accounts {
+  overflow-x: auto; /* Enables horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Adds smooth scrolling on iOS devices */
+  margin-bottom: 20px; /* Adds some space below the table */
+}
 
+/* Ensure that the table does not wrap when the screen is small */
+table {
+  width: 100%; /* Makes sure the table uses the full container width */
+  table-layout: fixed; /* Ensures table columns are evenly distributed */
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .demande-container, .accounts {
+    padding: 0 10px; /* Adds some padding around the container for better touch targets */
+  }
+  table {
+    min-width: 600px; /* Prevents the table from shrinking too much on smaller screens */
+  }
+}
 /* Responsive Design */
 @media (max-width: 1500px) {
   .hero-text {
@@ -615,6 +635,20 @@ footer {
       width: 100%;
       background-color: white;
   }
+  #tableId th,#tableId td {
+    font-size: 14px;
+  }
+  button {
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 12px;
+}
+
 
   .nav-links.active {
       display: flex;
@@ -641,9 +675,7 @@ footer {
   .container-contact {
       flex-direction: column;
   }
-  #tableId{
-    width: 100%;
-  }
+  
 }
 .container {
   width: 90%;
