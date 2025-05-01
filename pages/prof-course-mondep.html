@@ -1,172 +1,38 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plateforme de Formation</title>
-    <link rel="stylesheet" href="../assets/styles/mondepartement.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Course Details</title>
+    <link rel="stylesheet" href="../assets/styles/prof-course-mondep.css">
 </head>
 <body>
+    <header>
+        <a href="mondepartement.html">⬅ </a>
 
-<!-- Barre de navigation -->
-<header class="top-bar">
+            <img src="../assets/images/profil-pic.png" class="profileimg" >
+
+
+    </header>
+    <main>
+        <div class="depdiv"> <p class="info" id="course-domain"></p></div>
+        <img class="info" id="course-image" src="" alt="">
+        <p class="info" id="course-title"></p>
+        <p class="info" id="course-teacher"></p>
+        <p class="info" id="course-description"></p>
+        <p class="info" id="course-field"></p>
+
+        <button class="info" id="start-course-btn">Commencer le cours</button>
+        
+        <!-- Contenu du cours (caché au départ) -->
+        
+        <div id="course-resources" style="display:none; margin-top:20px;"></div>
+     <button id="quit-course-btn" style="display:none;">Quitter le cours</button>
+<button id="finish-course-btn" style="display:none;">Finir le cours</button>
+
+    </main>
     
-        
-            <!-- Bouton pour ouvrir la Sidebar -->
-            <div class="menu-icon" onclick="toggleNav()">☰</div>
-
-
-            <div class="search-wrapper">
-              <input type="text" class="input-container input" placeholder="Rechercher" />
-
-              <i class="fa fa-search search-icon"></i>
-            </div>
-            
-            <div class="profile-container">
-              <a href="#" id="profile-link">
-                <img src="../assets/images/profil-pic.png" class="profileimg" >
-                </a>
-            </div>
-</header>
-   <!-- Sidebar -->
-   <div class="sidebar" id="sidebar">
-    <div>
-      <button class="close-btn" onclick="toggleNav()">✖</button>
-      <ul >
-        <li><a href="dashboardprof.html" > <i class="fas fa-home"></i> Accueil</a></li>
-        <li><a href="profileprof.html" ><i class="fas fa-user"></i> Profil</a></li>
-        <li><a href="#" class="active"><i class="fa-solid fa-users-line"></i></i> Mon département</a></li>
-        <li><a href="mescours.html"><i class="fa-solid fa-chalkboard-user"></i> Mes cours</a></li>
-        <li><a href="formation.html"><i class="fa-solid fa-video"></i>Formation</a></li>
-        <li><a href="status.html"><i class="fa-solid fa-sliders"></i>Statut des demandes</a></li>
-        <li><a href="messagesprof.html"> <i class="fas fa-envelope"></i> Messages</a></li>
-        <li><a href="nottifprof.html"><i class="fas fa-bell"></i> Notifications</a></li>
-        <li><a href="aideprof.html"><i class="fas fa-question-circle"></i> Aide</a></li>
-      </ul>
-    </div>
-
-    <div class="sidebar-footer">
-        <a href="RH-settings.html"><i class="fas fa-cog"></i> Paramètres</a>
-        <a href="../index.html" class="logout">
-            <i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
-    </div>
-  </div>
-
-       
-        
-        <!-- Barre de recherche indépendante -->
-        
-
-
-
-
-<!-- Section de bienvenue -->
-<section class="welcome">
-    <h1>Bienvenue sur <span>GIG !</span></h1>
-    <p>Votre espace de formation professionnelle</p>
-    <h2>Bon apprentissage !</h2>
-</section>
-
-<!-- Contenu principal -->
-<main>
-    <section class="formation">
-        <!-- Section des cours récents -->
-        <section class="recent-courses">
-            <!-- Conteneur titre + bouton -->
-            <div class="courses-header">
-                <h2>Les cours les plus récents</h2>
-                <div class="see-all" onclick="scrollToCourses()">see all →</div>
-            </div>
-    
-            <div class="course-container">
-                <div class="course-card">
-                    <span class="badge">new</span> 
-                    <img src="../assets/images/nextjs.png" alt="React">
-                    <span class="department">IT</span>
-                    <h3>Mastering React & Next.js</h3>
-                    <p>By Mr. Sellami</p>
-                </div>
-                
-                <div class="course-card">
-                    <img src="../assets/images/img-fe.png" alt="Front-end">
-                    <span class="department">IT</span>
-                    <h3>Mastering React & Next.js for Scalable Web Apps</h3>
-                    <p>By Mme. nessrin</p>
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/auth.png" alt="Finance">
-                    <span class="department">IT</span>
-                    <h3>Gestion des Identités et Authentification Sécurisée</h3>
-                    <p>By Mr. alem</p>
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/Docker et Kubernetes.png" alt="Management">
-                    <span class="department">IT</span>
-                    <h3>Docker et Kubernetes : Conteneurisation et Orchestration</h3>
-                    <p>By Mr. Sellami</p>
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/sql.png" alt="SQL">
-                    <span class="department">IT</span>
-                    <h3>Mastering Databases: SQL & NoSQL Fundamentals</h3>
-                    <p>By Mr.hacene</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/python.png" alt="Python">
-                    <span class="department">IT</span>
-                    <h3>Python for Absolute Beginners</h3>
-                    <p>By Mr.ilyes</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/ml.png" alt="Marketing">
-                    <span class="department">IT</span>
-                    <h3>Machine Learning with Python: A Hands-on Approach</h3>
-                    <p>By Mr.bazouzi</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/cloud.jpg" alt="Cloud">
-                    <span class="department">IT</span>
-                    <h3>Cloud Computing et Réseaux Virtuels</h3>
-                    <p>By Mme.leila</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/rgpd.jpg" alt="RGPD">
-                    <span class="department">IT</span>
-                    <h3>RGPD et Protection des Données</h3>
-                    <p>By Mr.adel</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/python-django-1024x576.jpg" alt="Risques">
-                    <span class="department">IT</span>
-                    <h3>Django & Python: Backend Development Made Easy</h3>
-                    <p>By Mr.sellami</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/nodejs.png" alt="Growth">
-                    <span class="department">IT</span>
-                    <h3>Backend avec Node.js et Express</h3>
-                    <p>By Mr.sellami</p>
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/bigdata.png" alt="Négociation">
-                    <span class="department">IT</span>
-                    <h3>Big Data et Analyse de Données</h3>
-                    <p>By Mme malak</p>
-                </div>
-            </div>
-        </section>
-    </section>
-         
-</section>
-<section class="contact" id="contact">
+    <section class="contact" id="contact">
         <div class="container-contact">
             <div class="partie-g">
                 <div class="gauche">
@@ -202,7 +68,7 @@
                               ></path>
                             </svg>
                           </a>
-
+    
                         </li>
                         <li class="icon-content">
                           <a
@@ -250,7 +116,7 @@
                               ></path>
                             </svg>
                           </a>
-
+    
                         </li>
                         <li class="icon-content">
                           <a href="https://www.youtube.com/@GIGAlgeria" aria-label="Youtube" data-social="youtube">
@@ -280,11 +146,127 @@
             </div>
         </div>
     </section>
-</main>
-        <script src="../scripts/mondepartement.js"></script>
+    <script src="../../scripts/RH-course.js"></script>
+    <script>
+    // --- Dynamic Course Logic using localStorage and robust selectors ---
+  const course = JSON.parse(localStorage.getItem('selectedCourse'));
 
-      
+function showNoCourse() {
+    document.getElementById('course-domain').innerHTML = '<strong>Aucun cours sélectionné</strong>';
+    document.getElementById('course-image').style.display = 'none';
+    document.getElementById('course-title').innerHTML = '';
+    document.getElementById('course-teacher').innerHTML = '';
+    document.getElementById('course-description').innerHTML = '';
+    document.getElementById('course-field').innerHTML = '';
+    document.getElementById('start-course-btn').style.display = 'none';
+}
 
+function renderCourseDetails(course) {
+    document.getElementById('course-domain').innerHTML = `<strong>Département :</strong> <span style="color: purple; font-weight: bold;">${course.domain}</span>`;
+    document.getElementById('course-image').src = course.image;
+    document.getElementById('course-image').alt = course.title;
+    document.getElementById('course-image').style.display = '';
+    document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
+    document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
+    document.getElementById('course-description').innerHTML = `<strong>Description :</strong> ${course.description}`;
+    document.getElementById('course-field').innerHTML = `<strong>Domaine :</strong> ${course.field}`;
+    document.getElementById('start-course-btn').style.display = '';
+}
+
+if (course) {
+    renderCourseDetails(course);
+} else {
+    showNoCourse();
+}
+
+document.getElementById('start-course-btn').addEventListener('click', function() {
+    if (!course) return;
+
+    const r = course.resources || {};
+    let html = '<h3>🎯 Ressources du cours</h3>';
+
+    if (r.record) {
+    html += `
+        <div class="resource-item">
+            📹 <h4>Regarder l'enregistrement :</h4>
+            <video controls width="600">
+                <source src="${r.record}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture vidéo.
+            </video>
+        </div>`;
+}
+if (r.pdf) {
+    html += `
+        <div class="resource-item">
+            📄 <h4>Consulter le document PDF :</h4>
+            <iframe src="${r.pdf}" width="100%" height="600px" style="border:none;"></iframe>
+        </div>`;
+}
+    if (r.quiz) {
+        html += `
+            <div class="resource-item">
+                ❓ <a href="${r.quiz}" target="_blank">Passer le quiz</a>
+            </div>`;
+    }
+    if (r.extraLinks && r.extraLinks.length > 0) {
+        html += `
+            <div class="resource-item">
+                🔗 Liens supplémentaires :
+                <ul style="margin-left: 20px;">`;
+        r.extraLinks.forEach(link => {
+            html += `<li><a href="${link.url}" target="_blank">${link.label}</a></li>`;
+        });
+        html += '</ul></div>';
+    }
+
+    if (html === '<h3>🎯 Ressources du cours</h3>') {
+        html += '<div>Aucune ressource disponible pour ce cours.</div>';
+    }
+
+    const resourcesDiv = document.getElementById('course-resources');
+    resourcesDiv.innerHTML = html;
+    resourcesDiv.style.display = 'block';
+    this.disabled = true;
+});
+const quitCourseBtn = document.getElementById('quit-course-btn');
+const finishCourseBtn = document.getElementById('finish-course-btn');
+
+document.getElementById('start-course-btn').addEventListener('click', function() {
+    if (!course) return;
+
+    const r = course.resources || {};
+    let html = '<h3>🎯 Ressources du cours</h3>';
+
+    // (TON CODE POUR AFFICHER LES RESSOURCES...)
+
+    const resourcesDiv = document.getElementById('course-resources');
+    resourcesDiv.innerHTML = html;
+    resourcesDiv.style.display = 'block';
+    this.disabled = true;
+
+    // --> Quand on commence : montrer "Quitter" et "Finir"
+    quitCourseBtn.style.display = 'inline-block';
+    finishCourseBtn.style.display = 'inline-block';
+});
+
+// Quitter le cours
+quitCourseBtn.addEventListener('click', function() {
+    document.getElementById('course-resources').style.display = 'none';
+    document.getElementById('start-course-btn').disabled = false;
+    quitCourseBtn.style.display = 'none';
+    finishCourseBtn.style.display = 'none';
+});
+
+// Finir le cours
+finishCourseBtn.addEventListener('click', function() {
+    alert('Vous avez terminé ce cours!');
+    document.getElementById('course-resources').style.display = 'none';
+    document.getElementById('start-course-btn').disabled = false;
+    quitCourseBtn.style.display = 'none';
+    finishCourseBtn.style.display = 'none';
+    // Tu pourrais aussi ici envoyer une requête pour "marquer terminé" si tu as un backend
+});
+
+    </script>
 </body>
 </html>
-

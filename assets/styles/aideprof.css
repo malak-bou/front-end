@@ -29,203 +29,6 @@ body {
 
 
 /* 🌟 Sidebar Links */
-.sidebar ul li a {
-    display: flex;
-    align-items: center;
-    color: #333;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease-in-out;
-    border-radius: 5px;
-}
-
-.sidebar ul li a:hover {
-    background: rgba(0, 0, 255, 0.1);
-    color: blue;
-    transform: translateX(5px);
-}
-
-/* Style for icons */
-.sidebar ul li a i,
-.sidebar-footer a i {
-    margin-right: 10px;
-    font-size: 18px;
-    color: #555;
-    transition: color 0.3s ease-in-out;
-}
-/* 📌 Sidebar Navigation Links */
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 60px 0 0;
-}
-
-.sidebar li  {
-    margin-top: 10px;
-    padding: 15px;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.sidebar ul li:hover {
-    background: #f0f0f0;
-}
-
-
-/* icons */
-
-/* Style for icons */
-.sidebar ul li a i,
-.sidebar-footer a i {
-    margin-right: 10px;
-    font-size: 18px;
-    color: #555;
-    transition: color 0.3s ease-in-out;
-}
-
-/* Change icon color on hover */
-.sidebar ul li a:hover i,
-.sidebar-footer a:hover i {
-    color: blue;
-}
-.sidebar-footer .logout:hover i{
-    color: red;
-}
-
-#sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 220px; /* Ajuste la largeur */
-    height: 100%; /* Pleine hauteur */
-    background-color: white;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    transform: translateX(-100%); /* Cachée par défaut */
-    transition: transform 0.3s ease-in-out;
-}
-.sidebar {
-    position: fixed; /* ou absolute si nécessaire */
-    top: 0;
-    left: 0;
-    width: 220px; /* Ajuste selon ta sidebar */
-    height: 100vh; /* Pour qu'elle prenne toute la hauteur */
-    background-color: #f5f5f5; /* Couleur de fond */
-    z-index: 10; /* Assure qu'elle reste en dessous */
-}
-
-.departments-bar {
-    position: relative;
-    margin-top: 100px; /* Ajuste pour descendre la barre */
-    z-index: 5; /* Doit être inférieur à celui de la sidebar */
-}
-
-#sidebar.active {
-    transform: translateX(0); /* Affichée quand active */
-}
-
-/* Styles de la sidebar */
-.sidebar {
-    width: 150px; /* Ajuste la largeur selon ton besoin */
-    height: 100vh; /* Prend toute la hauteur de l'écran */
-    overflow-y: auto; /* Active le défilement vertical si nécessaire */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Espace bien les éléments */
-    background: white;
-    position: fixed; /* Fixe la barre à gauche */
-    top: 0;
-    left: 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px; /* Réduit l’espace intérieur */
-}
-/* Ajuster l’espacement des liens du menu */
-.sidebar-menu {
-    flex-grow: 1; /* Permet au menu de prendre tout l’espace dispo */
-}
-
-.sidebar-menu li {
-    margin-bottom: 10px; /* Réduit l’espace entre les éléments */
-}
-
-/* Le footer reste en bas mais peut défiler si nécessaire */
-.sidebar-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: start; /* Alignement à gauche */
-    gap: 10px; /* Espace entre les éléments */
-    margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid #ddd; /* Séparateur propre */
-}
-.sidebar-footer a {
-    display: flex;
-    align-items: center;
-    color: #333;
-    text-decoration: none;
-    font-size: 15px;
-    padding: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease-in-out;
-}
-.sidebar-footer a:hover {
-    background: rgba(0, 0, 255, 0.1);
-    color: blue;
-    transform: translateX(5px);
-}
-
-/* 🔴 Logout Button */
-.sidebar-footer .logout {
-    color: red;
-    font-weight: bold;
-}
-
-.sidebar-footer .logout:hover {
-    background: rgba(255, 0, 0, 0.1);
-    color: darkred;
-}
-/* 📌 Sidebar Visibility */
-.sidebar.active {
-    left: 0;
-}
-
-.grand-titre{
-    text-align: center;
-    font-size: 40px;
-}
-.text{
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.text span{
-    color: #D28C64; 
-    font-weight: bold;
-}
-.sidebar {
-    min-height: 100vh; /* Utilise toute la hauteur de l'écran */
-    overflow-y: auto; /* Ajoute une barre de défilement si nécessaire */
-}
-.sidebar ul {
-    list-style: none;
-    margin: 0; /* Supprime la marge supérieure  (hdik li mlfouq prblm lundii*/
-    flex-grow: 1; /* Prend tout l'espace disponible */
-}
-
-
-
-.sidebar-menu img,
-.sidebar-menu i {
-    width: 25px; /* Taille uniforme */
-    height: 25px;
-    display: inline-block; /* Toujours affiché */
-}
-
-/* Masquer la sidebar par défaut */
-.sidebar.hidden {
-    transform: translateX(-100%);
-}
 
 /* Styles du bouton menu */
 .menuicon {
@@ -245,84 +48,166 @@ body {
 }
 
 /* Menu de la sidebar */
-.sidebar-menu {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-}
-
-.sidebar-menu li {
-    padding: 10px 0;
-}
-
-.sidebar-menu a {
-    text-decoration: none;
-    color: black;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-}
-
-
-
-/* Le footer reste en bas mais peut défiler si nécessaire */
-.sidebar-footer {
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: #333;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
-    align-items: start; /* Alignement à gauche */
-    gap: 5px; /* Espace entre les éléments */
-    margin-top: 0px;
-    padding-top: 15px;
-    border-top: 1px solid #ddd; /* Séparateur propre */
+    justify-content: space-between;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
 }
+
+
+/* Style for icons */
+.sidebar ul li a i,
+.sidebar-footer a i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #555;
+    transition: color 0.3s ease-in-out;
+}
+
+
+
+/* Change icon color on hover */
+.sidebar ul li a:hover i,
+.sidebar-footer a:hover i {
+    color: blue;
+}
+.sidebar-footer .logout:hover i{
+    color: red;
+}
+
+
+
+
+/* ✖ Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+/* 📌 Sidebar Navigation Links */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 60px 0 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background: #f0f0f0;
+}
+
+/* 🌟 Sidebar Links */
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+    padding: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
+}
+
+/* 🔵 Active Link */
+.sidebar ul li a.active {
+    color: blue;
+    border-left: 4px solid blue;
+    background: rgba(0, 0, 255, 0.1);
+}
+
+/* ⚙ Sidebar Footer (Settings & Logout) */
+.sidebar-footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+}
+
 .sidebar-footer a {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espacement entre l’icône et le texte */
+    color: #333;
     text-decoration: none;
-    font-weight: bold;
-    margin-left: 0px;
-    margin-bottom: 30px;
-    color: #000;
-}
-
-.sidebar-footer a img {
-    width: 20px; /* Taille des icônes */
-    height: 20px;
-    margin-left: 10px;
-}
-
-.sidebar-footer a.logout {
-    color: red; /* Se déconnecter en rouge */
-}
-.sidebar-footer img,
-.sidebar-footer i {
-    width: 25px; /* Taille uniforme */
-    height: 25px;
-    display: inline-block; /* Toujours affiché */
-}
-
-
-.sidebar-menu li a {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
+    font-size: 18px;
+    padding: 12px;
     font-weight: 600;
-    color: black; /* Couleur normale */
-    text-decoration: none;
-    padding: 10px;
-    transition: 0.3s;
+    transition: all 0.3s ease-in-out;
 }
 
-.sidebar-menu li a img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+.sidebar-footer a:hover {
+    background: rgba(0, 0, 255, 0.1);
+    color: blue;
+    transform: translateX(5px);
 }
 
-.sidebar-menu li a:hover {
-    color: #1A0495; /* Bleu au survol */
+/* 🔴 Logout Button */
+.sidebar-footer .logout {
+    color: red;
+    font-weight: bold;
 }
+
+.sidebar-footer .logout:hover {
+    background: rgba(255, 0, 0, 0.1);
+    color: darkred;
+}
+
+/* 📌 Sidebar Visibility */
+.sidebar.active {
+    left: 0;
+}
+
+
+
+
+
+
+
+
+.active {
+    color: #000;
+
+}
+
+.sidebar h2, .sidebar p {
+    padding: 8px 10px;
+}
+
+
 
 
 
@@ -335,6 +220,7 @@ body {
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    background: linear-gradient(to left, #342d6d, #6759CD);
 }
 
 .contact-form h2 {
@@ -421,25 +307,27 @@ form {
 /* Pied de page */
 
 .contact {
+    background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
-}
-ul {
+    padding: 1rem;
+    margin-top: 100px;
+    }
+    ul {
     list-style: none;
-}
-  
-.example-2 {
+    }
+    
+    .example-2 {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 10px;
-}
-.example-2 .icon-content {
+    }
+    .example-2 .icon-content {
     margin: 0 10px;
     position: relative;
-}
-
-  .example-2 .icon-content a {
+    }
+    
+    .example-2 .icon-content a {
     position: relative;
     overflow: hidden;
     display: flex;
@@ -451,24 +339,24 @@ ul {
     color: #4d4d4d;
     background-color: #fff;
     transition: all 0.3s ease-in-out;
-  }
-
-  .example-2 .icon-content a:hover {
+    }
+    
+    .example-2 .icon-content a:hover {
     box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
-  }
-
-  .example-2 .icon-content a svg {
+    }
+    
+    .example-2 .icon-content a svg {
     position: relative;
     z-index: 1;
     width: 25px;
     height: 25px;
-  }
-
-  .example-2 .icon-content a:hover {
+    }
+    
+    .example-2 .icon-content a:hover {
     color: white;
-  }
-
-  .example-2 .icon-content a .filled {
+    }
+    
+    .example-2 .icon-content a .filled {
     position: absolute;
     top: auto;
     bottom: 0;
@@ -477,22 +365,22 @@ ul {
     height: 0;
     background-color: #000;
     transition: all 0.3s ease-in-out;
-  }
-  .example-2 .icon-content a:hover .filled {
+    }
+    .example-2 .icon-content a:hover .filled {
     height: 100%;
-  }
-  
-  .example-2 .icon-content a[data-social="linkedin"] .filled,
-  .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+    }
+    
+    .example-2 .icon-content a[data-social="linkedin"] .filled,
+    .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
     background-color: #0274b3;
-  }
-  
-  .example-2 .icon-content a[data-social="facebook"] .filled,
-  .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
+    }
+    
+    .example-2 .icon-content a[data-social="facebook"] .filled,
+    .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
     background-color: #3b5998;
-  }
-  .example-2 .icon-content a[data-social="instagram"] .filled,
-  .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+    }
+    .example-2 .icon-content a[data-social="instagram"] .filled,
+    .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
     background: linear-gradient(
       45deg,
       #405de6,
@@ -502,62 +390,66 @@ ul {
       #e1306c,
       #fd1f1f
     );
-  }
-  .example-2 .icon-content a[data-social="youtube"] .filled,
-  .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+    }
+    .example-2 .icon-content a[data-social="youtube"] .filled,
+    .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
     background-color: #ff0000;
-  }  
-.couleur{
+    }  
+    .couleur{
     color:  #D28C64;
-}
-
-
-.container-contact {
+    }
+    
+    
+    .container-contact {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1450px;
     margin: 0 auto;
-}
-
-.partie-d{
+    }
+    
+    .partie-d{
     flex: 0;
     min-width: 300px;
     margin: 1rem;
-}
-
-.partie-g{
+    }
+    
+    .partie-g{
     flex: 1;
     min-width: 300px;
     margin: 1rem;
-}
-
-.gauche  {
-  display: flex;
-  justify-content:start;
+    padding-right: 20%;
+    }
+    
+    .gauche  {
+    display: flex;
+    justify-content:start;
     align-items: center;
-}
-
-.gauche img, footer {
+    }
+    
+    
+    .gauche img, footer {
     width: 200px;
     height: 150px;
-
-}
-
-.photo-reseau {
+    color: white;
+    }
+    
+    
+    
+    .photo-reseau {
     width: 100%;
     max-width: 200px;
- 
-}
-
-footer {
+    
+    }
+    
+    footer {
     text-align: start;
     font-size: 0.7rem;
     margin-top: 0.5rem;
     width: auto;
     height:auto ;
-}
-
+    }
+    
 
 
 /* Responsive Design */
