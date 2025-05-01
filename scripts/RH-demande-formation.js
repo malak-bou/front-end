@@ -20,10 +20,10 @@ window.addEventListener('load', function() {
 // demande swips
 
 const allDemandes = {
-  "IT": [
+  "Information Technology": [
     {
       title: "Demande 1",
-      department: "Département IT",
+      department: "Information Technology",
       professor: "Azouzi Alaa",
       course: "Dev web using python",
       date: "17/02/2025",
@@ -35,7 +35,7 @@ const allDemandes = {
     },
     {
       title: "Demande 2",
-      department: "Département IT",
+      department: "Information Technology",
       professor: "Houda G.",
       course: "Cybersécurité",
       date: "21/03/2025",
@@ -60,10 +60,10 @@ const allDemandes = {
       image: "../assets/images/uxui.png"
     }
   ],
-  "RH": [
+  "Human Resources": [
     {
       title: "Demande 1",
-      department: "Département RH",
+      department: "Human Resources",
       professor: "Mohamed Ali",
       course: "Gestion des talents",
       date: "10/03/2025",
@@ -85,7 +85,7 @@ const allDemandes = {
 // number of demande
  // Ensure badges are updated on page load
  // Updated variables for tracking the current department and index
-let selectedDepartment = "IT"; // Initial department
+let selectedDepartment = "Information Technology"; // Initial department
 let selectedDemandeIndex = 0; // Initial demande index
 
 // This object counts the number of demandes for each department
@@ -1382,5 +1382,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   } else {
     console.error("Refuser button not found!");
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const icon = document.querySelector("i.fa-users");
+  const dot = icon ? icon.querySelector(".notification-dot") : null;
+
+  const hasPending = localStorage.getItem("hasPendingAccountRequests") === "true";
+
+  if (dot) {
+      dot.style.display = hasPending ? "block" : "none";
   }
 });

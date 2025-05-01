@@ -1,6 +1,8 @@
 /* Styles globaux */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
     color: white;
     margin: 0;
     padding: 0;
@@ -55,12 +57,46 @@ body {
 /* icons */
 
 /* Style for icons */
-.sidebar ul li a i,
-.sidebar-footer a i {
+.sidebar ul li a i {
     margin-right: 10px;
     font-size: 18px;
     color: #555;
     transition: color 0.3s ease-in-out;
+    position: relative;
+    display: inline-block;
+}
+
+.notification-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    display: none;
+    border: 1.5px solid #ffffff;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Message non lu */
+.message.unread {
+    background-color: rgba(0, 0, 255, 0.05);
+    font-weight: bold;
+}
+
+.message.unread .message-content strong {
+    color: #342D67;
+}
+
+.message.unread:hover {
+    background-color: rgba(0, 0, 255, 0.1);
+}
+
+/* When there are unread messages, this class will be added to show the dot */
+.has-unread .notification-dot {
+    display: block;
 }
 
 /* Change icon color on hover */
@@ -116,6 +152,7 @@ body {
     font-weight: 600;
     transition: all 0.3s ease-in-out;
     border-radius: 5px;
+    position: relative;
 }
 
 .sidebar ul li a:hover {
@@ -301,6 +338,7 @@ label:last-child span {
 
 .message.supconvo{
     align-items: center;
+    cursor: pointer;
 }
 
 .message.supconvo:hover{

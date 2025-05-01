@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 const daysTag = document.querySelector(".days"),
 currentDate = document.querySelector(".current-date"),
 prevNextIcon = document.querySelectorAll(".icons span");
@@ -884,4 +892,14 @@ document.head.appendChild(style);
     
 
 
-    
+
+document.addEventListener("DOMContentLoaded", function () {
+    const icon = document.querySelector("i.fa-users");
+    const dot = icon ? icon.querySelector(".notification-dot") : null;
+
+    const hasPending = localStorage.getItem("hasPendingAccountRequests") === "true";
+
+    if (dot) {
+        dot.style.display = hasPending ? "block" : "none";
+    }
+});
