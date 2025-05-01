@@ -2,84 +2,144 @@ document.addEventListener("DOMContentLoaded", function () {
     const togglePassword = document.querySelector(".toggle-password");
     const passwordInput = document.getElementById("password");
     const emailInput = document.getElementById("email");
+    const form = document.querySelector("form");
+    const submitButton = form.querySelector('button[type="submit"]');
+    let loginAttempts = 0;
+    const MAX_LOGIN_ATTEMPTS = 3;
+
+    // Fonction pour valider l'email
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Fonction pour afficher les messages d'erreur
+    function showError(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.style.color = 'red';
+        errorDiv.style.marginTop = '10px';
+        errorDiv.textContent = message;
+        
+        // Supprimer l'ancien message d'erreur s'il existe
+        const oldError = form.querySelector('.error-message');
+        if (oldError) {
+            oldError.remove();
+        }
+        
+        form.appendChild(errorDiv);
+    }
+
+    // Fonction pour gérer l'état de chargement
+    function setLoading(isLoading) {
+        submitButton.disabled = isLoading;
+        submitButton.innerHTML = isLoading ? 
+            '<span class="spinner"></span> Connexion en cours...' : 
+            'Se connecter';
+    }
 
     if (togglePassword) {
         togglePassword.addEventListener("click", function () {
-            passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+            const type = passwordInput.type === "password" ? "text" : "password";
+            passwordInput.type = type;
+           
         });
     }
 
-    const form = document.querySelector("form");
     form.addEventListener("submit", async function (event) {
         event.preventDefault();
 
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
+        // Validation des champs
         if (!email || !password) {
-            alert("Veuillez remplir tous les champs.");
+            showError("Veuillez remplir tous les champs.");
             return;
         }
 
-        try {
-            // URL du backend hébergé
-            const backendURL = 'https://backend-m6sm.onrender.com';
-            
-            const formData = new URLSearchParams();
-            formData.append('username', email);
-            formData.append('password', password);
+        if (!isValidEmail(email)) {
+            showError("Veuillez entrer une adresse email valide.");
+            return;
+        }
 
-            const response = await fetch(`${backendURL}/token`, {
-                method: 'POST',
+        setLoading(true);
+
+        try {
+            // 1. Connexion
+            const response = await fetch("https://backend-m6sm.onrender.com/token", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: formData
+                body: new URLSearchParams({
+                    username: email,
+                    password: password
+                })
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                localStorage.setItem('access_token', data.access_token);
+                // Réinitialiser le compteur de tentatives en cas de succès
+                loginAttempts = 0;
+                
+                // Stocker le token
+                localStorage.setItem("token", data.access_token);
 
-                const userResponse = await fetch(`${backendURL}/users/me`, {
+                // 2. Récupérer les informations de l'utilisateur
+                const userResponse = await fetch("https://backend-m6sm.onrender.com/users/me", {
+                    method: "GET",
                     headers: {
-                        'Authorization': `Bearer ${data.access_token}`
+                        "Authorization": `Bearer ${data.access_token}`
                     }
                 });
 
-                if (!userResponse.ok) {
-                    throw new Error('Erreur lors de la récupération des informations utilisateur');
-                }
-
                 const userData = await userResponse.json();
 
-                // Redirection selon le rôle
-                switch(userData.profile.fonction) {
-                    case 'admin':
-                        window.location.href = "../pages/RH-dashboard.html";
-                        break;
-                    case 'prof':
-                        window.location.href = "../pages/dashboardprof.html";
-                        break;
-                    case 'employer':
-                        window.location.href = "../pages/user/user-dashboard.html";
-                        break;
-                    
+if (userResponse.ok) {
+    const role = userData.profile.fonction;
+
+    // Stocker les informations utilisateur
+    localStorage.setItem("userRole", role);
+    localStorage.setItem("userData", JSON.stringify(userData.profile));
+
+    // Redirection en fonction du rôle
+    const roleRoutes = {
+        "admin": "../pages/RH-dashboard.html",
+        "prof": "../pages/dashboardprof.html",
+        "employer": "../pages/user/user-dashboard.html"
+    };
+
+    const redirectUrl = roleRoutes[role];
+    if (redirectUrl) {
+        window.location.href = redirectUrl;
+    } else {
+        showError("Rôle non reconnu !");
+    }
+} else {
+    throw new Error("Erreur lors de la récupération des informations utilisateur.");
+}
+
                 }
             } else {
-                if (data.detail === "Account not approved yet. Please wait for admin approval.") {
-                    alert("Votre compte n'est pas encore approuvé. Veuillez attendre l'approbation de l'administrateur.");
+                loginAttempts++;
+                
+                if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+                    showError("Trop de tentatives. Veuillez réessayer plus tard.");
                 } else {
-                    alert("Email ou mot de passe incorrect.");
+                    showError(data.detail || "Email ou mot de passe incorrect.");
                 }
             }
-        } catch (error) {
-            console.error('Erreur:', error);
-            alert("Erreur de connexion au serveur. Veuillez réessayer plus tard.");
+        } catch (err) {
+            console.error("Erreur de requête :", err);
+            showError("Une erreur est survenue. Veuillez réessayer plus tard.");
+        } finally {
+            setLoading(false);
         }
     });
 
+    // Redirection vers création de compte
     const redirectButton = document.querySelector(".btn-submit1");
     if (redirectButton) {
         redirectButton.addEventListener("click", function () {
