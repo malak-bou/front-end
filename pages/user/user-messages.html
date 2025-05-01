@@ -20,7 +20,10 @@
                 <li><a href="Profile-user.html">
                     <i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="#" class="active">
-                    <i class="fas fa-envelope"></i> Messages</a></li>
+                    <i class="fas fa-envelope">
+                        <span class="notification-dot"></span>
+                    </i> Messages
+                </a></li>
                 <li><a href="user-notif.html">
                     <i class="fas fa-bell"></i> Notifications</a></li>
                 <li><a href="user-aide.html">
@@ -66,7 +69,7 @@
                 </div>
             </div>
                 <div class="messages chat" id="chat-message">
-                    <div class="message supconvo" data-name="Nesrine Fettal" data-avatar="profil-pic.png">
+                    <div class="message unread supconvo" data-name="Nesrine Fettal" data-avatar="profil-pic.png">
                         <span class="avatar"><img src="../../assets/images/profil-pic.png" alt="profil-pic"></span>
                         <div class="message-content">
                             <strong>Nesrine Fettal</strong>
@@ -144,7 +147,7 @@
                     </div>
                 </div>
                 <div class="messages" id="rh-messages" style="display: none;">
-                  <div class="message supconvo" data-name="RH Manager" data-avatar="profil-pic.png">
+                  <div class="message unread supconvo" data-name="RH Manager" data-avatar="profil-pic.png">
                       <span class="avatar"><img src="../../assets/images/profil-pic.png" alt="profil-pic"></span>
                       <div class="message-content">
                           <strong>RH Manager</strong>
@@ -198,7 +201,7 @@
               <div class="message received">
                   <div class="message-content">
                       <p>Bonjour madame !</p>
-                      <p>Madame, j’ai une question concernant la sécurité...</p>
+                      <p>Madame, j'ai une question concernant la sécurité...</p>
                   </div>
               </div>
               
@@ -396,5 +399,6 @@
     </div>
 </section>
 <script src="../../scripts/user/user-messages.js"></script>
+<script src="../../scripts/user/notification-handler.js"></script>
 </body>
 </html>

@@ -167,38 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const courses = document.querySelectorAll(".course-card");
 
-    courses.forEach(course => {
-        course.addEventListener("click", function () {
-            const courseTitle = this.getAttribute("data-title");
-            const courseSkills = this.getAttribute("data-skills") ? this.getAttribute("data-skills").split(",") : [];
-            const startDate = new Date().toLocaleDateString();
-
-            let userCourses = JSON.parse(localStorage.getItem("userCourses")) || [];
-
-            // Vérifier si le cours est déjà suivi
-            let existingCourse = userCourses.find(c => c.title === courseTitle);
-
-            if (!existingCourse) {
-                let newCourse = {
-                    title: courseTitle,
-                    progress: 0,
-                    startDate: startDate,
-                    endDate: "En cours...",
-                    completed: false,
-                    skills: courseSkills
-                };
-
-                userCourses.push(newCourse);
-                localStorage.setItem("userCourses", JSON.stringify(userCourses));
-            }
-
-            alert(`Le cours "${courseTitle}" a été ajouté à votre suivi.`);
-        });
-    });
-});
 document.addEventListener("DOMContentLoaded", function () {
     const profileLink = document.getElementById("profile-link");
     const sidebar = document.getElementById("sidebar2");
@@ -660,4 +629,16 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = 'RH-course.html';
       });
     });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const icon = document.querySelector("i.fa-users");
+    const dot = icon ? icon.querySelector(".notification-dot") : null;
+
+    const hasPending = localStorage.getItem("hasPendingAccountRequests") === "true";
+
+    if (dot) {
+        dot.style.display = hasPending ? "block" : "none";
+    }
 });

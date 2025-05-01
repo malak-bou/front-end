@@ -173,6 +173,7 @@ function initializeModifyButtons() {
                         select.innerHTML = `
                             <option value="Professeur" ${cell.textContent.trim() === "Professeur" ? "selected" : ""}>Professeur</option>
                             <option value="Employé" ${cell.textContent.trim() === "Employé" ? "selected" : ""}>Employé</option>
+                            <option value="Administrateur" ${cell.textContent.trim() === "Administrateur" ? "selected" : ""}>Administrateur</option>
                         `;
                         cell.innerHTML = "";
                         cell.appendChild(select);
@@ -334,7 +335,13 @@ function updateNotificationDot() {
     
     // Vérifie s'il y a des lignes visibles dans le tableau des demandes
     const visibleRows = requestsBody ? Array.from(requestsBody.rows).filter(row => row.style.display !== "none").length : 0;
-    
+    const hasPendingRequests = visibleRows > 0;
+    localStorage.setItem("hasPendingAccountRequests", hasPendingRequests ? "true" : "false");
+
+    if (notificationDot) {
+        notificationDot.style.display = hasPendingRequests ? "block" : "none";
+    }
+
     if (visibleRows > 0) {
         notificationDot.style.display = "block";
     } else {

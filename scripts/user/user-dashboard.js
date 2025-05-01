@@ -52,8 +52,25 @@ domainFilters.forEach(filter => filter.addEventListener("change", filterCourses)
 filterCourses();
  // Nav barre
 function toggleNav() {
-    document.getElementById("sidebar").classList.toggle("active");
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar) {
+        sidebar.classList.toggle('active');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -110,38 +127,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const courses = document.querySelectorAll(".course-card");
 
-    courses.forEach(course => {
-        course.addEventListener("click", function () {
-            const courseTitle = this.getAttribute("data-title");
-            const courseSkills = this.getAttribute("data-skills") ? this.getAttribute("data-skills").split(",") : [];
-            const startDate = new Date().toLocaleDateString();
 
-            let userCourses = JSON.parse(localStorage.getItem("userCourses")) || [];
 
-            // Vérifier si le cours est déjà suivi
-            let existingCourse = userCourses.find(c => c.title === courseTitle);
 
-            if (!existingCourse) {
-                let newCourse = {
-                    title: courseTitle,
-                    progress: 0,
-                    startDate: startDate,
-                    endDate: "En cours...",
-                    completed: false,
-                    skills: courseSkills
-                };
 
-                userCourses.push(newCourse);
-                localStorage.setItem("userCourses", JSON.stringify(userCourses));
-            }
 
-            alert(`Le cours "${courseTitle}" a été ajouté à votre suivi.`);
-        });
-    });
-});
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const profileLink = document.getElementById("profile-link");
     const sidebar = document.getElementById("sidebar2");
@@ -465,22 +458,30 @@ function addPopupStyles() {
                 justify-content: flex-end;
             }
             
-            .join-button {
-                background-color: #0066cc;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                text-decoration: none;
-                display: inline-block;
-            }
             
-            .join-button:hover {
-                background-color: #0055aa;
-            }
+
+                .join-button  {  padding: 6px 12px;
+        border-radius: 15px;
+        font-weight: 500;
+        display: inline-block;
+        margin-right: 10px;
+        cursor: pointer;
+        border: none;
+        font-size: 18px;
+        text-decoration: none;
+    }
+
+                        .join-button {
+                background-color: #DBEAFE;
+                color: #1E40AF;
+                box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+                }
+                .join-button:hover {
+                box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4); /* Darker blue shadow */
+                transform: translateY(-1px);
+                transition: all 0.2s ease;
+                }
+
             
             /* Make courses in sidebar look clickable */
             .cours-sidebar {
@@ -621,4 +622,19 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = 'course.html';
       });
     });
+});
+
+// Function to handle clicking outside of sidebar1
+document.addEventListener('click', function(event) {
+    const sidebar1 = document.getElementById('sidebar');
+    const menuIcon = document.querySelector('.menuicon');
+    
+    // Check if click is outside sidebar1 and not on the menu icon
+    if (sidebar1 && !sidebar1.contains(event.target) && 
+        menuIcon && !menuIcon.contains(event.target) && 
+        sidebar1.classList.contains('active')) {
+        
+        // Close sidebar1
+        sidebar1.classList.remove('active');
+    }
 });

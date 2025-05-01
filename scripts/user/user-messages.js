@@ -199,3 +199,41 @@ document.addEventListener("DOMContentLoaded", function () {
    
 });
 
+// Function to check for unread messages
+function checkUnreadMessages() {
+    // Get all messages
+    const messages = document.querySelectorAll('.message');
+    const unreadMessages = Array.from(messages).filter(message => 
+        !message.classList.contains('read')
+    );
+
+    // Get the messages icon in the sidebar
+    const messageIcon = document.querySelector('.sidebar ul li a i.fa-envelope');
+    
+    // Update the notification dot based on unread messages
+    if (unreadMessages.length > 0) {
+        messageIcon.classList.add('has-unread');
+    } else {
+        messageIcon.classList.remove('has-unread');
+    }
+}
+
+// Check for unread messages when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    checkUnreadMessages();
+
+    // Mark a message as read when clicked
+    document.querySelectorAll('.message').forEach(message => {
+        message.addEventListener('click', function() {
+            this.classList.add('read');
+            checkUnreadMessages(); // Update the notification dot
+        });
+    });
+});
+
+// Function to simulate receiving a new message (for testing)
+function simulateNewMessage() {
+    const messageIcon = document.querySelector('.sidebar ul li a i.fa-envelope');
+    messageIcon.classList.add('has-unread');
+}
+

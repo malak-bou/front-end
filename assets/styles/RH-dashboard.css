@@ -741,7 +741,6 @@ footer {
     border-radius: 10px;
     border: 3px solid transparent;
     box-shadow: 0px 3px 4px gray;
-    background: rgb(231, 231, 231);
     outline: none;
     padding: 0 40px 0 15px;
 }
@@ -1066,3 +1065,20 @@ header .current-date2 {
 .profile-sidebar-text{
     color: white;
 }
+
+
+.notification-dot {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+  }
+  
+  .sidebar ul li i {
+    position: relative;
+    display: inline-block;
+  }

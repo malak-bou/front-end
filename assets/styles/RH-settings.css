@@ -462,3 +462,20 @@ footer {
         justify-content: center;
     }
 }
+
+.notification-dot {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+  }
+  
+  .sidebar ul li i {
+    position: relative;
+    display: inline-block;
+  }
+  
