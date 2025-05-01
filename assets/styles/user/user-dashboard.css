@@ -52,7 +52,6 @@ header {
     border-radius: 10px;
     border: 3px solid transparent;
     box-shadow: 0px 3px 4px gray;
-    background: rgb(231, 231, 231);
     outline: none;
     padding: 0 40px 0 15px;
 }
@@ -100,6 +99,7 @@ header {
     justify-content: space-between;
     box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #ddd;
+    font-size: 16px;
 }
 
 /* icons */
@@ -108,7 +108,7 @@ header {
 .sidebar ul li a i,
 .sidebar-footer a i {
     margin-right: 10px;
-    font-size: 18px;
+    font-size: 15px;
     color: #555;
     transition: color 0.3s ease-in-out;
 }
@@ -133,7 +133,14 @@ header {
     font-size: 22px;
     cursor: pointer;
     transition: transform 0.2s ease-in-out;
+
 }
+
+.close-btn:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
 
 .close-btn:hover {
     color: red;
@@ -162,7 +169,6 @@ header {
     align-items: center;
     color: #333;
     text-decoration: none;
-    font-size: 18px;
     padding: 12px;
     font-weight: 600;
     transition: all 0.3s ease-in-out;
@@ -198,6 +204,7 @@ header {
     font-size: 18px;
     padding: 12px;
     font-weight: 600;
+
     transition: all 0.3s ease-in-out;
 }
 
@@ -344,6 +351,7 @@ label:last-child span {
     width: 200px;
     transition: transform 0.3s;
     border: 0.5px solid lightgray;
+    cursor: pointer;
     
 }
 
@@ -986,4 +994,62 @@ header .current-date2 {
     color: #444;
     margin: 0;
 }
+#profile-link:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+  
+.has-unread .notification-dot,
+.sidebar-link.has-unread .notification-dot {
+    display: block !important;
+}
 
+
+
+
+.notification-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    display: none;
+    border: 1.5px solid #ffffff;
+    z-index: 2;
+    pointer-events: none;
+}
+.sidebar ul li a i {
+    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l’icône */
+  }
+  
+  .notification-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+    border: 1.5px solid #ffffff;
+    z-index: 10;
+  }
+  .sidebar ul li a i {
+    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l’icône */
+  }
+  
+  .notification-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+    border: 1.5px solid #ffffff;
+    z-index: 10;
+  }
+  

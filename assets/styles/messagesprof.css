@@ -133,7 +133,6 @@ body {
     align-items: center;
     color: #333;
     text-decoration: none;
-    font-size: 18px;
     padding: 12px;
     font-weight: 600;
     transition: all 0.3s ease-in-out;
@@ -726,25 +725,26 @@ label:last-child span {
 /* Pied de page */
 
 .contact {
+    background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
-}
-ul {
+    padding: 1rem;
+    }
+    ul {
     list-style: none;
-}
-  
-.example-2 {
+    }
+    
+    .example-2 {
     display: flex;
-    justify-content: center;
     align-items: center;
     margin-bottom: 10px;
     margin-top: 10px;
-}
-.example-2 .icon-content {
+    }
+    .example-2 .icon-content {
     margin: 0 10px;
     position: relative;
-}
-
-  .example-2 .icon-content a {
+    }
+    
+    .example-2 .icon-content a {
     position: relative;
     overflow: hidden;
     display: flex;
@@ -756,24 +756,24 @@ ul {
     color: #4d4d4d;
     background-color: #fff;
     transition: all 0.3s ease-in-out;
-  }
-
-  .example-2 .icon-content a:hover {
+    }
+    
+    .example-2 .icon-content a:hover {
     box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
-  }
-
-  .example-2 .icon-content a svg {
+    }
+    
+    .example-2 .icon-content a svg {
     position: relative;
     z-index: 1;
     width: 25px;
     height: 25px;
-  }
-
-  .example-2 .icon-content a:hover {
+    }
+    
+    .example-2 .icon-content a:hover {
     color: white;
-  }
-
-  .example-2 .icon-content a .filled {
+    }
+    
+    .example-2 .icon-content a .filled {
     position: absolute;
     top: auto;
     bottom: 0;
@@ -782,22 +782,22 @@ ul {
     height: 0;
     background-color: #000;
     transition: all 0.3s ease-in-out;
-  }
-  .example-2 .icon-content a:hover .filled {
+    }
+    .example-2 .icon-content a:hover .filled {
     height: 100%;
-  }
-  
-  .example-2 .icon-content a[data-social="linkedin"] .filled,
-  .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
+    }
+    
+    .example-2 .icon-content a[data-social="linkedin"] .filled,
+    .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
     background-color: #0274b3;
-  }
-  
-  .example-2 .icon-content a[data-social="facebook"] .filled,
-  .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
+    }
+    
+    .example-2 .icon-content a[data-social="facebook"] .filled,
+    .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
     background-color: #3b5998;
-  }
-  .example-2 .icon-content a[data-social="instagram"] .filled,
-  .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
+    }
+    .example-2 .icon-content a[data-social="instagram"] .filled,
+    .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
     background: linear-gradient(
       45deg,
       #405de6,
@@ -807,61 +807,66 @@ ul {
       #e1306c,
       #fd1f1f
     );
-  }
-  .example-2 .icon-content a[data-social="youtube"] .filled,
-  .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
+    }
+    .example-2 .icon-content a[data-social="youtube"] .filled,
+    .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
     background-color: #ff0000;
-  }  
-.couleur{
+    }  
+    .couleur{
     color:  #D28C64;
-}
-
-
-.container-contact {
+    }
+    
+    
+    .container-contact {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
-    max-width: 1200px;
+    max-width: 1450px;
     margin: 0 auto;
-}
-
-.partie-d{
+    }
+    
+    .partie-d{
     flex: 0;
     min-width: 300px;
     margin: 1rem;
-}
-
-.partie-g{
+    }
+    
+    .partie-g{
     flex: 1;
     min-width: 300px;
     margin: 1rem;
-}
-
-.gauche  {
-  display: flex;
-  justify-content:start;
+    padding-right: 20%;
+    }
+    
+    .gauche  {
+    display: flex;
+    justify-content:start;
     align-items: center;
-}
-
-.gauche img, footer {
+    }
+    
+    
+    .gauche img, footer {
     width: 200px;
     height: 150px;
-
-}
-
-.photo-reseau {
+    color: white;
+    }
+    
+    
+    
+    .photo-reseau {
     width: 100%;
     max-width: 200px;
- 
-}
-
-footer {
+    
+    }
+    
+    footer {
     text-align: start;
     font-size: 0.7rem;
     margin-top: 0.5rem;
     width: auto;
     height:auto ;
-}
+    }
+    
 
 
 
@@ -948,6 +953,9 @@ footer {
     }
     .chat-header{
         justify-content:start;
+    }
+    .container-contact{
+        flex-direction: column;
     }
   
 

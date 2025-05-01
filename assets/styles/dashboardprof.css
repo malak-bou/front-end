@@ -109,7 +109,6 @@ body {
     align-items: center;
     color: #333;
     text-decoration: none;
-    font-size: 18px;
     padding: 12px;
     font-weight: 600;
     transition: all 0.3s ease-in-out;
@@ -767,32 +766,34 @@ footer {
   }
 
 /* seconde side bar  */
-  .sidebar2 {
+.sidebar2 {
     position: fixed;
     top: 0;
-    right: -350px; /* Move further out */
+    right: -350px; /* Initial off-screen position */
     width: 250px;
     height: 100%;
     background:white;
     color: black;
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    transition: right 0.3s ease-in-out;
+    transition: right 0.3s ease-in-out; /* Keep the transition */
     z-index: 1000;
-  }
-  
-  /* Close Button */
-  .close-btn2 {
+    overflow-y: auto; /* Enable vertical scroll */
+    overflow-x: hidden; /* Disable horizontal scroll */
+}
+
+/* Close Button */
+.close-btn2 {
     position: absolute;
     top: 10px;
     right: 15px;
     font-size: 24px;
     cursor: pointer;
     color: #000;
-  }
-  
-  /* Overlay */
-  .overlay {
+}
+
+/* Overlay */
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -801,22 +802,22 @@ footer {
     background: rgba(0, 0, 0, 0.5);
     display: none; /* Hidden initially */
     z-index: 999;
-  }
-  
-  /* Show Sidebar */
-  .sidebar2.show {
+}
+
+/* Show Sidebar */
+.sidebar2.show {
     right: 0;
-  }
-  
-  /* Hide Sidebar (force it to move completely out) */
-  .sidebar2.hide {
+}
+
+/* Hide Sidebar (force it to move completely out) */
+.sidebar2.hide {
     right: -350px; /* Move further left */
-  }
-  
-  /* Show Overlay */
-  .overlay.show {
+}
+
+/* Show Overlay */
+.overlay.show {
     display: block;
-  }
+}
 
 
 
@@ -854,7 +855,7 @@ footer {
 }
 
 .wrapper2{
-    margin-top: 30px;
+    margin-top: 15px;
     background:  #1A0495;
     border-radius: 10px;
     width: 270px;
@@ -873,6 +874,7 @@ footer {
 header .icons2{
     display: flex;
     gap: 10px;
+    cursor: pointer;
 }
 header .icons2 img{
     height: 38px;
@@ -919,6 +921,7 @@ header .current-date2 {
 
     width: calc(100% / 7);
     font-size: 15px;
+    cursor: pointer;
 }
 .calendar2 .weeks li {
     font-weight: 500;
@@ -1007,14 +1010,19 @@ header .current-date2 {
 
 .cours-sidebar{
     width: 16.875rem;
-    height: 3.75rem;
+    height: auto;
     margin-top: 20px;
     border-radius: 10px;
     background: #d4d4d4;
     position: center;
     display: flex;
     flex-direction: row;
-
+    align-items: flex-start;
+    box-sizing: border-box; 
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-left: 5px;
 }
 .cours-sidebar p{
     font-size: 10px;

@@ -199,3 +199,13 @@ document.addEventListener("DOMContentLoaded", function () {
    
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const icon = document.querySelector("i.fa-users");
+    const dot = icon ? icon.querySelector(".notification-dot") : null;
+
+    const hasPending = localStorage.getItem("hasPendingAccountRequests") === "true";
+
+    if (dot) {
+        dot.style.display = hasPending ? "block" : "none";
+    }
+});

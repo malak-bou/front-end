@@ -16,6 +16,26 @@ body{
     flex-direction: column;
     color: white;
 }
+
+
+
+
+.notification-dot {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+  }
+  
+  .sidebar ul li i {
+    position: relative;
+    display: inline-block;
+  }
+
 .upbar {
     height: 10vh;
     margin-top: 25px;
@@ -129,7 +149,6 @@ body{
     align-items: center;
     color: #333;
     text-decoration: none;
-    font-size: 18px;
     padding: 12px;
     
     font-weight: 600;
@@ -477,7 +496,7 @@ here*/
     border: none;
 }
 #go-back:hover{
-    border-colo: gray;
+    border-color: gray;
 }
 
 
@@ -2146,3 +2165,4 @@ li.courss:hover {
 header .icons{
     cursor: pointer;
 }
+
