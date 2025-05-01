@@ -61,59 +61,58 @@
    
     <main>
         <!-- Intro Text -->
-        <br>
-        <br>
-           <p>Ici, vous trouverez les demandes de création de comptes pour les utilisateurs de la plateforme.
-         Acceptez si vous souhaitez créer le compte, sinon supprimez-le . </p><p> Assurez-vous que la personne existe bien dans le département avant de prendre une décision. </p>
-        <br>
+       
       
        <section class="requests">
-           <h2>Les demandes</h2>
-           <table id="tableId">
-               <thead class="table-head">
-                   <tr>
-                       <th>Nom</th>
-                       <th>Prenom</th>
-                       <th>Department</th>
-                       <th>Function</th>
-                       <th>Valider</th>
-                       <th>Supprimer</th>
-                   </tr>
-               </thead>
-               <tbody id="requests-body">
-                   <tr>
-                       <td>Fettal</td>
-                       <td>Nesrine</td>
-                       <td>IT</td>
-                       <td>Etudiant</td>
-                       <td><button class="create">Valider</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>A</td>
-                       <td>Mohamed</td>
-                       <td>IT</td>
-                       <td>Etudiant</td>
-                       <td><button class="create">Valider</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>Salami</td>
-                       <td>Amine</td>
-                       <td>IT</td>
-                       <td>Etudiant</td>
-                       <td><button class="create">Valider</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-               </tbody>
-           </table>
+           <h2 class="space2">Les demandes</h2>
+           <div class="demande-container">
+                    <table id="tableId">
+                      <thead class="table-head">
+                          <tr>
+                              <th>Nom</th>
+                              <th>Prenom</th>
+                              <th>Department</th>
+                              <th>Function</th>
+                              <th>Valider</th>
+                              <th>Supprimer</th>
+                          </tr>
+                      </thead>
+                      <tbody id="requests-body">
+                          <tr>
+                              <td>Fettal</td>
+                              <td>Nesrine</td>
+                              <td>IT</td>
+                              <td>Etudiant</td>
+                              <td><button class="create">Valider</button></td>
+                              <td><button class="delete">Supprimer</button></td>
+                          </tr>
+                          <tr>
+                              <td>A</td>
+                              <td>Mohamed</td>
+                              <td>IT</td>
+                              <td>Etudiant</td>
+                              <td><button class="create">Valider</button></td>
+                              <td><button class="delete">Supprimer</button></td>
+                          </tr>
+                          <tr>
+                              <td>Salami</td>
+                              <td>Amine</td>
+                              <td>IT</td>
+                              <td>Etudiant</td>
+                              <td><button class="create">Valider</button></td>
+                              <td><button class="delete">Supprimer</button></td>
+                          </tr>
+                      </tbody>
+                    </table>
+              </div>
        </section>
        <br>
-       <p>  Vous trouverez ici la liste des comptes déjà créés.
-          Vous avez la possibilité de les modifier ou de les supprimer selon vos besoins </p> <br>
-       <section class="accounts">
-           <h2>La liste des comptes</h2>
-           <table>
+      
+       
+           <h2 class="space space2">Comptes existants (déjà créés)</h2>
+           <section class="accounts">
+            <div class="demande-container">
+           <table id="tableId">
                <thead>
                    <tr>
                        <th>Nom</th>
@@ -191,6 +190,7 @@
                    </tr>
                </tbody>
            </table>
+          </div>
        </section>
       
    </main>
@@ -314,8 +314,8 @@
   <div class="modal-content">
     <p class="textS">Voulez-vous vraiment valider cette demande et créer le compte ?</p>
     <div class="modal-buttons">
-      <button id="confirmBtn">Oui</button>
-      <button id="cancelBtn">Non</button>
+      <button id="confirmBtn">Valider</button>
+      <button id="cancelBtn">Annuler</button>
     </div>
   </div>
 </div>
@@ -323,7 +323,7 @@
   <div class="popup-box">
     <h3>Confirmer la modification</h3>
     <p>Êtes-vous sûr de vouloir modifier ces informations ?</p>
-    <button id="confirmEditBtn">Oui</button>
+    <button id="confirmEditBtn">Modifier</button>
     <button onclick="closeEditConfirmPopup() " id="dontmodifybotton">Annuler</button>
   </div>
 </div>
@@ -331,7 +331,7 @@
   <div class="popup-content">
     <p class="text-delet">Êtes-vous sûr de vouloir supprimer cette ligne ?</p>
     <div class="popup-buttons">
-      <button id="confirmDeleteBtn">Oui</button>
+      <button id="confirmDeleteBtn">Supprimer</button>
       <button onclick="closeDeleteConfirmPopup()">Annuler</button>
     </div>
   </div>

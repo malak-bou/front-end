@@ -1,266 +1,190 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("searchInput"); // Barre de recherche
-    const tableRows = document.querySelectorAll("#existing-accounts tbody tr"); // Toutes les lignes du tableau
+// Stockage des formations (dans un vrai projet, cela serait dans une base de données)
+let formations = [];
 
-    function filterTable() {
-        const searchValue = searchInput.value.toLowerCase().trim();
-
-        tableRows.forEach(row => {
-            const rowText = row.textContent.toLowerCase();
-            row.style.display = rowText.includes(searchValue) ? "table-row" : "none";
-        });
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener("input", filterTable);
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Sélectionner toutes les cellules de la colonne "Status"
-    document.querySelectorAll("td").forEach(cell => {
-        // Vérifie si la cellule contient un statut connu
-        let statusText = cell.textContent.trim().toLowerCase();
-
-        if (["failed", "warning", "processing", "verified"].some(status => statusText.includes(status))) {
-            // Ajoute une classe pour identification
-            cell.classList.add("status");
-
-            // Ajoute un événement de clic sur chaque cellule de statut
-            cell.addEventListener("click", function () {
-                showPopup(statusText);
-            });
-        }
-    });
-});
-
-// Fonction pour afficher un pop-up stylisé
-function showPopup(status) {
-    // Définir le message et l'icône en fonction du statut
-    let messages = {
-        "failed": { text: "Cette formation a échoué.", icon: "❌", color: "red" },
-        "warning": { text: "Attention ! Vérification nécessaire.", icon: "⚠️", color: "orange" },
-        "processing": { text: "Cette formation est en cours de traitement.", icon: "⏳", color: "blue" },
-        "verified": { text: "Félicitations ! Formation validée.", icon: "✅", color: "green" }
-    };
-
-    let statusKey = Object.keys(messages).find(key => status.includes(key));
-
-    if (!statusKey) return;
-
-    let { text, icon, color } = messages[statusKey];
-
-    // Créer un conteneur pour le pop-up
-    let popup = document.createElement("div");
-    popup.style.position = "fixed";
-    popup.style.top = "50%";
-    popup.style.left = "50%";
-    popup.style.transform = "translate(-50%, -50%)";
-    popup.style.background = "white";
-    popup.style.padding = "20px";
-    popup.style.border = `2px solid ${color}`;
-    popup.style.borderRadius = "10px";
-    popup.style.boxShadow = "0px 4px 10px rgba(0,0,0,0.2)";
-    popup.style.textAlign = "center";
-    popup.style.zIndex = "1000";
-    popup.innerHTML = `<h3 style="color:${color}">${icon} ${text}</h3>`;
-
-    // Ajouter un bouton de fermeture
-    let closeButton = document.createElement("button");
-    closeButton.textContent = "Fermer";
-    closeButton.style.marginTop = "10px";
-    closeButton.style.padding = "5px 10px";
-    closeButton.style.border = "none";
-    closeButton.style.background = color;
-    closeButton.style.color = "white";
-    closeButton.style.borderRadius = "5px";
-    closeButton.style.cursor = "pointer";
-
-    closeButton.addEventListener("click", function () {
-        document.body.removeChild(popup);
-    });
-
-    popup.appendChild(closeButton);
-    document.body.appendChild(popup);
+// Fonction pour faire défiler jusqu'au formulaire
+function scrollToForm() {
+    const formContainer = document.querySelector('.form-container');
+    formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const tableBody = document.getElementById("formation-table-body");
-    const addButton = document.getElementById("add-formation");
-
-    // Fonction pour ajouter une nouvelle formation
-    addButton.addEventListener("click", function () {
-        const newRow = document.createElement("tr");
-        newRow.innerHTML = `
-            <td><input type="checkbox"></td>
-            <td class="course">
-                <a href="#"><img src="default.png" alt="New Course"> Nouvelle Formation</a>
-            </td>
-            <td>En ligne 🎥</td>
-            <td>DD-MM-YYYY</td>
-            <td>Description ici</td>
-            <td><button class="status processing">Processing</button></td>
-            <td class="actions">
-                <i class="fas fa-edit"></i>
-                <i class="fas fa-trash"></i>
-                <i class="fas fa-share"></i>
-            </td>
-        `;
-        tableBody.appendChild(newRow);
-        attachEventListeners(newRow);
-    });
-
-    // Fonction pour attacher les événements aux boutons d'action
-    function attachEventListeners(row) {
-        const editButton = row.querySelector(".fa-edit");
-        const deleteButton = row.querySelector(".fa-trash");
-        const shareButton = row.querySelector(".fa-share");
-
-      // Modifier une formation
-editButton.addEventListener("click", function () {
-    const cells = row.querySelectorAll("td:not(:first-child, .actions)");
+// Fonction pour gérer l'affichage du champ de lien
+function handleFormationType() {
+    const formationType = document.getElementById('formation-type');
+    const formationLink = document.getElementById('formation-link');
     
-    if (editButton.classList.contains("editing")) {
-        // Sauvegarde des modifications
-        cells.forEach(cell => {
-            const input = cell.querySelector("input");
-            if (input) {
-                cell.innerHTML = input.value;
-            }
-        });
-        editButton.classList.remove("editing");
+    if (formationType.value === 'En ligne') {
+        formationLink.removeAttribute('disabled');
+        formationLink.setAttribute('required', 'required');
+        formationLink.style.opacity = '1';
     } else {
-        // Passage en mode édition avec un style de "carte"
-        cells.forEach(cell => {
-            const input = document.createElement("input");
-            input.type = "text";
-            input.value = cell.textContent.trim();
-            
-            // Appliquer un style de "carte" pour l'input
-            input.style.padding = "12px";
-            input.style.borderRadius = "8px";
-            input.style.border = "1px solid #ddd";
-            input.style.width = "100%";
-            input.style.boxSizing = "border-box";
-            input.style.fontSize = "16px";
-            input.style.transition = "all 0.3s ease"; // Smooth transition
-            input.style.backgroundColor = "#f9f9f9";
-            
-            // Ajouter une ombre légère pour un effet de carte
-            input.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            
-            // Ajouter une bordure plus nette lors du focus
-            input.addEventListener("focus", () => {
-                input.style.border = "1px solid #007bff";
-                input.style.boxShadow = "0 4px 8px rgba(0, 123, 255, 0.2)";
-            });
-
-            input.addEventListener("blur", () => {
-                input.style.border = "1px solid #ddd";
-                input.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-            });
-
-            cell.innerHTML = "";
-            cell.appendChild(input);
-        });
-        editButton.classList.add("editing");
+        formationLink.setAttribute('disabled', 'disabled');
+        formationLink.removeAttribute('required');
+        formationLink.value = ''; // Clear the link when disabled
+        formationLink.style.opacity = '0.5';
     }
-});
+}
 
-
-        // Supprimer une formation
-        deleteButton.addEventListener("click", function () {
-            row.remove();
-        });
-    }
+// Fonction pour ajouter une nouvelle formation
+function addFormation(event) {
+    event.preventDefault();
     
+    const newFormation = {
+        professor: document.getElementById('prof-name').value,
+        name: document.getElementById('formation-name').value,
+        date: document.getElementById('datePicker').value,
+        time: document.getElementById('timePicker').value,
+        description: document.getElementById('formation-description').value,
+        type: document.getElementById('formation-type').value,
+        link: document.getElementById('formation-link').value,
+        status: 'En attente',  // Statut initial
+        id: Date.now() // Ajouter un identifiant unique
+    };
+    
+    formations.push(newFormation);
+    updateTable();
+    document.getElementById('formation-form').reset();
+    document.getElementById('preview').style.display = 'none';
+    handleFormationType(); // Reset link field state
+}
 
-    // Attacher les événements aux formations existantes
-    document.querySelectorAll("tbody tr").forEach(row => attachEventListeners(row));
-});
+// Fonction pour supprimer une formation
+function removeFormation(id) {
+    formations = formations.filter(formation => formation.id !== id);
+    updateTable();
+}
 
-
-document.querySelectorAll(".fa-share").forEach((shareIcon) => {
-    shareIcon.addEventListener("click", function (event) {
-        // Supprimer les anciens popups
-        let existingPopup = document.querySelector(".share-popup");
-        if (existingPopup) existingPopup.remove();
-
-        let row = this.closest("tr");
-        let formationName = row.querySelector(".course").innerText.trim();
-        let shareText = `Découvrez cette formation : ${formationName}`;
-        let shareUrl = encodeURIComponent("https://example.com"); // Remplace par ton lien réel
-
-        // Copier le texte dans le presse-papiers
-        navigator.clipboard.writeText(shareText).then(() => {
-            console.log("Lien copié : ", shareText);
-        });
-
-        // Création du popup de partage
-        let popup = document.createElement("div");
-        popup.className = "share-popup";
-        popup.innerHTML = `
-            <p>Lien copié!</p>
-            <div class="share-icons">
-                <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" width="32" height="32">
-                </a>
-                <a href="https://wa.me/?text=${encodeURIComponent(shareText)}" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="32" height="32">
-                </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}" target="_blank">
-                    <img src="assets/images/LinkedIn.png">
-                </a>
-            </div>
-        `;
-
-        // Ajout du popup à l'élément parent
-        this.parentElement.appendChild(popup);
-
-        setTimeout(() => {
-            popup.classList.add("show");
-        }, 10);
-
-        // Cacher le popup au clic en dehors
-        document.addEventListener("click", function hidePopup(e) {
-            if (!popup.contains(e.target) && e.target !== shareIcon) {
-                popup.classList.remove("show");
-                setTimeout(() => popup.remove(), 300);
-                document.removeEventListener("click", hidePopup);
+// Fonction pour mettre à jour le tableau
+function updateTable() {
+    const tableBody = document.getElementById('formation-table-body');
+    tableBody.innerHTML = '';
+    
+    formations.forEach((formation) => {
+        const row = document.createElement('tr');
+        
+        // Créer la cellule de checkbox
+        const checkboxCell = document.createElement('td');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'formation-checkbox';
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Ajouter une classe pour l'animation de disparition
+                row.classList.add('fade-out');
+                // Attendre la fin de l'animation avant de supprimer
+                setTimeout(() => {
+                    removeFormation(formation.id);
+                }, 500); // Correspond à la durée de l'animation CSS
             }
         });
+        checkboxCell.appendChild(checkbox);
+        row.appendChild(checkboxCell);
+        
+        // Créer les cellules pour les informations de la formation
+        const nameCell = document.createElement('td');
+        nameCell.textContent = formation.name;
+        
+        const typeCell = document.createElement('td');
+        typeCell.textContent = formation.type;
+        
+        const dateCell = document.createElement('td');
+        dateCell.textContent = `${formation.date} ${formation.time}`;
+        
+        // Créer la cellule de statut
+        const statusCell = document.createElement('td');
+        const statusSpan = document.createElement('span');
+        statusSpan.className = `status ${formation.status.toLowerCase().replace(' ', '-')}`;
+        statusSpan.textContent = formation.status;
+        statusCell.appendChild(statusSpan);
+        
+        // Ajouter toutes les cellules à la ligne
+        row.appendChild(nameCell);
+        row.appendChild(typeCell);
+        row.appendChild(dateCell);
+        row.appendChild(statusCell);
+        
+        // Ajouter la ligne au tableau
+        tableBody.appendChild(row);
     });
-});
+}
 
+// Gestion de l'aperçu de l'image
+const fileInput = document.getElementById('file-upload');
+const preview = document.getElementById('preview');
 
-// add formation button//
-document.addEventListener("DOMContentLoaded", function () {
-    let addButton = document.getElementById("add-formation");
-    
-    addButton.addEventListener("click", function () {
-        let formSection = document.getElementById("formation-form"); // Assurez-vous que cet ID existe dans votre HTML
-        formSection.scrollIntoView({ behavior: "smooth" });
-    });
-});
-
-
-
-
- // Nav barre
-
-
-    // Ajouter les événements pour déclencher le filtrage
-    searchInput.addEventListener("input", filterCourses);
-    domainFilters.forEach(filter => filter.addEventListener("change", filterCourses));
-
-    // Appliquer le filtre au chargement de la page
-    filterCourses();
-
-    // Fonction pour gérer l'affichage de la barre de navigation
-    function toggleNav() {
-        document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
+fileInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.style.display = 'none';
     }
+});
 
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+    // Gérer le bouton d'ajout de formation
+    const addFormationButton = document.getElementById('add-formation');
+    addFormationButton.addEventListener('click', scrollToForm);
+
+    // Gérer la soumission du formulaire
+    const form = document.getElementById('formation-form');
+    form.addEventListener('submit', addFormation);
+
+    // Gérer le changement de type de formation
+    const formationType = document.getElementById('formation-type');
+    formationType.addEventListener('change', handleFormationType);
+    
+    // Initialiser l'état du champ de lien
+    handleFormationType();
+
+    // Gérer le bouton Annuler
+    document.querySelector('.cancel').addEventListener('click', function(e) {
+        e.preventDefault();
+        const form = document.getElementById('formation-form');
+        form.reset();
+        
+        // Réinitialiser l'aperçu de l'image
+        const preview = document.getElementById('preview');
+        if (preview) {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+        
+        // Réinitialiser l'état du champ de lien
+        handleFormationType();
+    });
+
+    // Initialiser le tableau
+    updateTable();
+});
+
+const dateInput = document.getElementById('datePicker');
+const selectedDateLabel = document.getElementById('selectedDate');
+
+dateInput.addEventListener('change', function() {
+  selectedDateLabel.textContent = dateInput.value;
+});
+// add formation button//
+const timeInput = document.getElementById('timePicker');
+const selectedHourLabel = document.getElementById('selectedHour');
+
+timeInput.addEventListener('change', function () {
+  const timeValue = timeInput.value; // e.g. "14:30"
+  const hourOnly = timeValue.split(':')[0]; // "14"
+  selectedHourLabel.textContent = hourOnly + ":00";
+});
+
+// Nav barre
+
+// Fonction pour gérer l'affichage de la barre de navigation
+function toggleNav() {
+    document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
+}
 
 
 

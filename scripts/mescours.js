@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.querySelector(".group .input") || document.querySelector(".search-bar input");
     const courses = document.querySelectorAll(".course-card");
     const domainFilters = document.querySelectorAll(".radio-inputs input");
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.querySelector(".toggle-btn");
+   
 
     // Fonction de filtrage
     function filterCourses() {
@@ -29,18 +28,10 @@ document.addEventListener("DOMContentLoaded", function () {
     filterCourses();
 
     // Gestion de la Sidebar
-    if (toggleBtn && sidebar) {
-        toggleBtn.addEventListener("click", function () {
-            sidebar.classList.toggle("active");
-        });
-    }
+  
 
     // Fermer la sidebar en cliquant en dehors
-    document.addEventListener("click", function (event) {
-        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
-            sidebar.classList.remove("active");
-        }
-    });
+ 
 
     // Agrandissement de l'image de profil
     const profilePic = document.querySelector(".profile");
@@ -87,25 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 document.addEventListener("DOMContentLoaded", function () {
     // Gestion de la Sidebar
-    const sidebar = document.getElementById("sidebar");
-    const openBtn = document.getElementById("toggleSidebar");
-    const closeBtn = document.getElementById("closeSidebar");
-
-    if (openBtn && closeBtn && sidebar) {
-        openBtn.addEventListener("click", function () {
-            sidebar.classList.add("active");
-        });
-
-        closeBtn.addEventListener("click", function () {
-            sidebar.classList.remove("active");
-        });
-
-        document.addEventListener("click", function (event) {
-            if (!sidebar.contains(event.target) && !openBtn.contains(event.target)) {
-                sidebar.classList.remove("active");
-            }
-        });
-    }
+  
 
     // Gestion de la Recherche
     const searchInput = document.getElementById("searchInput");
@@ -124,90 +97,18 @@ document.addEventListener("DOMContentLoaded", function () {
         searchInput.addEventListener("input", filterCourses);
     }
 });
-document.getElementById("toggleSidebar").addEventListener("click", function () {
-    document.getElementById("sidebar").classList.toggle("hidden");
-});
 
-document.getElementById("closeSidebar").addEventListener("click", function () {
-    document.getElementById("sidebar").classList.add("hidden");
-});
-document.addEventListener("DOMContentLoaded", function () {
-    let links = document.querySelectorAll(".sidebar-menu li a");
-    links.forEach(link => {
-        if (link.href === window.location.href) {
-            link.classList.add("active");
-        }
-    });
-});
-document.getElementById('toggleSidebar').addEventListener('click', function() {
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('open');
-});
-function toggleSidebar() {
-    var sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("open");
-}
-document.addEventListener("DOMContentLoaded", function () {
-    // Sélection des éléments
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.getElementById("toggleSidebar");
-    const closeBtn = document.getElementById("closeSidebar");
 
-    // **🔹 FERME LA SIDEBAR AU CHARGEMENT 🔹**
-    sidebar.classList.remove("open"); // Assure que la sidebar est fermée par défaut
 
-    // **🔹 GESTION DE LA SIDEBAR 🔹**
-    function toggleSidebar() {
-        sidebar.classList.toggle("open");
-    }
 
-    function closeSidebar() {
-        sidebar.classList.remove("open");
-    }
-
-    if (toggleBtn) {
-        toggleBtn.addEventListener("click", toggleSidebar);
-    }
-
-    if (closeBtn) {
-        closeBtn.addEventListener("click", closeSidebar);
-    }
-
-    document.addEventListener("click", function (event) {
-        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
-            closeSidebar();
-        }
-    });
-});
 function scrollToCourses() {
     const coursesSection = document.querySelector(".course-container");
     if (coursesSection) {
         coursesSection.scrollIntoView({ behavior: "smooth" });
     }
 }
-document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".sidebar a");
 
-    links.forEach(link => {
-        link.addEventListener("click", function () {
-            links.forEach(l => l.classList.remove("active"));
-            this.classList.add("active");
 
-            // Sauvegarde l'état dans le stockage local
-            localStorage.setItem("activeLink", this.getAttribute("href"));
-        });
-    });
-
-    // Restaure l'état après un rechargement
-    const activeLink = localStorage.getItem("activeLink");
-    if (activeLink) {
-        links.forEach(link => {
-            if (link.getAttribute("href") === activeLink) {
-                link.classList.add("active");
-            }
-        });
-    }
-});
 document.addEventListener("DOMContentLoaded", function () {
     const filterSelect = document.getElementById("course-filter");
     const courses = document.querySelectorAll(".course-card");
@@ -241,3 +142,31 @@ function showAllCourses() {
         filterSelect.value = "all";
     }
 }
+
+function toggleNav() {
+    document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.course-card').forEach(card => {
+      card.addEventListener('click', function () {
+        // Build the course object based on the card's content or data attributes
+        const courseObj = {
+          domain: this.querySelector('.department')?.textContent || 'IT',
+          image: this.querySelector('img')?.getAttribute('src') || '',
+          title: this.querySelector('h3')?.textContent || '',
+          teacher: this.querySelector('p')?.textContent.replace('By ', '') || '',
+          description: 'Description à compléter...', // You may want to add a data-description attribute
+          field: this.querySelector('.department')?.textContent || '',
+          resources: {
+            record: null,
+            pptx: null,
+            pdf: null,
+            extraLinks: [],
+            quiz: null
+          }
+        };
+        localStorage.setItem('selectedCourse', JSON.stringify(courseObj));
+        window.location.href = 'prof-course-mondep.html';
+      });
+    });
+});
