@@ -97,30 +97,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const userData = await userResponse.json();
 
-if (userResponse.ok) {
-    const role = userData.profile.fonction;
+                if (userResponse.ok) {
+                    const role = userData.profile.fonction;
+                    
+                    // Stocker les informations utilisateur
+                    localStorage.setItem("userRole", role);
+                    localStorage.setItem("userData", JSON.stringify(userData.profile));
 
-    // Stocker les informations utilisateur
-    localStorage.setItem("userRole", role);
-    localStorage.setItem("userData", JSON.stringify(userData.profile));
+                    // Redirection en fonction du rôle
+                    const roleRoutes = {
+                        "admin": "../pages/RH-dashboard.html",
+                        "prof": "../pages/dashboardprof.html",
+                        "employer": "../pages/user/user-dashboard.html"
+                    };
 
-    // Redirection en fonction du rôle
-    const roleRoutes = {
-        "admin": "../pages/RH-dashboard.html",
-        "prof": "../pages/dashboardprof.html",
-        "employer": "../pages/user/user-dashboard.html"
-    };
-
-    const redirectUrl = roleRoutes[role];
-    if (redirectUrl) {
-        window.location.href = redirectUrl;
-    } else {
-        showError("Rôle non reconnu !");
-    }
-} else {
-    throw new Error("Erreur lors de la récupération des informations utilisateur.");
-}
-
+                    const redirectUrl = roleRoutes[role];
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else {
+                        showError("Rôle non reconnu !");
+                    }
+                } else {
+                    throw new Error("Erreur lors de la récupération des informations utilisateur.");
                 }
             } else {
                 loginAttempts++;
