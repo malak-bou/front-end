@@ -87,7 +87,7 @@ body {
 .sidebar ul {
     list-style: none;
     padding: 0;
-    margin: 60px 0 0;
+    margin: 50px 0 0;
 }
 
 .sidebar ul li {
@@ -460,3 +460,6 @@ footer {
         justify-content: center;
     }
 }
+
+
+

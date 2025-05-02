@@ -9,10 +9,10 @@ body {
   background: linear-gradient(to bottom, #6c52d9, #5a46ba);
   color: white;
 }
-.upbar, .departments, .request, .calendar-section, .message-section{
+.upbar, .departments, .calendar-section, .message-section{
   padding: 20px;
 }
-.departments button, .calendar-section button, .request button, .message-section button {
+  .message-section button {
   margin: 5px;
   padding: 10px 20px;
   border: none;
@@ -36,20 +36,35 @@ body {
   background-color: white;
   color: #5a46ba;
 }
-.request, .calendar-section, .message-section {
+.calendar-section, .message-section {
   background-color: #15006a;
+  box-shadow: 0 8px 20px rgba(21, 0, 106, 0.6);
   margin: 20px;
   border-radius: 20px;
   padding: 20px;
 }
+
+.request{
+  box-shadow: 0 8px 20px rgba(21, 0, 106, 0.6);
+  background-color: #15006a;
+
+  border-radius: 20px;
+  padding: 20px;
+}
+
+
+
+
 .request{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 60%;
 }
 .request-box {
   background-color: white;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
   color: black;
   border-radius: 10px;
   padding: 20px;
@@ -57,6 +72,36 @@ body {
   width: 60%;
  
 }
+.center{
+  display: flex;
+  justify-content: center;
+}
+
+
+.request button{
+  padding: 5px 25px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+
+}
+.Ajoute-button{
+  margin-top: 15px;
+  background-color: rgba(210, 140, 100, 0.80); 
+  box-shadow: 0 8px 24px rgba(210, 140, 100, 0.45);/* 85% opacity */
+}
+.Ajoute-button:hover{
+  box-shadow: 0 4px 12px rgba(210, 140, 100, 0.3);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+
+
+
+
 
 /* Added styles for the formation image preview */
 .formation-image-preview {
@@ -73,6 +118,9 @@ body {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 20px;
   padding: 20px;
@@ -80,10 +128,19 @@ body {
   margin: 20px;
   border-radius: 20px;
   position: relative;
+  width: 80%;
 }
+
+.center-calendar{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 
 .calendar-S {
   background: white;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
   color: black;
   padding: 15px;
   border-radius: 10px;
@@ -95,11 +152,14 @@ body {
 
 .info {
   background: white;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
   color: black;
   padding: 15px;
   border-radius: 10px;
   flex: 0 0 35% !important;
   min-width: 300px;
+  align-self: flex-start;
+
 }
 
 /* Clear style when sections are shown */
@@ -107,6 +167,7 @@ body {
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
+  align-items: center !important;
 }
 
 /* Hidden sections */
@@ -163,13 +224,25 @@ footer {
   justify-content: center;
   margin-bottom: 15px;
 }
-.Ajoute-button{
-  background: #D28C64;
-}
+
 .Annuler-button{
   background: #15006a;
   color: white;
   
+}
+#addDayBtn{
+  
+}
+
+
+
+
+.calendar-section button{
+  padding: 6px 20px;
+  border-radius: 30px;
+  box-shadow: none;
+  border: none ;
+
 }
 .button-container{
   display: flex;
@@ -185,6 +258,8 @@ footer {
   text-align: center;
 }
 .text-container{
+  margin-top: 50px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -318,19 +393,23 @@ header .current-date{
 
 /* number de demande style */
 .dept-btn {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
   position: relative;
-  margin: 0.5rem;
-  padding: 0.7rem 1.5rem;
+  margin: 5px;
+  padding: 9px 15px;
   border: none;
   background-color: #eee;
-  border-radius: 8px;
+
+  border-radius: 35px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s;
 }
 
 .dept-btn:hover {
-  background-color: #ddd;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4); /* Darker blue shadow */
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
 }
 
 .badge {
@@ -391,7 +470,7 @@ overflow-x: hidden;
 .sidebar ul li a i,
 .sidebar-footer a i {
 margin-right: 10px;
-font-size: 18px;
+font-size: 17px;
 color: #555;
 transition: color 0.3s ease-in-out;
 }
@@ -426,7 +505,7 @@ color: red;
 .sidebar ul {
 list-style: none;
 padding: 0;
-margin: 60px 0 0;
+margin: 45px 0 0;
 }
 
 .sidebar ul li {
@@ -477,7 +556,7 @@ display: flex;
 align-items: center;
 color: #333;
 text-decoration: none;
-font-size: 18px;
+font-size: 17px;
 padding: 12px;
 font-weight: 600;
 transition: all 0.3s ease-in-out;
@@ -519,6 +598,7 @@ cursor: pointer;
 background: linear-gradient(to right, #6759CD, #342D67);
 color: #ffffff;
 padding: 1rem;
+margin-top: 100px;
 }
 ul {
 list-style: none;
@@ -652,7 +732,7 @@ max-width: 200px;
 
 footer {
 text-align: start;
-font-size: 0.7rem;
+font-size: 17px;
 margin-top: 0.5rem;
 width: auto;
 height:auto ;
@@ -671,7 +751,7 @@ height:auto ;
     flex-wrap: wrap !important;
   }
   
-  .calendar-S, .info {
+  .calendar-S {
     flex: 1 1 auto !important;
     width: 100% !important;
     min-width: unset;
