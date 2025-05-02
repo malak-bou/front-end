@@ -8,7 +8,9 @@ body {
     padding: 0;
     background: linear-gradient(to right, #342D67, #6759CD);
 }
-
+#backButton{
+    cursor: pointer;
+}
 
 /* Barre supérieure */
 .top-bar {
