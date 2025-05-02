@@ -19,12 +19,14 @@
                       <i class="fas fa-home"></i> Accueil</a></li>
                   <li><a href="Profile-user.html">
                       <i class="fas fa-user"></i> Profile</a></li>
-                      <li><a href="user-messages.html">
-                        <i class="fas fa-envelope">
-                            <span class="notification-dot"></span>
-                        </i> Messages</a></li>
+                  <li><a href="user-messages.html">
+                    <i class="fas fa-envelope">
+                        <span class="notification-dot" id="messageDot"></span>
+                    </i> Messages</a></li>
                   <li><a href="#" class="active">
-                      <i class="fas fa-bell"></i> Notifications</a></li>
+                      <i class="fas fa-bell">
+                        <span class="notification-dot" id="notifDot"></span>
+                      </i> Notifications</a></li>
                   <li><a href="user-aide.html" >
                       <i class="fas fa-question-circle"></i> Aide</a></li>
               </ul>
@@ -98,7 +100,7 @@
 
         <!-- Main Content -->
         <main class="main-content">
-          <span id="backButton" class="material-symbols-outlined" style="display: none;" onclick="HideNotif()">
+          <span id="backButton" class="material-symbols-outlined" style="display: none; cursor: pointer;" onclick="HideNotif()">
             arrow_back
           </span>
             <p>Sélectionnez une notification pour afficher son contenu.</p>
@@ -223,5 +225,33 @@
     
         <script src="../../scripts/user/user-notif.js"></script>
         <script src="../../scripts/user/notification-handler.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Boule pour notifications
+            const notifDot = document.getElementById('notifDot');
+            function updateNotifDot() {
+                const unreadNotifs = document.querySelectorAll('.notification.unread');
+                if (notifDot) {
+                    notifDot.style.display = unreadNotifs.length > 0 ? 'block' : 'none';
+                }
+            }
+            updateNotifDot();
+
+            // Quand on clique sur une notification, on la marque comme lue
+            document.querySelectorAll('.notification').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    item.classList.remove('unread');
+                    updateNotifDot();
+                });
+            });
+
+            // Boule pour messages (simulation, à adapter selon ta logique réelle)
+            const messageDot = document.getElementById('messageDot');
+            const unreadMessagesCount = 1; // Mets 0 pour tester la disparition
+            if (messageDot) {
+                messageDot.style.display = unreadMessagesCount > 0 ? 'block' : 'none';
+            }
+        });
+        </script>
     </body>
 </html>

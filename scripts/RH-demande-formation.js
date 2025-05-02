@@ -1060,30 +1060,42 @@ style.textContent = `
   }
   
   .confirm-btn, .cancel-btn {
-    padding: 8px 20px;
+    padding: 6px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
   }
   
-  .confirm-btn {
-    background-color: #28a745;
-    color: white;
-  }
+  
+
+.confirm-btn {
+  background-color: #A7F3D0;
+  color: #065F46;
+  box-shadow: 0 2px 6px rgba(6, 95, 70, 0.3);
+}
+.confirm-btn:hover {
+  box-shadow: 0 4px 12px rgba(6, 95, 70, 0.4); /* Darker green shadow */
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
+
+
+
+
+  
   
   .cancel-btn {
-    background-color: #dc3545;
-    color: white;
-  }
+  background-color: #FECACA;
+  color: #7F1D1D;
+  box-shadow: 0 2px 6px rgba(127, 29, 29, 0.3);
   
-  .confirm-btn:hover {
-    background-color: #218838;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #c82333;
-  }
+}
+.cancel-btn:hover {
+  box-shadow: 0 4px 12px rgba(127, 29, 29, 0.4); /* Ombre rouge plus foncée */
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+}
 
   .success-message {
     position: fixed;
@@ -1164,39 +1176,49 @@ style.textContent = `
   }
   
   .refusal-buttons button {
-    padding: 8px 20px;
+    padding: 5px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
     cursor: pointer;
     font-weight: bold;
   }
   
   .send-btn {
-    background-color: #dc3545;
-    color: white;
+
+    background-color: #DBEAFE;
+    color: #1E40AF;
+    box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+
   }
   
   .direct-refuse-btn {
-    background-color: #6c757d;
-    color: white;
+   background-color: #FECACA;
+    color: #7F1D1D;
+    box-shadow: 0 2px 6px rgba(127, 29, 29, 0.3);
   }
   
   .cancel-refuse-btn {
-    background-color: #f8f9fa;
-    color: #333;
-    border: 1px solid #ddd !important;
+   background-color:rgb(210, 214, 217);
+   color: #65456;
+   box-shadow: 0 2px 6px rgba(13, 13, 13, 0.3);
   }
   
   .send-btn:hover {
-    background-color: #c82333;
+     box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4); /* Darker blue shadow */
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
   }
   
   .direct-refuse-btn:hover {
-    background-color: #5a6268;
+    box-shadow: 0 4px 12px rgba(127, 29, 29, 0.4); /* Ombre rouge plus foncée */
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
   }
   
   .cancel-refuse-btn:hover {
-    background-color: #e2e6ea;
+     box-shadow: 0 4px 12px rgba(63, 63, 63, 0.4); /* Ombre rouge plus foncée */
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
   }
 `;
 document.head.appendChild(style);
@@ -1233,7 +1255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       confirmationPopup.innerHTML = `
         <div class="popup-content">
           <h3>Confirmation</h3>
-          <p>Voulez-vous ajouter cette formation au calendrier ?</p>
+          <p style="color:#333;">Voulez-vous ajouter cette formation au calendrier ?</p>
           <div class="formation-details">
             <p><strong>Cours:</strong> ${currentDemande.course}</p>
             <p><strong>Professeur:</strong> ${currentDemande.professor}</p>
@@ -1396,3 +1418,19 @@ document.addEventListener("DOMContentLoaded", function () {
       dot.style.display = hasPending ? "block" : "none";
   }
 });
+
+
+
+
+
+
+// Met à jour localStorage avec les comptes des demandes par département
+function syncRequestsToLocalStorage(allDemandes) {
+  const counts = {};
+  for (const [dept, demandes] of Object.entries(allDemandes)) {
+    counts[dept] = demandes.length;
+  }
+  localStorage.setItem('formationRequests', JSON.stringify(counts));
+}
+syncRequestsToLocalStorage(allDemandes);
+

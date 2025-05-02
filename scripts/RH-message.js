@@ -238,3 +238,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Vérifie périodiquement les nouvelles demandes
     setInterval(checkFormationRequests, 1000);
 }); 
+
+localStorage.setItem('formationRequests', JSON.stringify({
+    "Informatique": 2,
+    "Marketing": 0
+  }));
+  

@@ -90,10 +90,11 @@ body {
 .Ajoute-button{
   margin-top: 15px;
   background-color: rgba(210, 140, 100, 0.80); 
+
   box-shadow: 0 8px 24px rgba(210, 140, 100, 0.45);/* 85% opacity */
 }
 .Ajoute-button:hover{
-  box-shadow: 0 4px 12px rgba(210, 140, 100, 0.3);
+  box-shadow: 0 4px 10px rgba(210, 140, 100, 0.3);
   transform: translateY(-1px);
   transition: all 0.2s ease;
 }
@@ -161,6 +162,15 @@ body {
   align-self: flex-start;
 
 }
+.info button{
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+
+
+
 
 /* Clear style when sections are shown */
 .calendar-section:not(.hidden-section) {
@@ -230,8 +240,18 @@ footer {
   color: white;
   
 }
-#addDayBtn{
+.Annuler-button:hover{
+  box-shadow: 0 8px 20px rgba(21, 0, 106, 0.6);
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
   
+}
+#addDayBtn{
+  box-shadow: 0 4px 12px rgba(210, 140, 100, 0.3);
+  
+}
+#addDayBtn:hover{
+  ox-shadow: 0 8px 24px rgba(210, 140, 100, 0.45);
 }
 
 
@@ -242,6 +262,7 @@ footer {
   border-radius: 30px;
   box-shadow: none;
   border: none ;
+
 
 }
 .button-container{
@@ -434,7 +455,7 @@ color: #5a46ba;
 }
 
 .days li.selected::before{
-border-color: blue;
+border-color: #15006a;
 border: 2px solid;
 }
 
@@ -746,8 +767,11 @@ height:auto ;
     justify-content: center;
   }
 
+
+
+
+  
   .calendar-section {
-    flex-direction: column !important;
     flex-wrap: wrap !important;
   }
   
@@ -974,7 +998,7 @@ height:auto ;
 
 /* Styles for selected day in calendar */
 .days li.selected {
-  background-color: #007bff !important;
+  background-color: #15006a !important;
   color: #fff !important;
   font-weight: bold;
   transform: scale(1.1);
