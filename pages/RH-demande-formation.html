@@ -115,6 +115,23 @@
     .hidden-section {
       display: none !important;
     }
+    
+    /* Style pour la notification dot */
+    .notification-dot {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 8px;
+      height: 8px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    /* Style pour le conteneur de l'icône */
+    .icon-container {
+      position: relative;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -134,14 +151,16 @@
                       <span class="notification-dot"></span>
                   </i> Gestion des comptes</a></li>
             <li><a href="#" class="active">
-                <i class="fas fa-book"></i> Demande des formations</a></li>
+                <i class="fas fa-book icon-container">
+                    <span class="notification-dot" id="formationNotificationDot"></span>
+                </i> Demande des formations</a></li>
             <li><a href="RH-calendar.html">
                 <i class="fas fa-calendar"></i> Calendarier</a></li>
                 <li><a href="RH-mondepartement.html">
                   <i class="fa-solid fa-users-line"></i> Mon département</a></li>
               <li><a href="RH-mescours.html">
                   <i class="fa-solid fa-chalkboard-user"></i> Mes cours</a></li>
-            <li><a href="RH-message">
+            <li><a href="RH-message.html">
                 <i class="fas fa-envelope"></i> Messages</a></li>
             <li><a href="Nottif-RH.html">
                 <i class="fas fa-bell"></i> Notifications</a></li>
@@ -180,7 +199,7 @@
     <button data-dept="Executive Management" class="dept-btn">Executive Management <span class="badge"></span></button>
     <button data-dept="Center Regional Delegation" class="dept-btn">Center Regional Delegation <span class="badge"></span></button>
   </section>
-
+<div class="center">
   <section class="request">
     <div class="demandes">
       <i class="fas fa-circle-chevron-left icon"  id="prevBtn" ></i> 
@@ -209,15 +228,15 @@
       </div>
     </div>
   </section>
+</div>
   <div class="text-container hidden-section">
-    <p class="t">Les jours en bleu sont réservés pour d'autres formations du Département.</p>
-    <p class="t">Si le jour est réservé, informez le professeur qui a fait la demande
-        et fournissez-lui les jours non réservés par message .</p>
-    <p class="t">Sinon, sélectionnez le jour pour ajouter la formation au calendrier du département.</p>
+    
+    
   </div>
+  <div class="center-calendar">
   <section class="calendar-section hidden-section">
     <div class="calendar-S">
-      <h4 style="text-align:center;">Sélectionner le jour</h4>
+      <h4 style="text-align:center;">Les jours en beige sont réservés pour d'autres formations .</h4>
       <div class="wrapper">
         <header>
           <p class="current-date"></p>
@@ -269,6 +288,7 @@
     </div>
     <button class="close-messages-btn">Fermer</button>
   </section>
+</div>
 
   <section class="contact" id="contact">
     <div class="container-contact">
@@ -485,12 +505,8 @@
                     if (parseInt(dayElement.textContent) === parseInt(day)) {
                       dayElement.click(); // Cliquer sur le jour pour afficher son planning
                       dayElement.classList.add('selected');
-                      // Ajouter un effet de focus sur le jour sélectionné
+                      // Remove the jumping animation
                       dayElement.style.transition = 'all 0.3s ease';
-                      dayElement.style.transform = 'scale(1.1)';
-                      setTimeout(() => {
-                        dayElement.style.transform = '';
-                      }, 300);
                     }
                   });
                 } catch (err) {
@@ -521,41 +537,26 @@
     }
     
     try {
-      // Text container animation first
+      // Text container - smooth fade in
       textContainer.classList.remove('hidden-section');
       textContainer.style.display = 'block';
       textContainer.style.visibility = 'visible';
       textContainer.style.opacity = '0';
-      textContainer.style.transform = 'translateY(20px)';
       
       setTimeout(() => {
-        textContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        textContainer.style.transition = 'opacity 0.5s ease';
         textContainer.style.opacity = '1';
-        textContainer.style.transform = 'translateY(0)';
         
-        // Add highlight effect
-        textContainer.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.5)';
-        
-        // Scroll to text container
-        textContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
-        // Remove highlight after animation
-        setTimeout(() => {
-          textContainer.style.boxShadow = 'none';
-        }, 1500);
-        
-        // Calendar section animation with delay
+        // Calendar section - smooth fade in
         setTimeout(() => {
           calendarSection.classList.remove('hidden-section');
-          calendarSection.style.display = 'flex'; // Important - ensure flex display
+          calendarSection.style.display = 'flex';
           calendarSection.style.visibility = 'visible';
           calendarSection.style.opacity = '0';
-          calendarSection.style.transform = 'translateY(20px)';
           
           setTimeout(() => {
-            calendarSection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            calendarSection.style.transition = 'opacity 0.5s ease';
             calendarSection.style.opacity = '1';
-            calendarSection.style.transform = 'translateY(0)';
             console.log("Calendar section visible with flex display");
           }, 50);
         }, 300);
@@ -577,12 +578,92 @@
       textContainer.style.visibility = 'visible';
       
       calendarSection.classList.remove('hidden-section');
-      calendarSection.style.display = 'flex'; // Ensure flex display in fallback too
+      calendarSection.style.display = 'flex';
       calendarSection.style.visibility = 'visible';
       
       console.log("Used fallback display method due to error");
     }
   }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Fonction pour vérifier s'il y a des demandes de formation
+    function checkFormationRequests() {
+      const deptButtons = document.querySelectorAll('.dept-btn');
+      const notificationDot = document.getElementById('formationNotificationDot');
+      
+      // Vérifie si au moins un département a des demandes
+      let hasRequests = false;
+      deptButtons.forEach(button => {
+        const badge = button.querySelector('.badge');
+        if (badge && badge.textContent && parseInt(badge.textContent) > 0) {
+          hasRequests = true;
+        }
+      });
+      
+      // Affiche ou cache la notification en fonction des demandes
+      if (notificationDot) {
+        notificationDot.style.display = hasRequests ? 'block' : 'none';
+      }
+    }
+
+    // Vérifie les demandes au chargement de la page
+    checkFormationRequests();
+
+    // Vérifie périodiquement les nouvelles demandes
+    setInterval(checkFormationRequests, 1000); // Vérifie chaque seconde
+
+    // Ajouter l'écouteur d'événements pour le bouton "Traiter"
+    const traiterBtn = document.getElementById('traiterBtn');
+    if (traiterBtn) {
+      traiterBtn.addEventListener('click', function() {
+        // Récupérer le département actuel
+        const currentDept = document.getElementById('department').textContent;
+        const deptButtons = document.querySelectorAll('.dept-btn');
+        
+        // Trouver le bouton correspondant au département
+        deptButtons.forEach(button => {
+          if (button.textContent.includes(currentDept.replace('Département ', ''))) {
+            const badge = button.querySelector('.badge');
+            if (badge && badge.textContent) {
+              // Décrémenter le nombre de demandes
+              let count = parseInt(badge.textContent);
+              if (count > 0) {
+                count--;
+                badge.textContent = count || '';
+                
+                // Mettre à jour immédiatement la notification
+                checkFormationRequests();
+              }
+            }
+          }
+        });
+      });
+    }
+
+    // Ajouter l'écouteur d'événements pour le bouton "Valider"
+    const addDayBtn = document.getElementById('addDayBtn');
+    if (addDayBtn) {
+      addDayBtn.addEventListener('click', function() {
+        // Même logique que pour le bouton "Traiter"
+        const currentDept = document.getElementById('department').textContent;
+        const deptButtons = document.querySelectorAll('.dept-btn');
+        
+        deptButtons.forEach(button => {
+          if (button.textContent.includes(currentDept.replace('Département ', ''))) {
+            const badge = button.querySelector('.badge');
+            if (badge && badge.textContent) {
+              let count = parseInt(badge.textContent);
+              if (count > 0) {
+                count--;
+                badge.textContent = count || '';
+                checkFormationRequests();
+              }
+            }
+          }
+        });
+      });
+    }
+  });
   </script>
 </body>
 </html>

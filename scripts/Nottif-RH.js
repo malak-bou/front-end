@@ -104,3 +104,32 @@ document.addEventListener("DOMContentLoaded", function () {
         dot.style.display = hasPending ? "block" : "none";
     }
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Fonction pour récupérer les demandes depuis localStorage
+    function getRequestsFromStorage() {
+        const stored = localStorage.getItem('formationRequests');
+        return stored ? JSON.parse(stored) : {};
+    }
+
+    // Fonction pour vérifier s'il y a des demandes de formation
+    function checkFormationRequests() {
+        const notificationDot = document.getElementById('formationNotificationDot');
+        const requests = getRequestsFromStorage();
+        
+        // Vérifie si au moins un département a des demandes
+        const hasRequests = Object.values(requests).some(count => count > 0);
+        
+        // Affiche ou cache la notification en fonction des demandes
+        if (notificationDot) {
+            notificationDot.style.display = hasRequests ? 'block' : 'none';
+        }
+    }
+
+    // Vérifie les demandes au chargement de la page
+    checkFormationRequests();
+
+    // Vérifie périodiquement les nouvelles demandes
+    setInterval(checkFormationRequests, 1000);
+}); 
