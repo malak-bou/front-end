@@ -35,8 +35,11 @@
                 <i class="fas fa-user"></i> Profile</a></li>
             <li><a href="#" class="active">
                 <i class="fas fa-users"><span class="notification-dot"></span></i>Gestion des comptes</a></li>    
-            <li><a href="RH-demande-formation.html">
-                <i class="fas fa-book"></i> demandes de Formation </a></li>    
+                <li><a href="RH-demande-formation.html">
+                  <i class="fas fa-book icon-container">
+                      <span class="notification-dot" id="formationNotificationDot" style="display: block;"></span>
+                  </i> Demandes de formation</a>
+              </li>  
             <li><a href="RH-calendar.html">
                 <i class="fas fa-calendar"></i> Calendrier</a></li> 
                 <li><a href="RH-mondepartement.html">
@@ -77,32 +80,7 @@
                               <th>Supprimer</th>
                           </tr>
                       </thead>
-                      <tbody id="requests-body">
-                          <tr>
-                              <td>Fettal</td>
-                              <td>Nesrine</td>
-                              <td>Information Technology</td>
-                              <td>Employé</td>
-                              <td><button class="create">Valider</button></td>
-                              <td><button class="delete">Supprimer</button></td>
-                          </tr>
-                          <tr>
-                              <td>A</td>
-                              <td>Mohamed</td>
-                              <td>Information Technology</td>
-                              <td>Employé</td>
-                              <td><button class="create">Valider</button></td>
-                              <td><button class="delete">Supprimer</button></td>
-                          </tr>
-                          <tr>
-                              <td>Salami</td>
-                              <td>Amine</td>
-                              <td>Information Technology</td>
-                              <td>Employé</td>
-                              <td><button class="create">Valider</button></td>
-                              <td><button class="delete">Supprimer</button></td>
-                          </tr>
-                      </tbody>
+                      <tbody id="requests-body"></tbody>
                     </table>
               </div>
        </section>
