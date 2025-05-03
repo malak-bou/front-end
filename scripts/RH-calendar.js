@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 const daysTag = document.querySelector(".days"),
 currentDate = document.querySelector(".current-date"),
 prevNextIcon = document.querySelectorAll(".icons span");
@@ -360,24 +352,26 @@ function confirmDeleteCourse(courseId, day) {
 
 // Function to delete course
 function deleteCourse(courseId, day) {
-    // Find the course index
-    const courseIndex = courseSchedule[day].findIndex(course => course.id === courseId);
-    
-    if (courseIndex !== -1) {
-        // Remove the course
-        courseSchedule[day].splice(courseIndex, 1);
-        
-        // If this was the last course for the day, remove the day entry
-        if (courseSchedule[day].length === 0) {
-            delete courseSchedule[day];
+    // Remove from courseSchedule (sidebar)
+    if (courseSchedule[day]) {
+        const courseIndex = courseSchedule[day].findIndex(course => course.id === courseId);
+        if (courseIndex !== -1) {
+            courseSchedule[day].splice(courseIndex, 1);
+            if (courseSchedule[day].length === 0) {
+                delete courseSchedule[day];
+            }
         }
-        
-        // Refresh the timetable
-        generateTimetableContent(day);
-        
-        // Re-render the calendar to update course days
-        renderCalendar();
     }
+
+    // Remove from courses array (main calendar/timetable)
+    const mainIndex = courses.findIndex(course => course.id === courseId);
+    if (mainIndex !== -1) {
+        courses.splice(mainIndex, 1);
+    }
+
+    // Refresh the timetable and calendars
+    generateTimetableContent(day);
+    updateCalendars();
 }
 
 // Function to generate a unique ID for new courses

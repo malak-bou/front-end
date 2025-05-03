@@ -555,17 +555,21 @@ here*/
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 30px;
     margin: 5px;
     cursor: pointer;
     border: 2px solid transparent;
+    box-shadow: 0 8px 20px rgba(21, 0, 106, 0.6);
+    background-color: #15006a;
+
   }
 
 
     .button-dep:hover,
     .button-dep:focus,
     .button-dep.active {
-    border-color: #D28C64; /* Couleur quand survolé, sélectionné ou cliqué */
+        transform: translateY(-1px);
+  transition: all 0.2s ease; /* Couleur quand survolé, sélectionné ou cliqué */
     outline: none; /* Supprime la bordure bleue par défaut */
 }
 
@@ -897,13 +901,13 @@ header .current-date {
     /* background-color: red; */
 }
 .calendar .days li.courss {
-    background-color: #f8eed5; /* Beige color for days with courses */
+    background-color: #D28C64; /* Beige color for days with courses */
     cursor: pointer;
     position: relative;
     color: #333;
 }
 .calendar .days li.courss:hover {
-    background-color: #f3e4be; /* Slightly darker beige on hover */
+    background-color: #D28C64; /* Slightly darker beige on hover */
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -1162,6 +1166,14 @@ header .current-date {
   }
 
 
+
+
+
+
+
+
+
+  
 .edit-hover{
     display: flex;
     flex-direction: row;
@@ -1308,15 +1320,45 @@ header .current-date {
 } */
 
 
-#confirm-delete{
-    background: #1A0495;
-    color: white;
-}
+
 #cancel-delete{
-    background: rgb(241, 112, 112);
+    padding: 5px 20px;
+    border: none;
+    border-radius: 30px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background-color: rgb(210, 214, 217);
+    box-shadow: 0 2px 6px rgba(13, 13, 13, 0.3);
+    color: #000;
 }
 
 
+
+
+#cancel-delete:hover{
+    box-shadow: 0 4px 12px rgba(63, 63, 63, 0.4); /* Ombre rouge plus foncée */
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+#confirm-delete {
+    background-color: #FECACA;
+    color: #7F1D1D;
+    box-shadow: 0 2px 6px rgba(127, 29, 29, 0.3);
+    padding: 5px 20px;
+    border: none;
+    border-radius: 30px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  
+  #confirm-delete:hover {
+    box-shadow: 0 4px 12px rgba(127, 29, 29, 0.4); /* Ombre rouge plus foncée */
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
 
 
 
@@ -1966,7 +2008,7 @@ li.courss:hover {
 }
 
 .course-slot {
-    background-color: #f8eed5; /* Beige color for course slots */
+    background-color: #e0d9ff; /* Beige color for course slots */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1993,36 +2035,49 @@ li.courss:hover {
     gap: 8px;
 }
 
-.edit-course-btn, .delete-course-btn {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-weight: 500;
-    transition: background-color 0.3s, transform 0.2s;
-}
+
 
 .edit-course-btn {
     background-color: #2a1d77;
     color: white;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 30px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 6px rgba(21, 0, 106, 0.3);
+    background-color: #15006a;
 }
 
 .edit-course-btn:hover {
-    background-color: #2a1d77;
     transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(21, 0, 106, 0.6);
 }
 
 .delete-course-btn {
-    background-color: #e74c3c;
-    color: white;
+    background-color: #FECACA;
+    color: #7F1D1D;
+    box-shadow: 0 2px 6px rgba(127, 29, 29, 0.3);
+    padding: 5px 20px;
+    border: none;
+    border-radius: 30px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+
 }
 
+
 .delete-course-btn:hover {
-    background-color: #c0392b;
-    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(127, 29, 29, 0.4); /* Ombre rouge plus foncée */
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+    
+
+
+
+
 }
 
 /* Edit Course Modal */
@@ -2087,39 +2142,60 @@ li.courss:hover {
     margin-top: 25px;
 }
 
-#save-course, #cancel-edit {
+/* #save-course, #cancel-edit {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 600;
     transition: background-color 0.3s, transform 0.2s;
-}
+} */
 
 #save-course {
-    background-color: #7162E1;
     color: white;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 30px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 6px rgba(21, 0, 106, 0.3);
+    background-color: #15006a;
 }
 
 #save-course:hover {
-    background-color: #6450d6;
     transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(21, 0, 106, 0.6);
 }
 
+
+
+
 #cancel-edit {
-    background-color: #ddd;
-    color: #555;
+    padding: 5px 20px;
+    border: none;
+    border-radius: 30px;
+    margin: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    background-color: rgb(210, 214, 217);
+    box-shadow: 0 2px 6px rgba(13, 13, 13, 0.3);
+    color: #000;
+
 }
 
 #cancel-edit:hover {
-    background-color: #ccc;
+    box-shadow: 0 4px 12px rgba(63, 63, 63, 0.4); /* Ombre rouge plus foncée */
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
 }
 
 /* Add styles for clickable course dates */
 .calendar .days li.courss {
-    background-color: #f8eed5; /* Beige color for days with courses */
+    background-color: #D28C64; /* Beige color for days with courses */
     cursor: pointer;
     position: relative;
+    color: white;
 }
 
 .calendar .days li.courss:hover {

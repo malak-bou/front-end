@@ -161,3 +161,42 @@ document.addEventListener('DOMContentLoaded', function() {
     // Vérifie périodiquement les nouvelles demandes
     setInterval(checkFormationRequests, 1000);
 }); 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.course-card').forEach(card => {
+      card.addEventListener('click', function () {
+        // Build the course object based on the card's content or data attributes
+        const courseObj = {
+          domain: this.querySelector('.department')?.textContent || 'IT',
+          image: this.querySelector('img')?.getAttribute('src') || '',
+          title: this.querySelector('h3')?.textContent || '',
+          teacher: this.querySelector('p')?.textContent.replace('By ', '') || '',
+          description: 'Description à compléter...', // You may want to add a data-description attribute
+          field: this.querySelector('.department')?.textContent || '',
+          resources: {
+            record: null,
+            pptx: null,
+            pdf: null,
+            extraLinks: [],
+            quiz: null
+          }
+        };
+        localStorage.setItem('selectedCourse', JSON.stringify(courseObj));
+        window.location.href = 'RH-course-mondep.html';
+      });
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const icon = document.querySelector("i.fa-users");
+    const dot = icon ? icon.querySelector(".notification-dot") : null;
+
+    const hasPending = localStorage.getItem("hasPendingAccountRequests") === "true";
+
+    if (dot) {
+        dot.style.display = hasPending ? "block" : "none";
+    }
+});
+
