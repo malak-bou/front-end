@@ -10,18 +10,7 @@ body {
 }
 
 /* Barre de navigation */
-header {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 15px 30px;
-}
 
-.logo, .search-bar {
-    display: flex;
-    align-items: center;
-    padding-left: 5rem;
-}
 
 /* Centrer la barre de recherche légèrement à droite */
 
@@ -172,7 +161,7 @@ header {
 .sidebar ul {
     list-style: none;
     padding: 0;
-    margin: 60px 0 0;
+    margin: 55px 0 0;
 }
 
 .sidebar ul li {
@@ -251,7 +240,7 @@ header {
     text-decoration: none;
     font-size: 18px;
     padding: 12px;
-    font-weight: 600;
+    font-weight: 500;
     transition: all 0.3s ease-in-out;
 }
 
@@ -264,7 +253,7 @@ header {
 /* 🔴 Logout Button */
 .sidebar-footer .logout {
     color: red;
-    font-weight: bold;
+
 }
 
 .sidebar-footer .logout:hover {
@@ -298,7 +287,7 @@ header {
     align-items: center;
     gap: 5px; /* Espacement entre l’icône et le texte */
     text-decoration: none;
-    font-weight: bold;
+
     margin-left: 0px;
     color: #000;
 }
@@ -700,19 +689,7 @@ footer {
 /* Responsive Design */
 @media (max-width: 768px) {
    
-  
 
-    header img{
-        display: none;
-    }
-
-    .logo{ 
-        display: flex;
-        justify-content: space-between;
-        width: 80%;
-        margin-top: 10px;
-        margin-right: 25%;
-    }
     .welcome h1{
         padding-left:20px ;
         padding-right:20px ;
@@ -803,7 +780,6 @@ footer {
     border-radius: 10px;
     border: 3px solid transparent;
     box-shadow: 0px 3px 4px gray;
-    background: rgb(231, 231, 231);
     outline: none;
     font-size: 16px;
   }
@@ -823,10 +799,7 @@ footer {
     font-size: 18px;
   }
 
-.menu-container {
-    display: flex;
-    align-items: center;
-  }
+
   .profileimg {
     margin-top: 10px;
     width: 70px;
@@ -842,6 +815,28 @@ footer {
     color: gray; /* Icon color */
     cursor: pointer;
     font-size: 18px; /* Adjust icon size */
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+  }
+
+
+.menuicon {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 5px;
+}
+
+
+/* Styles du bouton menu */
+.menuicon {
+    width: 30px;
+    font-size: 25px;
+    cursor: pointer;
 }
 
 

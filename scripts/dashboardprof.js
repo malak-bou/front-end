@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.setItem("userCourses", JSON.stringify(userCourses));
             }
 
-            alert(`Le cours "${courseTitle}" a été ajouté à votre suivi.`);
+           
         });
     });
 });

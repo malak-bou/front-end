@@ -493,21 +493,30 @@ function addPopupStyles() {
             }
             
             .join-button {
-                background-color: #0066cc;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                text-decoration: none;
+                background-color: #DBEAFE;
+                color: #1E40AF;
+                 box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+            }
+            .join-button {
+                padding: 6px 12px;
+                border-radius: 15px;
+                font-weight: 500;
                 display: inline-block;
+                margin-right: 10px;
+                cursor: pointer;
+                border: none;
+                font-size: 18px;
+                text-decoration: none;
             }
-            
+
             .join-button:hover {
-                background-color: #0055aa;
+                box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4);
+                transform: translateY(-1px);
+                transition: all 0.2s ease;
             }
+
+
+
             
             /* Make courses in sidebar look clickable */
             .cours-sidebar {

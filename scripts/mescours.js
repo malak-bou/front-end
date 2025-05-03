@@ -6,26 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
    
 
     // Fonction de filtrage
-    function filterCourses() {
-        const searchValue = searchInput?.value.toLowerCase().trim() || "";
-        const selectedDomain = document.querySelector(".radio-inputs input:checked")?.nextElementSibling.textContent.trim() || "Tous";
-
-        courses.forEach(course => {
-            const courseCategory = course.querySelector(".department")?.textContent.trim() || "";
-            const courseText = course.textContent.toLowerCase();
-            const matchesSearch = courseText.includes(searchValue);
-            const matchesDomain = (selectedDomain === "Tous" || courseCategory === selectedDomain);
-
-            course.style.display = (matchesSearch && matchesDomain) ? "block" : "none";
-        });
-    }
-
-    // Événements de recherche et de sélection
-    if (searchInput) searchInput.addEventListener("input", filterCourses);
-    domainFilters.forEach(filter => filter.addEventListener("change", filterCourses));
-
-    // Appliquer le filtre au chargement
-    filterCourses();
+   
 
     // Gestion de la Sidebar
   
@@ -76,6 +57,43 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Sélection des éléments
+    const searchInput = document.querySelector(".search-wrapper .input") || document.querySelector(".search-bar input");
+    const courses = document.querySelectorAll(".course-card");
+    const domainFilters = document.querySelectorAll(".radio-inputs input");
+    const sidebar = document.getElementById("sidebar");
+    const toggleBtn = document.querySelector(".toggle-btn");
+
+    // Fonction de filtrage
+    function filterCourses() {
+        const searchValue = searchInput?.value.toLowerCase().trim() || "";
+        const selectedDomain = document.querySelector(".radio-inputs input:checked")?.nextElementSibling.textContent.trim() || "Tous";
+
+        courses.forEach(course => {
+            const courseCategory = course.querySelector(".department")?.textContent.trim() || "";
+            const courseText = course.textContent.toLowerCase();
+            const matchesSearch = courseText.includes(searchValue);
+            const matchesDomain = (selectedDomain === "Tous" || courseCategory === selectedDomain);
+
+            course.style.display = (matchesSearch && matchesDomain) ? "block" : "none";
+        });
+    }
+
+    // Événements de recherche et de sélection
+    if (searchInput) searchInput.addEventListener("input", filterCourses);
+    domainFilters.forEach(filter => filter.addEventListener("change", filterCourses));
+
+    // Appliquer le filtre au chargement
+    filterCourses();
+
+});
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Gestion de la Sidebar
   
@@ -146,7 +164,10 @@ function showAllCourses() {
 function toggleNav() {
     document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
   }
-  document.addEventListener("DOMContentLoaded", function () {
+
+ 
+
+document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.course-card').forEach(card => {
       card.addEventListener('click', function () {
         // Build the course object based on the card's content or data attributes
@@ -166,7 +187,7 @@ function toggleNav() {
           }
         };
         localStorage.setItem('selectedCourse', JSON.stringify(courseObj));
-        window.location.href = 'prof-course-mondep.html';
+        window.location.href = 'prof-course-mescours.html';
       });
     });
 });
