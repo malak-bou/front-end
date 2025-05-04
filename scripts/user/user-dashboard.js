@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Simuler les données utilisateur (remplacer par la récupération réelle des données)
     const userData = {
-        role: "Employer", // Exemple: 'Employer', 'Stagiaire', 'Manager'
-        department: "IT", // Exemple: 'IT', 'RH', 'Finance'
-        // Ajoutez d'autres données utilisateur si nécessaire
+        role: "Employer",
+        department: "IT",
     };
 
     // Sélectionner les éléments du profil dans la barre latérale
@@ -18,21 +17,37 @@ document.addEventListener("DOMContentLoaded", function () {
         profileDepartmentElement.textContent = userData.department;
     }
 
-    // Sélection des éléments nécessaires
-   
+    // Initialiser la recherche et le filtrage
+    initializeSearchAndFilter();
+    
+    // Charger les cours
+    loadCourses();
 });
 
+function initializeSearchAndFilter() {
+    const searchInput = document.querySelector(".search-wrapper .input");
+    const domainFilters = document.querySelectorAll(".radio-inputs input");
 
+    if (searchInput) {
+        searchInput.addEventListener("input", filterCourses);
+    }
+    
+    if (domainFilters.length > 0) {
+        domainFilters.forEach(filter => filter.addEventListener("change", filterCourses));
+    }
+}
 
-const searchInput = document.querySelector(".search-wrapper .input");
-const courses = document.querySelectorAll(".course-card");
-const domainFilters = document.querySelectorAll(".radio-inputs input");
-
-
-// Fonction de filtrage
 function filterCourses() {
-    const searchValue = searchInput?.value.toLowerCase().trim() || "";
-    const selectedDomain = document.querySelector(".radio-inputs input:checked")?.nextElementSibling.textContent.trim() || "Tous";
+    const searchInput = document.querySelector(".search-wrapper .input");
+    const courses = document.querySelectorAll(".course-card");
+    const domainFilters = document.querySelectorAll(".radio-inputs input");
+
+    if (!searchInput || !courses.length) {
+        return;
+    }
+
+    const searchValue = searchInput.value.toLowerCase().trim() || "";
+    const selectedDomain = document.querySelector(".radio-inputs input:checked")?.nextElementSibling?.textContent.trim() || "Tous";
 
     courses.forEach(course => {
         const courseCategory = course.querySelector(".department")?.textContent.trim() || "";
@@ -44,34 +59,112 @@ function filterCourses() {
     });
 }
 
-// Événements de recherche et de sélection
-if (searchInput) searchInput.addEventListener("input", filterCourses);
-domainFilters.forEach(filter => filter.addEventListener("change", filterCourses));
+function loadCourses() {
+    const url = "https://backend-m6sm.onrender.com/courses/";
+    const token = localStorage.getItem('token');
 
-// Appliquer le filtre au chargement
-filterCourses();
- // Nav barre
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            if (response.status === 401) {
+                window.location.href = '../../index.html';
+                throw new Error('Non authentifié. Veuillez vous connecter.');
+            }
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(courses => {
+        const container = document.getElementById('courses-container');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        if (!courses || courses.length === 0) {
+            container.innerHTML = '<p>Aucun cours disponible pour le moment.</p>';
+            return;
+        }
+
+        courses.forEach(course => {
+            const card = document.createElement('div');
+            card.className = 'course-card';
+
+            const isNew = isCourseNew(course.created_at);
+
+            const instructorName = course.instructor?.nom || 'Instructeur non spécifié';
+
+            const courseData = {
+                departement: course.departement,
+                image: course.image_url,
+                title: course.title,
+                teacher: instructorName,
+                description: course.description || "Aucune description",
+                field: course.domain,
+                resources: {
+                    record: null,
+                    pptx: null,
+                    pdf: null,
+                    extraLinks: course.external_links || [],
+                    quiz: null
+                }
+            };
+
+            card.setAttribute('data-course', JSON.stringify(courseData));
+
+            card.innerHTML = `
+                ${isNew ? '<span class="badge">new</span>' : ''}
+                <span class="department">${course.departement}</span> 
+                <h3>${course.title}</h3>
+                <p><strong>Prof:</strong> ${instructorName}</p>
+            `;
+
+            card.addEventListener('click', function () {
+                const courseObj = JSON.parse(this.getAttribute('data-course'));
+                localStorage.setItem('selectedCourse', JSON.stringify(courseObj));
+                window.location.href = '../../pages/user/course.html';
+            });
+
+            container.appendChild(card);
+        });
+
+        filterCourses();
+    })
+    .catch(error => {
+        console.error('Erreur lors du chargement des cours:', error);
+        const container = document.getElementById('courses-container');
+        if (container) {
+            container.innerHTML = `<p>Erreur lors du chargement des cours: ${error.message}</p>`;
+        }
+    });
+}
+
+
+// Fonction pour vérifier si un cours est nouveau (moins d'une semaine)
+function isCourseNew(createdAt) {
+    if (!createdAt) return false;
+    
+    const courseDate = new Date(createdAt);
+    const now = new Date();
+    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    
+    return courseDate > oneWeekAgo;
+}
+
+// ... rest of the existing code ...
+
+// Nav barre
 function toggleNav() {
     const sidebar = document.getElementById('sidebar');
     if (sidebar) {
         sidebar.classList.toggle('active');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
     // Sélection des éléments nécessaires
@@ -102,37 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
     filterCourses();
     
 });
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const courses = document.querySelectorAll(".course-card");
-
-    courses.forEach(course => {
-        course.addEventListener("click", function () {
-            const courseData = {
-                title: this.getAttribute("data-title"),
-                description: this.getAttribute("data-description"),
-                teacher: this.getAttribute("data-teacher"),
-                department: this.getAttribute("data-department"),
-                mainContent: this.getAttribute("data-main-content"),
-                type: this.getAttribute("data-type")
-            };
-
-            // Save course data in localStorage
-            localStorage.setItem("selectedCourse", JSON.stringify(courseData));
-
-            // Redirect to the course details page
-            window.location.href = "../../pages/user/course.html";
-        });
-    });
-});
-
-
-
-
-
-
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -599,30 +661,6 @@ Suggestion: Add CSS for the selected day in your stylesheet (e.g., user-dashboar
     border-radius: 50%; 
 }
 */
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.course-card').forEach(card => {
-      card.addEventListener('click', function () {
-        // Build the course object based on the card's content or data attributes
-        const courseObj = {
-          domain: this.querySelector('.department')?.textContent || 'IT',
-          image: this.querySelector('img')?.getAttribute('src') || '',
-          title: this.querySelector('h3')?.textContent || '',
-          teacher: this.querySelector('p')?.textContent.replace('By ', '') || '',
-          description: 'Description à compléter...', // You may want to add a data-description attribute
-          field: this.querySelector('.department')?.textContent || '',
-          resources: {
-            record: null,
-            pptx: null,
-            pdf: null,
-            extraLinks: [],
-            quiz: null
-          }
-        };
-        localStorage.setItem('selectedCourse', JSON.stringify(courseObj));
-        window.location.href = 'course.html';
-      });
-    });
-});
 
 // Function to handle clicking outside of sidebar1
 document.addEventListener('click', function(event) {
