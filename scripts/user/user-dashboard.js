@@ -1,28 +1,52 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Simuler les données utilisateur (remplacer par la récupération réelle des données)
-    const userData = {
-        role: "Employer",
-        department: "IT",
-    };
+const token = localStorage.getItem("token");
 
-    // Sélectionner les éléments du profil dans la barre latérale
-    const profileRoleElement = document.querySelector(".profile-side-bar h4.profile-sidebar-text");
-    const profileDepartmentElement = document.querySelector(".profile-side-bar p.profile-sidebar-text");
+fetch("https://backend-m6sm.onrender.com/users/me", {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+  }
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error("Erreur lors de la récupération de l'utilisateur");
+  }
+  return response.json();
+})
+.then(user => {
+  // Créer les éléments
+  const profileContainer = document.getElementById("profile-container");
 
-    // Mettre à jour les éléments avec les données utilisateur
-    if (profileRoleElement) {
-        profileRoleElement.textContent = userData.role;
-    }
-    if (profileDepartmentElement) {
-        profileDepartmentElement.textContent = userData.department;
-    }
+  const image = document.createElement("img");
+  image.src = "../../assets/images/profil-pic.png";
+  image.classList.add("profileimg");
+
+  const nom = document.createElement("h4");
+  nom.classList.add("profile-sidebar-text");
+  nom.textContent = `${user.profile.prenom} ${user.profile.nom}`;
+
+  const departement = document.createElement("p");
+  departement.classList.add("profile-sidebar-text");
+  departement.textContent = user.profile.departement;
+
+
+  // Ajouter les éléments à la div
+  profileContainer.appendChild(image);
+  profileContainer.appendChild(nom);
+  profileContainer.appendChild(departement);
+})
+.catch(error => {
+  console.error("Erreur :", error);
+});
+
+
 
     // Initialiser la recherche et le filtrage
     initializeSearchAndFilter();
     
     // Charger les cours
     loadCourses();
-});
+
 
 function initializeSearchAndFilter() {
     const searchInput = document.querySelector(".search-wrapper .input");
@@ -240,45 +264,37 @@ const months = ["January", "February", "March", "April", "May", "June", "July",
 const mois = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet",
             "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
 
-// Course schedule data - this should be loaded dynamically in a real application
-// Key format: "YYYY-M" where M is the 0-indexed month number
-const courseSchedule = {
-    "2025-2": [ // March 2025 (Month is 0-indexed)
-        {
-            day: 3,
-            id: 1,
-            title: "Droit du travail et relations professionnelles ",
-            trainer: "Amani Amel",
-            time: "09:00-10:00",
-            type: "online",
-            image: "logiciel-rh.webp", // Added image property
-            meetingLink: "https://meet.google.com/abc-defg-hij" // Meeting link for this course
-        },
-         {
-            day: 22,
-            id: 2,
-            title: "Recrutement et sélection des talents",
-            trainer: "Hamadi Ali",
-            time: "14:00-15:00",
-            type: "in-person",
-            image: "rh2.jpg", // Added image property
-            meetingLink: "https://teams.microsoft.com/meeting/123456" // Meeting link for this course
-        }
-    ],
-    "2025-3": [ // April 2025
-         {
-            day: 10,
-            id: 3,
-            title: "Gestion de Projet Agile",
-            trainer: "Leila Khaled",
-            time: "11:00-12:30",
-            type: "online",
-            image: "agile.jpg", // Example image
-            meetingLink: "https://zoom.us/j/123456789" // Meeting link for this course
-        }
-    ]
-    // Add more months and courses as needed
-};
+let courseSchedule = {}; // Vide au départ
+
+async function loadCalendarCourses() {
+    try {
+        const conferences = await fetchCalendarCourses();
+        // Réinitialise le schedule
+        courseSchedule = {};
+        conferences.forEach(conf => {
+            // conf.date est au format ISO (ex: "2025-03-03T00:00:00")
+            const dateObj = new Date(conf.date);
+            const year = dateObj.getFullYear();
+            const month = dateObj.getMonth(); // 0-indexed
+            const day = dateObj.getDate();
+            const key = `${year}-${month}`;
+            if (!courseSchedule[key]) courseSchedule[key] = [];
+            courseSchedule[key].push({
+                day: day,
+                id: conf.id,
+                title: conf.name,
+                trainer: conf.requested_by.prenom + " " + conf.requested_by.nom,
+                time: conf.time,
+                type: conf.type,
+                image: conf.image_path ? `https://backend-m6sm.onrender.com/conferences/${conf.id}/image` : "default.jpg",
+                meetingLink: conf.link || "#"
+            });
+        });
+        renderCalendar(); // Recharge le calendrier avec les nouvelles données
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 const renderCalendar = () => {
     let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
@@ -359,9 +375,9 @@ function updateSidebarCourses() {
         const courseElement = document.createElement('div');
         courseElement.className = 'cours-sidebar';
         courseElement.innerHTML = `
-            <img src="../../assets/images/${course.image}" class="rh-commun">
+            <img src="${course.image.startsWith('http') ? course.image : '../../assets/images/' + course.image}" class="rh-commun">
             <div class="infooo">
-                <p class="date-cour2">${course.day} ${mois[currMonth]} ${currYear}</p> <!-- Use French month -->
+                <p class="date-cour2">${course.day} ${mois[currMonth]} ${currYear}</p>
                 <p class="nom-cour">${course.title}</p>
             </div>
         `;
@@ -401,7 +417,7 @@ function showCourseDetailsPopup(course) {
                 <p><strong>Type:</strong> ${course.type === 'online' ? 'En ligne' : 'Présentiel'}</p>
             </div>
             <div class="popup-image">
-                <img src="../../assets/images/${course.image}" alt="${course.title}">
+                <img src="${course.image.startsWith('http') ? course.image : '../../assets/images/' + course.image}" alt="${course.title}">
             </div>
         </div>
         <div class="popup-footer">
@@ -595,7 +611,7 @@ function addPopupStyles() {
 // Add the popup styles when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     addPopupStyles();
-    renderCalendar();
+    loadCalendarCourses();
 });
 
 // Add event listeners for the calendar navigation
@@ -676,3 +692,17 @@ document.addEventListener('click', function(event) {
         sidebar1.classList.remove('active');
     }
 });
+
+async function fetchCalendarCourses() {
+    const token = localStorage.getItem("token");
+    const response = await fetch("https://backend-m6sm.onrender.com/calendar", {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    });
+    if (!response.ok) {
+        throw new Error("Erreur lors de la récupération du calendrier");
+    }
+    return await response.json();
+}

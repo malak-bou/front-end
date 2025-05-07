@@ -25,7 +25,6 @@ body {
 
 
 
-
 .sidebar {
     height: 100%;
     width: 0;
@@ -227,8 +226,8 @@ body {
 /* 🔹 Ajustement pour les petits écrans */
 @media (max-width: 600px) { 
     .profile {
-        top: 5px; /* Ajuste l’espace en haut */
-        right: 7px; /* Place l’image encore plus à droite */
+        top: 5px; /* Ajuste l'espace en haut */
+        right: 7px; /* Place l'image encore plus à droite */
         width: 10px; /* Réduit encore un peu la taille */
         height: 10px;
     }
@@ -278,11 +277,6 @@ body {
 
 
 
-
-
-
-
-
 /* Section cours récents */
 .recent-courses h2 {
     color: black;
@@ -299,6 +293,7 @@ body {
 
 /* Style des cartes de cours */
 .course-card {
+    position: relative;
     width: 220px;
     padding: 15px;
     background: white;
@@ -309,6 +304,20 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .course-card:hover {
@@ -363,52 +372,8 @@ body {
 .radio-inputs {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
-    border-radius: 0.5rem;
-    background-color: #EEE;
-    box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    padding: 0.25rem;
-    width: 100;
-    font-size: 14px;
-  }
-  
-  .radio-inputs .radio {
-    flex: 1 1 auto;
-    text-align: center;
-  }
-  
-  .radio-inputs .radio input {
-    display: none;
-  }
-  
-  .radio-inputs .radio .name {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    border: none;
-    padding: .5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all .15s ease-in-out;
-  }
-  
-  .radio-inputs .radio input:checked + .name {
-    background-color: #D28C64;
-    font-weight: 600;
-  }
-
-
-
-
-
-
-  .radio-inputs {
-    position: relative;
-    display: flex;
-    flex-wrap: nowrap; /* Empêche le retour à la ligne */
-    overflow-x: auto; /* Active le scroll horizontal */
+    flex-wrap: nowrap;
+    overflow-x: auto;
     border-radius: 0.5rem;
     background-color: #EEE;
     box-sizing: border-box;
@@ -416,17 +381,14 @@ body {
     padding: 0.25rem;
     width: 100%;
     font-size: 14px;
-    scrollbar-width: thin; /* Minimise la taille de la scrollbar */
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
 
-/* Cache la scrollbar sur Chrome */
+/* Hide scrollbar for Chrome, Safari and Opera */
 .radio-inputs::-webkit-scrollbar {
-    height: 5px;
-}
-
-.radio-inputs::-webkit-scrollbar-thumb {
-    background: #D28C64;
-    border-radius: 10px;
+    display: none;
 }
 
 /* Style des boutons */
@@ -461,14 +423,6 @@ body {
     font-weight: 600;
     color: white;
 }
-
-
-
-
-
-
-
-
 
 .categories span {
     cursor: pointer;
