@@ -23,7 +23,9 @@ body {
 }
 
 
-
+.course-container p{
+    color: #000;
+}
 
 /* Section de bienvenue */
 .welcome {

@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.querySelector(".search-wrapper .input");
     const courses = document.querySelectorAll(".course-card");
     const domainFilters = document.querySelectorAll(".radio-inputs input");
-    const sidebar = document.getElementById("sidebar");
-    const toggleBtn = document.querySelector(".toggle-btn");
+   
 
     // Fonction de filtrage
     function filterCourses() {
@@ -28,175 +27,131 @@ document.addEventListener("DOMContentLoaded", function () {
     // Appliquer le filtre au chargement
     filterCourses();
 
-    // Gestion de la Sidebar
-    if (toggleBtn && sidebar) {
-        toggleBtn.addEventListener("click", function () {
-            sidebar.classList.toggle("active");
-        });
-    }
-
-    // Fermer la sidebar en cliquant en dehors
-    document.addEventListener("click", function (event) {
-        if (!sidebar.contains(event.target) && !toggleBtn.contains(event.target)) {
-            sidebar.classList.remove("active");
-        }
-    });
-
-    // Agrandissement de l'image de profil
-    const profilePic = document.querySelector(".profile");
-    if (profilePic) {
-        profilePic.addEventListener("click", function () {
-            if (document.getElementById("profile-overlay")) return;
-
-            const overlay = document.createElement("div");
-            overlay.id = "profile-overlay";
-            overlay.style.position = "fixed";
-            overlay.style.top = "0";
-            overlay.style.left = "0";
-            overlay.style.width = "100vw";
-            overlay.style.height = "100vh";
-            overlay.style.background = "rgba(0, 0, 0, 0.7)";
-            overlay.style.display = "flex";
-            overlay.style.alignItems = "center";
-            overlay.style.justifyContent = "center";
-            overlay.style.zIndex = "1000";
-
-            const enlargedImg = document.createElement("img");
-            enlargedImg.src = profilePic.src;
-            enlargedImg.style.width = "200px";
-            enlargedImg.style.height = "200px";
-            enlargedImg.style.borderRadius = "50%";
-            enlargedImg.style.border = "5px solid white";
-            enlargedImg.style.cursor = "pointer";
-
-            overlay.appendChild(enlargedImg);
-            document.body.appendChild(overlay);
-
-            overlay.addEventListener("click", function () {
-                document.body.removeChild(overlay);
-            });
-        });
-    }
-
-    // Désactiver les boutons "site-mzl"
-    document.querySelectorAll(".site-mzl").forEach(button => {
-        button.addEventListener("click", () => {
-            alert("Cette page n'est pas accessible pour le moment !");
-        });
-    });
 });
 
-
-    // Gestion de la Recherche
-    const searchInput = document.getElementById("searchInput");
-    const courses = document.querySelectorAll(".course-card");
-
-    function filterCourses() {
-        const searchValue = searchInput.value.toLowerCase().trim();
-
-        courses.forEach(course => {
-            const courseText = course.textContent.toLowerCase();
-            course.style.display = courseText.includes(searchValue) ? "block" : "none";
-        });
-    }
-
-    if (searchInput) {
-        searchInput.addEventListener("input", filterCourses);
-    }
-
-
-
-
-
-
-
-function scrollToCourses() {
-    const coursesSection = document.querySelector(".course-container");
-    if (coursesSection) {
-        coursesSection.scrollIntoView({ behavior: "smooth" });
-    }
-}
+// side barre
 
 function toggleNav() {
     document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
-  }
+}
 
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const icon = document.querySelector("i.fa-users");
-    const dot = icon ? icon.querySelector(".notification-dot") : null;
+function loadCourses() {
+    const url = "https://backend-m6sm.onrender.com/courses/by-department";
+    const token = localStorage.getItem('token');
 
-    const hasPending = localStorage.getItem("hasPendingAccountRequests") === "true";
-
-    if (dot) {
-        dot.style.display = hasPending ? "block" : "none";
-    }
-});
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Fonction pour récupérer les demandes depuis localStorage
-    function getRequestsFromStorage() {
-        const stored = localStorage.getItem('formationRequests');
-        return stored ? JSON.parse(stored) : {};
-    }
-
-    // Fonction pour vérifier s'il y a des demandes de formation
-    function checkFormationRequests() {
-        const notificationDot = document.getElementById('formationNotificationDot');
-        const requests = getRequestsFromStorage();
-        
-        // Vérifie si au moins un département a des demandes
-        const hasRequests = Object.values(requests).some(count => count > 0);
-        
-        // Affiche ou cache la notification en fonction des demandes
-        if (notificationDot) {
-            notificationDot.style.display = hasRequests ? 'block' : 'none';
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
         }
-    }
+    })
+    .then(response => {
+        if (!response.ok) {
+            if (response.status === 401) {
+                window.location.href = '../../index.html';
+                throw new Error('Non authentifié. Veuillez vous connecter.');
+            }
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(courses => {
+        const container = document.getElementById('courses-container');
+        if (!container) return;
 
-    // Vérifie les demandes au chargement de la page
-    checkFormationRequests();
+        container.innerHTML = '';
 
-    // Vérifie périodiquement les nouvelles demandes
-    setInterval(checkFormationRequests, 1000);
-}); 
+        if (!courses || courses.length === 0) {
+            container.innerHTML = '<p>Aucun cours disponible pour le moment.</p>';
+            return;
+        }
 
+        courses.forEach(course => {
+            const card = document.createElement('div');
+            card.classList.add('course-card');
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.course-card').forEach(card => {
-      card.addEventListener('click', function () {
-        // Build the course object based on the card's content or data attributes
-        const courseObj = {
-          domain: this.querySelector('.department')?.textContent || 'IT',
-          image: this.querySelector('img')?.getAttribute('src') || '',
-          title: this.querySelector('h3')?.textContent || '',
-          teacher: this.querySelector('p')?.textContent.replace('By ', '') || '',
-          description: 'Description à compléter...', // You may want to add a data-description attribute
-          field: this.querySelector('.department')?.textContent || '',
-          resources: {
-            record: null,
-            pptx: null,
-            pdf: null,
-            extraLinks: [],
-            quiz: null
-          }
-        };
-        localStorage.setItem('selectedCourse', JSON.stringify(courseObj));
-        window.location.href = 'RH-course-mondep.html';
-      });
+            const isNew = isCourseNew(course.created_at);
+
+            const photoMaterial = course.materials.find(material => material.file_category === 'photo');
+            const imageUrl = photoMaterial ? `/courses/${course.id}/image` : null;
+
+            const courseData = {
+                id: course.id,
+                title: course.title,
+                image: imageUrl,
+                departement: course.departement,
+                description: course.description || "Aucune description",
+                created_at: course.created_at,
+                materials: course.materials
+            };
+
+            card.dataset.course = JSON.stringify(courseData);
+
+            card.innerHTML = `
+                ${isNew ? '<span class="badge">new</span>' : ''}
+                <span class="department">${course.departement || 'Non spécifié'}</span> 
+                <h3>${course.title}</h3>
+                <p>${course.description || "Aucune description"}</p>
+            `;
+
+            card.addEventListener('click', () => {
+                localStorage.setItem('selectedCourse', JSON.stringify(courseData));
+                window.location.href = 'RH-course-mondep.html'; // ✅ Updated the path
+            });
+
+            container.appendChild(card);
+        });
+    })
+    .catch(error => {
+        console.error('Erreur lors du chargement des cours:', error);
+        const container = document.getElementById('courses-container');
+        if (container) {
+            container.innerHTML = `<p>Erreur lors du chargement des cours: ${error.message}</p>`;
+        }
     });
-});
+}
+
+loadCourses();
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const icon = document.querySelector("i.fa-users");
-    const dot = icon ? icon.querySelector(".notification-dot") : null;
+// Fonction pour vérifier si un cours est nouveau (moins d'une semaine)
+function isCourseNew(createdAt) {
+    if (!createdAt) return false;
+    
+    const courseDate = new Date(createdAt);
+    const now = new Date();
+    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    
+    return courseDate > oneWeekAgo;
+}
 
-    const hasPending = localStorage.getItem("hasPendingAccountRequests") === "true";
+// Function to update department filters
+function updateDepartmentFilters(courses) {
+    const departments = new Set(courses.map(course => course.departement));
+    const radioInputs = document.querySelector('.radio-inputs');
+    
+    if (!radioInputs) return;
 
-    if (dot) {
-        dot.style.display = hasPending ? "block" : "none";
-    }
-});
+    // Keep the "Tous" option
+    const allOption = radioInputs.querySelector('label.radio:first-child');
+    radioInputs.innerHTML = '';
+    radioInputs.appendChild(allOption);
+
+    // Add department options
+    departments.forEach(dept => {
+        const label = document.createElement('label');
+        label.className = 'radio';
+        label.innerHTML = `
+            <input type="radio" name="radio" value="${dept}">
+            <span class="name">${dept}</span>
+        `;
+        radioInputs.appendChild(label);
+    });
+
+    // Reattach event listeners
+    const domainFilters = radioInputs.querySelectorAll('input');
+    domainFilters.forEach(filter => filter.addEventListener('change', filterCourses));
+}
 

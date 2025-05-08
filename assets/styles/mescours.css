@@ -424,7 +424,9 @@ body {
     text-align: center;
     width: 250px; /* Ajuste la largeur */
 }
-
+.course-container p{
+    color: #000;
+}
 
 .courses-header {
     display: flex;

@@ -22,7 +22,9 @@ body {
     z-index: 1000;
 }
 
-
+.course-container p{
+    color: #000;
+}
 
 
 /* Section de bienvenue */

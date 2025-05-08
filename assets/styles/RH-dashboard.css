@@ -378,6 +378,10 @@ body {
     display: none;
 }
 
+.course-container p{
+    color: #000;
+}
+
 /* Style des boutons */
 .radio-inputs .radio {
     flex: 0 0 auto; /* Garde la largeur automatique */
