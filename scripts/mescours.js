@@ -17,9 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
 function toggleNav() {
-    document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
+    document.getElementById("sidebar").classList.toggle("active");
 }
 
 function loadCourses() {
@@ -60,19 +59,57 @@ function loadCourses() {
 
             const isNew = isCourseNew(course.created_at);
 
+            // Trouver les matériaux par catégorie
             const photoMaterial = course.materials.find(material => material.file_category === 'photo');
-            const imageUrl = photoMaterial ? `/courses/${course.id}/image` : null;
+            const pdfMaterial = course.materials.find(material => material.file_category === 'material');
+            const recordMaterial = course.materials.find(material => material.file_category === 'record');
 
+            // Récupérer les informations du professeur
+            const instructor = course.instructor || {};
+            const instructorName = instructor.nom && instructor.prenom 
+                ? `${instructor.prenom} ${instructor.nom}`
+                : 'Non spécifié';
+
+            // Préparer les données du cours pour le stockage
             const courseData = {
                 id: course.id,
                 title: course.title,
-                image: imageUrl,
-                departement: course.departement,
                 description: course.description || "Aucune description",
+                departement: course.departement || "Non spécifié",
+                external_links: course.external_links,
+                quiz_link: course.quiz_link,
                 created_at: course.created_at,
-                materials: course.materials
+                updated_at: course.updated_at,
+                instructor: {
+                    id: instructor.id,
+                    nom: instructor.nom,
+                    prenom: instructor.prenom,
+                    email: instructor.email,
+                    departement: instructor.departement
+                },
+                materials: {
+                    photo: photoMaterial ? {
+                        id: photoMaterial.id,
+                        file_name: photoMaterial.file_name,
+                        file_path: photoMaterial.file_path,
+                        file_type: photoMaterial.file_type
+                    } : null,
+                    pdf: pdfMaterial ? {
+                        id: pdfMaterial.id,
+                        file_name: pdfMaterial.file_name,
+                        file_path: pdfMaterial.file_path,
+                        file_type: pdfMaterial.file_type
+                    } : null,
+                    record: recordMaterial ? {
+                        id: recordMaterial.id,
+                        file_name: recordMaterial.file_name,
+                        file_path: recordMaterial.file_path,
+                        file_type: recordMaterial.file_type
+                    } : null
+                }
             };
 
+            // Stocker les données dans l'attribut data du card
             card.dataset.course = JSON.stringify(courseData);
 
             card.innerHTML = `
@@ -82,9 +119,12 @@ function loadCourses() {
                 <p>${course.description || "Aucune description"}</p>
             `;
 
+            // Ajouter l'événement de clic
             card.addEventListener('click', () => {
+                // Stocker les données complètes du cours dans localStorage
                 localStorage.setItem('selectedCourse', JSON.stringify(courseData));
-                window.location.href = 'prof-course-mescours.html'; // ✅ Updated the path
+                // Rediriger vers la page de détail du cours
+                window.location.href = 'prof-course-mescours.html';
             });
 
             container.appendChild(card);
@@ -100,7 +140,6 @@ function loadCourses() {
 }
 
 loadCourses();
-
 
 // Fonction pour vérifier si un cours est nouveau (moins d'une semaine)
 function isCourseNew(createdAt) {
