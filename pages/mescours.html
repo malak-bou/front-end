@@ -20,7 +20,7 @@
 
 
   <div class="search-wrapper">
-    <input type="text" class="input-container input" placeholder="Rechercher" />
+    <input type="text" class="input-container input radio-inputs" placeholder="Rechercher" id="searchInput"/>
 
     <i class="fa fa-search search-icon"></i>
   </div>
@@ -68,137 +68,24 @@
 <main>
     <section class="formation">
         <div class="courses-wrapper"> <!-- Nouveau conteneur blanc -->
-            <!-- mes cours -->
-            <section class="recent-courses">
-                <!-- Conteneur titre + bouton -->
-                <div class="courses-header">
-                    <h2>Mes cours</h2>
-                    <div class="see-all" onclick="showAllCourses()">SEE ALL →</div>
-                </div>
-
-                <div class="course-container">
-                    <div class="course-card"> 
-                        <img src="../assets/images/nextjs.png" alt="React">
-                        <span class="department">Front-end</span>
-                        <h3>Mastering React & Next.js</h3>
-                    </div>
-                    
-                    <div class="course-card">
-                        <img src="../assets/images/img-fe.png" alt="Front-end">
-                        <span class="department">Front-end</span>
-                        <h3>Mastering React & Next.js for Scalable Web Apps</h3>
-                    </div>
-                    <div class="course-card">
-                        <img src="../assets/images/auth.png" alt="Finance">
-                        <span class="department">Backend</span>
-                        <h3>Gestion des Identités et Authentification Sécurisée</h3>
-                    </div>
-                    <div class="course-card">
-                        <img src="../assets/images/Docker et Kubernetes.png" alt="Management">
-                        <span class="department">Backend</span>
-                        <h3>Docker et Kubernetes : Conteneurisation et Orchestration</h3>
-                    </div>
-                    
-                  
-                </div>
-            </section>
+            
 
             <!-- Barre de filtre et bouton -->
             <div class="filter-bar">
-                <select id="course-filter" class="filter-select">
-                    <option value="all">All Courses</option>
-                    <option value="backend">Backend</option>
-                    <option value="Front-end">Front-end</option>
-                    <option value="ai">AI</option>
-                </select>
+                <h1>Mes cours</h1>
                 
 
                 <a href="prof-ajouter-cour.html" > <!-- target="_blank" bch ytafth f nv onglett -->
                   <button class="new-course-btn">
                       <span class="plus-icon">+</span> NOUVEAU COURS
                   </button>
-              </a>
+                </a>
               
             </div>
 
 
-            <div class="course-container">
-                <div class="course-card">
-                    <img src="../assets/images/ml.png" alt="Marketing">
-                    <span class="department">AI</span>
-                    <h3>Machine Learning with Python: A Hands-on Approach</h3>
-                    
+            <div class="course-container" id="courses-container">
                 </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/cloud.jpg" alt="Cloud">
-                    <span class="department">Backend</span>
-                    <h3>Cloud Computing et Réseaux Virtuels</h3>
-                    
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/rgpd.jpg" alt="RGPD">
-                    <span class="department">Backend</span>
-                    <h3>RGPD et Protection des Données</h3>
-                    
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/python-django-1024x576.jpg" alt="Risques">
-                    <span class="department">Backend</span>
-                    <h3>Django & Python: Backend Development Made Easy</h3>
-                    
-                </div>
-            
-                <div class="course-card">
-                    <img src="../assets/images/nodejs.png" alt="Growth">
-                    <span class="department">Backend</span>
-                    <h3>Backend avec Node.js et Express</h3>
-                    
-                </div>
-                <div class="course-card"> 
-                    <img src="../assets/images/nextjs.png" alt="React">
-                    <span class="department">Front-end</span>
-                    <h3>Mastering React & Next.js</h3>
-                </div>
-                
-                <div class="course-card">
-                    <img src="../assets/images/img-fe.png" alt="Front-end">
-                    <span class="department">Front-end</span>
-                    <h3>Mastering React & Next.js for Scalable Web Apps</h3>
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/auth.png" alt="Finance">
-                    <span class="department">Backend</span>
-                    <h3>Gestion des Identités et Authentification Sécurisée</h3>
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/Docker et Kubernetes.png" alt="Management">
-                    <span class="department">Backend</span>
-                    <h3>Docker et Kubernetes : Conteneurisation et Orchestration</h3>
-                </div>
-                
-                <div class="course-card">
-                    <img src="../assets/images/python-django-1024x576.jpg" alt="Négociation">
-                    <span class="department">AI</span>
-                    <h3>Machine Learning with Python: A Hands-on Approach</h3>
-                   
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/chatgpt.png" alt="Négociation">
-                    <span class="department">AI</span>
-                    <h3>IA Générative et ChatGPT pour les Entreprises</h3>
-                   
-                </div>
-                <div class="course-card">
-                    <img src="../assets/images/deep.png" alt="Négociation">
-                    <span class="department">AI</span>
-                    <h3>Deep Learning avec TensorFlow et PyTorch</h3>
-                   
-                </div>
-                 
-            </div>
         </section>
         </div> <!-- Fin du wrapper -->
     </section>
