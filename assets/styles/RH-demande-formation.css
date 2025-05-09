@@ -251,7 +251,7 @@ footer {
   
 }
 #addDayBtn:hover{
-  ox-shadow: 0 8px 24px rgba(210, 140, 100, 0.45);
+  box-shadow: 0 8px 24px rgba(210, 140, 100, 0.45);
 }
 
 
@@ -446,10 +446,7 @@ header .current-date{
 }
 /* to show the additional sections   */
 /* Initially hide the sections */
-.text-container,
-.message-section {
-  /* Aucun style spécifique ici pour éviter les conflits */
-}
+
 .iconn{
 color: #5a46ba;
 }

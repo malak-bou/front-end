@@ -18,69 +18,175 @@ window.addEventListener('load', function() {
 // fin calendar
 
 // demande swips
+// Remove the default allDemandes object and replace with an empty object
+const allDemandes = {};
 
-const allDemandes = {
-  "Information Technology": [
-    {
-      title: "Demande 1",
-      department: "Information Technology",
-      professor: "Azouzi Alaa",
-      course: "Dev web using python",
-      date: "17/02/2025",
-      type: "Enligne",
-      hour: "14:00-15:00",
-      description: "Formation sur le développement web avec Python, couvrant les frameworks Django et Flask, ainsi que les principes de base du développement back-end.",
-      meetingLink: "https://meet.google.com/abc-defg-hij",
-      image: "../assets/images/python.png"
-    },
-    {
-      title: "Demande 2",
-      department: "Information Technology",
-      professor: "Houda G.",
-      course: "Cybersécurité",
-      date: "21/03/2025",
-      type: "Présentiel",
-      hour: "10:00-11:00",
-      description: "Formation approfondie sur les principes de la cybersécurité, incluant la détection des menaces, la protection des données et les meilleures pratiques de sécurité.",
-      meetingLink: "",
-      image: "../assets/images/auth.png"
+// Function to fetch conference requests from API
+async function fetchConferenceRequests() {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No authentication token found');
+      showSuccessMessage("Erreur d'authentification");
+      return;
     }
-  ],
-  "Marketing": [
-    {
-      title: "Demande 1",
-      department: "Département Marketing",
-      professor: "Sana Khelifi",
-      course: "Stratégie digitale",
-      date: "22/03/2025",
-      type: "Présentiel",
-      hour: "09:00-10:00",
-      description: "Formation sur les stratégies marketing digitales, incluant les réseaux sociaux, le SEO/SEM, et l'analyse de données marketing.",
-      meetingLink: "",
-      image: "../assets/images/uxui.png"
+
+    const response = await fetch('https://backend-m6sm.onrender.com/admin/pending-conferences', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  ],
-  "Human Resources": [
-    {
-      title: "Demande 1",
-      department: "Human Resources",
-      professor: "Mohamed Ali",
-      course: "Gestion des talents",
-      date: "10/03/2025",
-      type: "Enligne",
-      hour: "13:00-14:00",
-      description: "Formation sur les techniques modernes de gestion des talents, incluant le recrutement, la rétention et le développement professionnel.",
-      meetingLink: "https://meet.google.com/xyz-abcd-efg",
-      image: "../assets/images/rh2.jpg"
+
+    const data = await response.json();
+    console.log('Received data:', data); // Debug log
+
+    // Group requests by department
+    const groupedRequests = {};
+    data.forEach(request => {
+      const departement = request.departement;
+      if (!groupedRequests[departement]) {
+        groupedRequests[departement] = [];
+      }
+
+      // Format the request data
+      const formattedRequest = {
+        id: request.id,
+        title: `Demande ${groupedRequests[departement].length + 1}`,
+        departement: departement,
+        professor: `${request.requested_by.nom} ${request.requested_by.prenom}`,
+        course: request.name,
+        date: new Date(request.date).toLocaleDateString('fr-FR'),
+        type: request.type,
+        hour: request.time,
+        description: request.description,
+        meetingLink: request.link || '',
+        image: request.image_path || '../assets/images/placeholder.png'
+      };
+
+      groupedRequests[departement].push(formattedRequest);
+    });
+
+    // Update the allDemandes object
+    Object.keys(allDemandes).forEach(key => delete allDemandes[key]); // Clear existing data
+    Object.assign(allDemandes, groupedRequests);
+
+    console.log('Processed data:', allDemandes); // Debug log
+
+    // Update the UI
+    updateBadges();
+    updateDemande();
+
+    // Update notification dot
+    const hasRequests = Object.values(groupedRequests).some(requests => requests.length > 0);
+    const notificationDot = document.getElementById('formationNotificationDot');
+    if (notificationDot) {
+      notificationDot.style.display = hasRequests ? 'block' : 'none';
     }
-  ]
+
+  } catch (error) {
+    console.error('Error fetching conference requests:', error);
+    showSuccessMessage("Erreur lors du chargement des demandes");
+  }
+}
+
+async function approveConference(conferenceId) {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      showSuccessMessage("Erreur d'authentification");
+      return;
+    }
+
+    const response = await fetch(`https://backend-m6sm.onrender.com/admin/approve/${conferenceId}?approve=true`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || 'Erreur lors de l\'approbation de la demande');
+    }
+
+    showSuccessMessage("Demande approuvée avec succès!");
+    await fetchConferenceRequests(); // Recharger les demandes
+  } catch (error) {
+    console.error('Erreur:', error);
+    showSuccessMessage(error.message || "Erreur lors de l'approbation de la demande");
+  }
+}
+
+async function deleteDemande() {
+  const demandeToDelete = allDemandes[selectedDepartment][selectedDemandeIndex];
+  if (!demandeToDelete) return;
+
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      showSuccessMessage("Erreur d'authentification");
+      return;
+    }
+
+    const response = await fetch(`https://backend-m6sm.onrender.com/admin/approve/${demandeToDelete.id}?approve=false`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || 'Erreur lors de la suppression de la demande');
+    }
+
+    // Mettre à jour l'interface
+    allDemandes[selectedDepartment].splice(selectedDemandeIndex, 1);
+    updateBadges();
+    clearDemandeDisplay();
+
+    if (allDemandes[selectedDepartment].length > 0) {
+      if (selectedDemandeIndex >= allDemandes[selectedDepartment].length) {
+        selectedDemandeIndex = allDemandes[selectedDepartment].length - 1;
+      }
+      updateDemande();
+    }
+
+    const textContainer = document.querySelector('.text-container');
+    const calendarSection = document.querySelector('.calendar-section');
+    const messageSection = document.querySelector('.message-section');
+
+    if (textContainer) textContainer.classList.add('hidden-section');
+    if (calendarSection) calendarSection.classList.add('hidden-section');
+    if (messageSection) messageSection.style.display = 'none';
+
+    showSuccessMessage("Demande supprimée avec succès!");
+    await fetchConferenceRequests(); // Recharger les demandes
+  } catch (error) {
+    console.error('Erreur:', error);
+    showSuccessMessage(error.message || "Erreur lors de la suppression de la demande");
+  }
+}
+
+
+// Modifier l'événement de chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM content loaded, setting up event listeners...");
   
-  // Add other departments as needed
-};
-
-
-
-
+  // Initial fetch of conference requests
+  fetchConferenceRequests();
+  
+  // Set up periodic refresh (every 30 seconds)
+  setInterval(fetchConferenceRequests, 30000);
+  
+  // ... rest of the existing DOMContentLoaded code ...
+});
 
 // number of demande
  // Ensure badges are updated on page load
@@ -116,62 +222,45 @@ function updateDemande() {
   if (demandes && demandes.length > 0) {
     const demande = demandes[selectedDemandeIndex];
     document.getElementById("demandeTitle").innerText = demande.title;
-    document.getElementById("department").innerText = demande.department;
+    document.getElementById("department").innerText = demande.departement;
     document.getElementById("prof").innerText = demande.professor;
     document.getElementById("course").innerText = demande.course;
     document.getElementById("date").innerText = demande.date;
     document.getElementById("type").innerText = demande.type;
-    
-    // Added for hour field
     document.getElementById("hour").innerText = demande.hour || "N/A";
-    
-    // Added for description field
     document.getElementById("description").innerText = demande.description || "Aucune description disponible";
     
-    // Added for image
+    // Handle image
     const imageElement = document.getElementById("formationImage");
     if (demande.image) {
       imageElement.src = demande.image;
       imageElement.alt = `Image ${demande.course}`;
-      imageElement.style.opacity = "1"; // Full opacity
-      imageElement.style.filter = "none"; // No filters
+      imageElement.style.opacity = "1";
+      imageElement.style.filter = "none";
     } else {
       imageElement.src = "../assets/images/placeholder.png";
       imageElement.alt = "Image placeholder";
-      imageElement.style.opacity = "0.8"; // Slightly reduced opacity
-      imageElement.style.filter = "none"; // No filters
+      imageElement.style.opacity = "0.8";
+      imageElement.style.filter = "none";
     }
     
-    // Added for meeting link
+    // Handle meeting link
     const meetingLinkContainer = document.getElementById("meetingLinkContainer");
     const meetingLinkElement = document.getElementById("meetingLink");
-    
-    if (demande.type === "Enligne" && demande.meetingLink) {
-      meetingLinkElement.innerHTML = `<a href="${demande.meetingLink}" target="_blank">${demande.meetingLink}</a>`;
+    if (demande.type === "en ligne" && demande.meetingLink) {
+      // Format the link as a proper URL
+      let formattedLink = demande.meetingLink;
+      if (!formattedLink.startsWith('http://') && !formattedLink.startsWith('https://')) {
+        formattedLink = 'https://' + formattedLink;
+      }
+      meetingLinkElement.innerHTML = `<a href="${formattedLink}" target="_blank" style="color: #2563eb; text-decoration: underline;">${formattedLink}</a>`;
       meetingLinkContainer.style.display = "block";
     } else {
       meetingLinkElement.innerText = "N/A";
-      meetingLinkContainer.style.display = demande.type === "Enligne" ? "block" : "none";
+      meetingLinkContainer.style.display = demande.type === "en ligne" ? "block" : "none";
     }
   } else {
-    // If there are no demandes for the selected department
-    document.getElementById("demandeTitle").innerText = "Aucune demande";
-    document.getElementById("department").innerText = selectedDepartment;
-    document.getElementById("prof").innerText = "-";
-    document.getElementById("course").innerText = "-";
-    document.getElementById("date").innerText = "-";
-    document.getElementById("type").innerText = "-";
-    document.getElementById("hour").innerText = "-";
-    document.getElementById("description").innerText = "-";
-    document.getElementById("meetingLink").innerText = "-";
-    document.getElementById("meetingLinkContainer").style.display = "none";
-    
-    // Better handling for empty image
-    const imageElement = document.getElementById("formationImage");
-    imageElement.src = "../assets/images/no-demands.png"; // Use a specific "no demands" image
-    imageElement.alt = "Pas de demande";
-    imageElement.style.opacity = "0.5"; // Make it slightly transparent
-    imageElement.style.filter = "grayscale(100%)"; // Make it grayscale
+    clearDemandeDisplay();
   }
 }
 
@@ -542,34 +631,7 @@ messageBtn2.addEventListener('click', () => {
 
 // Keep the departmentCalendars data structure
 const departmentCalendars = {
-  "IT": [
-    { day: 10, month: 2, year: 2025, courses: [
-      { title: "Introduction à JavaScript", time: "09:00-10:00" },
-      { title: "Cloud Computing Basics", time: "14:00-15:00" }
-    ]},
-    { day: 15, month: 2, year: 2025, courses: [
-      { title: "Développement Web", time: "10:00-11:00" }
-    ]},
-    { day: 22, month: 3, year: 2025, courses: [
-      { title: "Sécurité des Applications", time: "11:00-12:00" }
-    ]}
-  ],
-  "Marketing": [
-    { day: 18, month: 2, year: 2025, courses: [
-      { title: "Stratégies de Contenu", time: "09:00-10:00" }
-    ]},
-    { day: 5, month: 3, year: 2025, courses: [
-      { title: "Réseaux Sociaux Avancés", time: "13:00-14:00" }
-    ]}
-  ],
-  "RH": [
-    { day: 20, month: 2, year: 2025, courses: [
-      { title: "Gestion de Carrière", time: "10:00-11:00" }
-    ]},
-    { day: 12, month: 3, year: 2025, courses: [
-      { title: "Développement de Leadership", time: "15:00-16:00" }
-    ]}
-  ]
+  
 };
 
 // Fonction pour vérifier si un jour a des cours programmés
@@ -760,253 +822,6 @@ function clearDemandeDisplay() {
     imageElement.style.opacity = "0.5";
     imageElement.style.filter = "grayscale(100%)";
   }
-}
-
-// Deleting demands functionality
-function deleteDemande() {
-  // Get the current department and demand index
-  const demandeToDelete = allDemandes[selectedDepartment][selectedDemandeIndex];
-  
-  // Remove the demand from the array
-  allDemandes[selectedDepartment].splice(selectedDemandeIndex, 1);
-  
-  // Update badges to reflect the deletion
-  updateBadges();
-  
-  // Clear the display
-  clearDemandeDisplay();
-  
-  // If there are remaining demands in this department
-  if (allDemandes[selectedDepartment].length > 0) {
-    // If we deleted the last demand in the list, move to the previous one
-    if (selectedDemandeIndex >= allDemandes[selectedDepartment].length) {
-      selectedDemandeIndex = allDemandes[selectedDepartment].length - 1;
-    }
-    updateDemande();
-  }
-
-  // Hide the calendar and text sections
-  const textContainer = document.querySelector('.text-container');
-  const calendarSection = document.querySelector('.calendar-section');
-  if (textContainer) textContainer.classList.add('hidden-section');
-  if (calendarSection) calendarSection.classList.add('hidden-section');
-  
-  // Hide message section if it exists
-  const messageSection = document.querySelector('.message-section');
-  if (messageSection) {
-    messageSection.style.display = 'none';
-  }
-}
-
-// Handle the "Envoyer" button in the message section to delete demand after sending message
-document.querySelector('.message-section .Ajoute-button').addEventListener('click', function() {
-  const messageText = document.querySelector('.message-section textarea').value;
-  
-  if (messageText.trim() === '') {
-    alert("Veuillez entrer un message avant d'envoyer.");
-    return;
-  }
-  
-  alert("Message envoyé au professeur!");
-  document.querySelector('.message-section textarea').value = '';
-  
-  // Delete the demand after sending the message
-  deleteDemande();
-});
-
-// Handle the Annuler buttons to hide calendar view without deletion
-document.querySelectorAll('.Annuler-button').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelector('.text-container').classList.add('hidden-section');
-    document.querySelector('.calendar-section').classList.add('hidden-section');
-    document.querySelector('.message-section').style.display = 'none';
-  });
-});
-
-// Course schedule data structure to track courses for each department
-const departmentCourses = {
-  "IT": {},
-  "Marketing": {},
-  "RH": {},
-  // Add other departments as needed
-};
-
-// Function to check if a time slot is available
-function isTimeSlotAvailable(department, date, time) {
-  const [day, month, year] = date.split('/').map(Number);
-  const departmentSchedule = departmentCourses[department];
-  
-  // Create a key for the specific date
-  const dateKey = `${day}-${month}-${year}`;
-  
-  if (!departmentSchedule[dateKey]) {
-    return true; // No courses on this date
-  }
-
-  const [startTime, endTime] = time.split('-').map(t => {
-    const [hours, minutes] = t.split(':').map(Number);
-    return hours * 60 + minutes; // Convert to minutes for easier comparison
-  });
-
-  // Check for conflicts with existing courses
-  return !departmentSchedule[dateKey].some(course => {
-    const [courseStart, courseEnd] = course.time.split('-').map(t => {
-      const [hours, minutes] = t.split(':').map(Number);
-      return hours * 60 + minutes;
-    });
-
-    // Check if time slots overlap
-    return !(endTime <= courseStart || startTime >= courseEnd);
-  });
-}
-
-// Function to show time slot availability
-function showTimeSlotAvailability(department, date, requestedTime) {
-  const isAvailable = isTimeSlotAvailable(department, date, requestedTime);
-  
-  // Create or get the time slot info element
-  let timeSlotInfo = document.querySelector('.time-slot-info');
-  if (!timeSlotInfo) {
-    timeSlotInfo = document.createElement('div');
-    timeSlotInfo.className = 'time-slot-info';
-    document.querySelector('.calendar-S').appendChild(timeSlotInfo);
-  }
-
-  // Update the time slot info content
-  timeSlotInfo.innerHTML = `
-    <div class="time-slot-status ${isAvailable ? 'available' : 'conflict'}">
-      <h4>État du créneau horaire: ${requestedTime}</h4>
-      <p>${isAvailable ? 
-        'Ce créneau horaire est disponible.' : 
-        'Ce créneau horaire est déjà réservé pour un autre cours.'}</p>
-    </div>
-  `;
-
-  // Add styles for the time slot info
-  const style = document.createElement('style');
-  style.textContent = `
-    .time-slot-info {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      background-color: #f8f9fa;
-    }
-    .time-slot-status {
-      padding: 10px;
-      border-radius: 6px;
-    }
-    .time-slot-status.available {
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-    .time-slot-status.conflict {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
-    .time-slot-status h4 {
-      margin: 0 0 10px 0;
-      font-size: 16px;
-    }
-    .time-slot-status p {
-      margin: 0;
-      font-size: 14px;
-    }
-  `;
-  document.head.appendChild(style);
-}
-
-// Function to update calendar to a specific date
-function updateCalendarToDate(day, month, year) {
-  console.log(`Updating calendar to: ${day}/${month + 1}/${year}`);
-  
-  // Update current month and year
-  currMonth = month;
-  currYear = year;
-  
-  // Render calendar
-  renderCalendar();
-  
-  // Find and highlight the specific day with a small delay to ensure calendar is rendered
-  setTimeout(() => {
-    console.log('Finding day element...');
-    const dayElements = document.querySelectorAll('.days li:not(.inactive)');
-    let targetDay = null;
-    
-    dayElements.forEach(dayElement => {
-      const dayNum = parseInt(dayElement.textContent);
-      if (dayNum === day) {
-        console.log(`Found day ${day}, selecting it...`);
-        // Remove any existing selections
-        document.querySelectorAll('.days li.selected').forEach(el => el.classList.remove('selected'));
-        // Add selected class
-        dayElement.classList.add('selected');
-        targetDay = dayElement;
-        selectedDay = dayElement; // Update the global selectedDay variable
-      }
-    });
-    
-    if (targetDay) {
-      // Trigger click event programmatically
-      const clickEvent = new MouseEvent('click', {
-        bubbles: true,
-        cancelable: true,
-        view: window
-      });
-      targetDay.dispatchEvent(clickEvent);
-      
-      // Show schedule explicitly
-      showScheduleForDay(day, month + 1, year);
-      
-      // Scroll the day into view
-      targetDay.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      console.error(`Could not find day ${day} in calendar`);
-    }
-  }, 200); // Increased delay to ensure calendar is fully rendered
-}
-
-// Modify showSections to be more direct
-
-// Function to add course to calendar and handle validation
-function addCourseToCalendar(department, day, month, year, course) {
-  // Create a key for the specific date
-  const dateKey = `${day}-${month}-${year}`;
-  
-  // Initialize the array for this date if it doesn't exist
-  if (!departmentCalendars[department]) {
-    departmentCalendars[department] = [];
-  }
-  
-  // Find if there's an existing entry for this date
-  let dateEntry = departmentCalendars[department].find(entry => 
-    entry.day === day && 
-    entry.month === month && 
-    entry.year === year
-  );
-  
-  // If no entry exists for this date, create one
-  if (!dateEntry) {
-    dateEntry = {
-      day,
-      month,
-      year,
-      courses: []
-    };
-    departmentCalendars[department].push(dateEntry);
-  }
-  
-  // Add the course to the date entry
-  dateEntry.courses.push(course);
-  
-  // Update the calendar display
-  renderCalendar();
-  
-  // Show updated schedule
-  showScheduleForDay(day, month, year);
-  
-  return true;
 }
 
 // Add styles for the popup and success message
@@ -1240,93 +1055,11 @@ function showSuccessMessage(message) {
 document.addEventListener('DOMContentLoaded', () => {
   const validerBtn = document.getElementById('addDayBtn');
   if (validerBtn) {
-    validerBtn.addEventListener('click', function() {
-      // Get current demand information
+    validerBtn.addEventListener('click', async function() {
       const currentDemande = allDemandes[selectedDepartment][selectedDemandeIndex];
-      
-      if (!currentDemande) {
-        showSuccessMessage("Aucune demande sélectionnée!");
-        return;
+      if (currentDemande?.id) {
+        await approveConference(currentDemande.id);
       }
-      
-      // Create confirmation popup
-      const confirmationPopup = document.createElement('div');
-      confirmationPopup.className = 'confirmation-popup';
-      confirmationPopup.innerHTML = `
-        <div class="popup-content">
-          <h3>Confirmation</h3>
-          <p style="color:#333;">Voulez-vous ajouter cette formation au calendrier ?</p>
-          <div class="formation-details">
-            <p><strong>Cours:</strong> ${currentDemande.course}</p>
-            <p><strong>Professeur:</strong> ${currentDemande.professor}</p>
-            <p><strong>Date:</strong> ${currentDemande.date}</p>
-            <p><strong>Heure:</strong> ${currentDemande.hour}</p>
-            <p><strong>Type:</strong> ${currentDemande.type}</p>
-          </div>
-          <div class="popup-buttons">
-            <button class="confirm-btn">Valider</button>
-            <button class="cancel-btn">Annuler</button>
-          </div>
-        </div>
-      `;
-      
-      document.body.appendChild(confirmationPopup);
-      
-      // Handle Valider button click
-      confirmationPopup.querySelector('.confirm-btn').addEventListener('click', function() {
-        // Parse the date from the current demand
-        const [day, month, year] = currentDemande.date.split('/').map(Number);
-        
-        // Create course object from demand
-        const course = {
-          title: currentDemande.course,
-          time: currentDemande.hour,
-          professor: currentDemande.professor,
-          type: currentDemande.type,
-          meetingLink: currentDemande.meetingLink || ''
-        };
-        
-        // Check for time conflicts
-        const hasConflict = getCoursesForDay(day, month, year).some(existingCourse => 
-          isTimeConflict(existingCourse.time, course.time)
-        );
-        
-        if (hasConflict) {
-          const confirmAdd = confirm("Il y a déjà un cours à ce créneau horaire. Voulez-vous quand même ajouter cette formation?");
-          if (!confirmAdd) {
-            document.body.removeChild(confirmationPopup);
-            return;
-          }
-        }
-        
-        // Add the course to the calendar
-        const success = addCourseToCalendar(selectedDepartment, day, month, year, course);
-        
-        if (success) {
-          // Show success message instead of alert
-          showSuccessMessage("Formation ajoutée avec succès!");
-          
-          // Delete the demand after successful addition
-          deleteDemande();
-          
-          // Update badges
-          updateBadges();
-          
-          // Hide calendar and text sections
-          document.querySelector('.text-container').classList.add('hidden-section');
-          document.querySelector('.calendar-section').classList.add('hidden-section');
-        } else {
-          showSuccessMessage("Erreur lors de l'ajout de la formation.");
-        }
-        
-        // Remove the popup
-        document.body.removeChild(confirmationPopup);
-      });
-      
-      // Handle Annuler button click
-      confirmationPopup.querySelector('.cancel-btn').addEventListener('click', function() {
-        document.body.removeChild(confirmationPopup);
-      });
     });
   }
 });
@@ -1336,77 +1069,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const refuserBtn = document.querySelector('.Annuler-button');
   if (refuserBtn) {
     refuserBtn.addEventListener('click', function() {
-      // Get current demand information
-      const currentDemande = allDemandes[selectedDepartment][selectedDemandeIndex];
-      
-      if (!currentDemande) {
-        showSuccessMessage("Aucune demande sélectionnée!");
-        return;
-      }
-      
-      // Create refusal popup
-      const refusalPopup = document.createElement('div');
-      refusalPopup.className = 'refusal-popup';
-      refusalPopup.innerHTML = `
-        <div class="refusal-content">
-          <h3>Refuser la demande</h3>
-          <p>Voulez-vous envoyer un message au professeur ${currentDemande.professor} ?</p>
-          <textarea placeholder="Écrivez votre message ici (optionnel)..."></textarea>
-          <div class="refusal-buttons">
-            <button class="send-btn">Envoyer et Refuser</button>
-            <button class="direct-refuse-btn">Refuser Directement</button>
-            <button class="cancel-refuse-btn">Annuler</button>
-          </div>
-        </div>
-      `;
-      
-      document.body.appendChild(refusalPopup);
-      
-      // Function to handle refusal
-      function handleRefusal(withMessage = false) {
-        const message = withMessage ? refusalPopup.querySelector('textarea').value : '';
-        
-        if (withMessage && message.trim() !== '') {
-          // Here you would typically send the message to the professor
-          console.log(`Message to ${currentDemande.professor}: ${message}`);
-          showSuccessMessage("Message envoyé et demande refusée!");
-        } else {
-          showSuccessMessage("Demande refusée!");
-        }
-        
-        // Delete the demand
-        deleteDemande();
-        
-        // Remove the popup
-        document.body.removeChild(refusalPopup);
-        
-        // Hide calendar and text sections if they're visible
-        const textContainer = document.querySelector('.text-container');
-        const calendarSection = document.querySelector('.calendar-section');
-        if (textContainer) textContainer.classList.add('hidden-section');
-        if (calendarSection) calendarSection.classList.add('hidden-section');
-      }
-      
-      // Handle Send and Refuse button click
-      refusalPopup.querySelector('.send-btn').addEventListener('click', () => {
-        handleRefusal(true);
-      });
-      
-      // Handle Direct Refuse button click
-      refusalPopup.querySelector('.direct-refuse-btn').addEventListener('click', () => {
-        handleRefusal(false);
-      });
-      
-      // Handle Cancel button click
-      refusalPopup.querySelector('.cancel-refuse-btn').addEventListener('click', () => {
-        document.body.removeChild(refusalPopup);
-      });
+      deleteDemande();
     });
-  } else {
-    console.error("Refuser button not found!");
   }
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
   const icon = document.querySelector("i.fa-users");
@@ -1434,3 +1100,198 @@ function syncRequestsToLocalStorage(allDemandes) {
 }
 syncRequestsToLocalStorage(allDemandes);
 
+// Function to fetch calendar data from API
+async function fetchCalendarData() {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
+
+    const response = await fetch('https://backend-m6sm.onrender.com/calendar', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Calendar data received:', data);
+
+    // Clear existing calendar data
+    Object.keys(departmentCalendars).forEach(key => delete departmentCalendars[key]);
+
+    // Process and organize the data by department
+    data.forEach(conference => {
+      const date = new Date(conference.date);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      const departement = conference.departement;
+
+      if (!departmentCalendars[departement]) {
+        departmentCalendars[departement] = [];
+      }
+
+      // Check if this date already exists in the department's calendar
+      let dateEntry = departmentCalendars[departement].find(entry => 
+        entry.day === day && entry.month === month && entry.year === year
+      );
+
+      if (!dateEntry) {
+        dateEntry = { day, month, year, courses: [] };
+        departmentCalendars[departement].push(dateEntry);
+      }
+
+      // Add the course to the date entry
+      dateEntry.courses.push({
+        title: conference.name,
+        time: conference.time,
+        professor: `${conference.requested_by.nom} ${conference.requested_by.prenom}`,
+        type: conference.type
+      });
+    });
+
+    console.log('Processed calendar data:', departmentCalendars);
+    return departmentCalendars;
+  } catch (error) {
+    console.error('Error fetching calendar data:', error);
+    return null;
+  }
+}
+
+// Function to check for time conflicts
+function checkTimeConflict(day, month, year, time) {
+  // Check all departments for conflicts
+  return Object.values(departmentCalendars).some(departmentData => {
+    const dateData = departmentData.find(data => 
+      data.day === day && 
+      data.month === month && 
+      data.year === year
+    );
+
+    if (!dateData) return false;
+
+    return dateData.courses.some(course => isTimeConflict(time, course.time));
+  });
+}
+
+// Update the showScheduleForDay function to use the API data
+function showScheduleForDay(day, month, year) {
+  let scheduleDisplay = document.getElementById('daySchedule');
+  if (!scheduleDisplay) {
+    scheduleDisplay = document.createElement('div');
+    scheduleDisplay.id = 'daySchedule';
+    scheduleDisplay.className = 'day-schedule';
+    document.querySelector('.calendar-S').appendChild(scheduleDisplay);
+  }
+
+  // Get all courses from all departments
+  const allCourses = [];
+  Object.entries(departmentCalendars).forEach(([dept, departmentData]) => {
+    const dateData = departmentData.find(data => 
+      data.day === day && 
+      data.month === month && 
+      data.year === year
+    );
+
+    if (dateData && dateData.courses) {
+      dateData.courses.forEach(course => {
+        allCourses.push({
+          ...course,
+          department: dept
+      });
+    });
+    }
+  });
+
+  // Get the current demande
+  const currentDemande = allDemandes[selectedDepartment][selectedDemandeIndex];
+  const requestedTime = currentDemande.hour;
+
+  // Build the HTML for the schedule
+  let scheduleHTML = `
+    <div class="schedule-header">
+      <h4>Cours programmés le ${day}/${month}/${year}</h4>
+      <p>Heure demandée: <strong>${requestedTime}</strong> (${selectedDepartment})</p>
+    </div>
+    <div class="schedule-content">
+  `;
+
+  if (allCourses.length === 0) {
+    scheduleHTML += '<p>Aucun cours programmé pour cette journée.</p>';
+  } else {
+    scheduleHTML += '<ul class="schedule-list">';
+    let conflict = false;
+
+    // Sort courses by time
+    allCourses.sort((a, b) => {
+      const timeA = a.time.split('-')[0];
+      const timeB = b.time.split('-')[0];
+      return timeA.localeCompare(timeB);
+    });
+
+    allCourses.forEach(course => {
+      const isConflict = isTimeConflict(requestedTime, course.time);
+      if (isConflict) conflict = true;
+
+      scheduleHTML += `
+        <li class="${isConflict ? 'time-conflict' : ''}">
+          <span class="course-time">${course.time}</span>
+          <span class="course-title">${course.title}</span>
+          <span class="course-dept">${course.department}</span>
+          <span class="course-prof">${course.professor}</span>
+          ${isConflict ? '<span class="conflict-icon">⚠️</span>' : ''}
+        </li>
+      `;
+    });
+
+    scheduleHTML += '</ul>';
+
+    if (conflict) {
+      scheduleHTML += `
+        <div class="conflict-warning">
+          <p>⚠️ Il y a un conflit d'horaire avec la demande actuelle.</p>
+          <p>L'horaire demandé (${requestedTime}) est en conflit avec un ou plusieurs cours existants.</p>
+        </div>
+      `;
+    } else {
+      scheduleHTML += `
+        <div class="no-conflict">
+          <p>✅ L'horaire demandé est disponible dans tous les départements.</p>
+          <p>Aucun conflit détecté pour ${requestedTime}.</p>
+        </div>
+      `;
+    }
+  }
+
+  scheduleHTML += '</div>';
+  scheduleDisplay.innerHTML = scheduleHTML;
+}
+
+// Update the DOMContentLoaded event to fetch calendar data
+document.addEventListener('DOMContentLoaded', async () => {
+  console.log("DOM content loaded, setting up event listeners...");
+  
+  // Initial fetch of conference requests and calendar data
+  await Promise.all([
+    fetchConferenceRequests(),
+    fetchCalendarData()
+  ]);
+  
+  // Set up periodic refresh (every 30 seconds)
+  setInterval(async () => {
+    await Promise.all([
+      fetchConferenceRequests(),
+      fetchCalendarData()
+    ]);
+  }, 30000);
+
+  // ... rest of the existing DOMContentLoaded code ...
+});

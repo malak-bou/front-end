@@ -184,44 +184,49 @@
     <h2 style="text-align:center;margin:10px 0;">Les demandes des Formations</h2>
   
 
-  <section class="departments">
-    <button data-dept="Information Technology" class="dept-btn">Information Technology<span class="badge"></span></button>
-    <button data-dept="Human Resources" class="dept-btn">Human Resources <span class="badge"></span></button>
-    <button data-dept="Marketing" class="dept-btn">Marketing <span class="badge"></span></button>
-    <button data-dept="Network" class="dept-btn">Network <span class="badge"></span></button>
-    <button data-dept="Underwriting" class="dept-btn">Underwriting <span class="badge"></span></button>
-    <button data-dept="Legal and Compliance" class="dept-btn">Legal and Compliance <span class="badge"></span></button>
-    <button data-dept="Business Development" class="dept-btn">Business Development <span class="badge"></span></button>
-    <button data-dept="Claims" class="dept-btn">Claims <span class="badge"></span></button>
-    <button data-dept="Reinsurance" class="dept-btn">Reinsurance <span class="badge"></span></button>
-    <button data-dept="Prevention" class="dept-btn">Prevention <span class="badge"></span></button>
-    <button data-dept="Finance & Accounting" class="dept-btn">Finance & Accounting <span class="badge"></span></button>
-    <button data-dept="Quality & Internal Control" class="dept-btn">Quality & Internal Control <span class="badge"></span></button>
-    <button data-dept="Executive Management" class="dept-btn">Executive Management <span class="badge"></span></button>
-    <button data-dept="Center Regional Delegation" class="dept-btn">Center Regional Delegation <span class="badge"></span></button>
-  </section>
+  
+    <section class="departments">
+      <div class="loading-spinner" id="departmentsLoading" style="display: none;">
+        <div class="spinner"></div>
+      </div>
+      <button data-dept="IT" class="dept-btn">IT<span class="badge"></span></button>
+      <button data-dept="RH" class="dept-btn">Human Resources <span class="badge"></span></button>
+      <button data-dept="Marketing" class="dept-btn">Marketing <span class="badge"></span></button>
+      <button data-dept="Network" class="dept-btn">Network <span class="badge"></span></button>
+      <button data-dept="Underwriting" class="dept-btn">Underwriting <span class="badge"></span></button>
+      <button data-dept="Legal and Compliance" class="dept-btn">Legal and Compliance <span class="badge"></span></button>
+      <button data-dept="Business Development" class="dept-btn">Business Development <span class="badge"></span></button>
+      <button data-dept="Claims" class="dept-btn">Claims <span class="badge"></span></button>
+      <button data-dept="Reinsurance" class="dept-btn">Reinsurance <span class="badge"></span></button>
+      <button data-dept="Prevention" class="dept-btn">Prevention <span class="badge"></span></button>
+      <button data-dept="Finance & Accounting" class="dept-btn">Finance & Accounting <span class="badge"></span></button>
+      <button data-dept="Quality & Internal Control" class="dept-btn">Quality & Internal Control <span class="badge"></span></button>
+      <button data-dept="Executive Management" class="dept-btn">Executive Management <span class="badge"></span></button>
+      <button data-dept="Center Regional Delegation" class="dept-btn">Center Regional Delegation <span class="badge"></span></button>
+    </section>
+  
 <div class="center">
   <section class="request">
     <div class="demandes">
       <i class="fas fa-circle-chevron-left icon"  id="prevBtn" ></i> 
-      <h3 style="text-align:center;" id="demandeTitle">Demande 1</h3>
+      <h3 style="text-align:center;" id="demandeTitle">Demande: <span id="demandeNumber"></span></h3>
       <i class="fas fa-circle-chevron-right icon" id="nextBtn"></i> 
     </div>
     <div class="request-box">
         <div class="DEPARTEMENT-TYPE-container">
             <div class="DEPARTEMENT-TYPE">
-            <p><strong id="department">Département IT</strong></p>
+            <p><strong id="department"></strong></p>
             </div>
         </div>
         <img id="formationImage" src="../assets/images/placeholder.png" alt="Image de la formation" class="formation-image-preview">
         <div class="information">
-            <p><strong>Professeur :</strong><span id="prof"> Azouzi Alaa</span></p>
-            <p class="center"><strong>Nom de cour :</strong><span id="course"> AWS Cloud Practitioner Essentials </span></p>
-            <p><strong>Date :</strong> <span id="date">17/02/2025</span> </p>
-            <p><strong>Heure :</strong> <span id="hour">14:00-16:00</span> </p>
-            <p><strong>Description :</strong> <span id="description">[Description placeholder]</span></p>
-            <p><strong>Type de cour :</strong><span id="type"> Enligne </span></p>
-            <p id="meetingLinkContainer"><strong>Lien de meet :</strong> <span id="meetingLink">[Meeting Link placeholder]</span></p>
+          <p><strong>Professeur :</strong><span id="prof"></span></p>
+          <p class="center"><strong>Nom de cour :</strong><span id="course"></span></p>
+          <p><strong>Date :</strong> <span id="date"></span></p>
+          <p><strong>Heure :</strong> <span id="hour"></span></p>
+          <p><strong>Description :</strong> <span id="description"></span></p>
+          <p><strong>Type de cour :</strong><span id="type"></span></p>
+          <p id="meetingLinkContainer"><strong>Lien de meet :</strong> <span id="meetingLink"></span></p>
         </div>
       <div class="button-container">
         <!-- <button id="messageBtn">Message</button> -->
