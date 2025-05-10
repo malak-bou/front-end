@@ -103,11 +103,19 @@ async function approveConference(conferenceId) {
       return;
     }
 
+    // Get only the selected day
+    const selectedDayNum = parseInt(selectedDay.getAttribute("data-day"));
+    const date = new Date(currYear, currMonth, selectedDayNum).toISOString().split('T')[0];
+
     const response = await fetch(`https://backend-m6sm.onrender.com/admin/approve/${conferenceId}?approve=true`, {
       method: 'PUT',
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        date: date
+      })
     });
 
     if (!response.ok) {
@@ -1051,18 +1059,7 @@ function showSuccessMessage(message) {
   }, 2500);
 }
 
-// Add event listener for the Valider button
-document.addEventListener('DOMContentLoaded', () => {
-  const validerBtn = document.getElementById('addDayBtn');
-  if (validerBtn) {
-    validerBtn.addEventListener('click', async function() {
-      const currentDemande = allDemandes[selectedDepartment][selectedDemandeIndex];
-      if (currentDemande?.id) {
-        await approveConference(currentDemande.id);
-      }
-    });
-  }
-});
+
 
 // Add event listener for the Refuser button
 document.addEventListener('DOMContentLoaded', () => {
@@ -1106,8 +1103,8 @@ async function fetchCalendarData() {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('No authentication token found');
-      return;
-    }
+            return;
+          }
 
     const response = await fetch('https://backend-m6sm.onrender.com/calendar', {
       method: 'GET',
@@ -1116,17 +1113,17 @@ async function fetchCalendarData() {
         'Content-Type': 'application/json'
       }
     });
-
+        
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
     console.log('Calendar data received:', data);
-
+          
     // Clear existing calendar data
     Object.keys(departmentCalendars).forEach(key => delete departmentCalendars[key]);
-
+          
     // Process and organize the data by department
     data.forEach(conference => {
       const date = new Date(conference.date);
@@ -1175,13 +1172,13 @@ function checkTimeConflict(day, month, year, time) {
       data.month === month && 
       data.year === year
     );
-
+      
     if (!dateData) return false;
 
     return dateData.courses.some(course => isTimeConflict(time, course.time));
   });
-}
-
+      }
+      
 // Update the showScheduleForDay function to use the API data
 function showScheduleForDay(day, month, year) {
   let scheduleDisplay = document.getElementById('daySchedule');
@@ -1220,16 +1217,18 @@ function showScheduleForDay(day, month, year) {
     <div class="schedule-header">
       <h4>Cours programmés le ${day}/${month}/${year}</h4>
       <p>Heure demandée: <strong>${requestedTime}</strong> (${selectedDepartment})</p>
-    </div>
+          </div>
     <div class="schedule-content">
   `;
 
+
+
   if (allCourses.length === 0) {
     scheduleHTML += '<p>Aucun cours programmé pour cette journée.</p>';
-  } else {
+        } else {
     scheduleHTML += '<ul class="schedule-list">';
     let conflict = false;
-
+        
     // Sort courses by time
     allCourses.sort((a, b) => {
       const timeA = a.time.split('-')[0];
@@ -1238,7 +1237,7 @@ function showScheduleForDay(day, month, year) {
     });
 
     allCourses.forEach(course => {
-      const isConflict = isTimeConflict(requestedTime, course.time);
+      const isConflict = requestedTime === course.time;
       if (isConflict) conflict = true;
 
       scheduleHTML += `
@@ -1250,8 +1249,8 @@ function showScheduleForDay(day, month, year) {
           ${isConflict ? '<span class="conflict-icon">⚠️</span>' : ''}
         </li>
       `;
-    });
-
+      });
+      
     scheduleHTML += '</ul>';
 
     if (conflict) {
@@ -1261,19 +1260,38 @@ function showScheduleForDay(day, month, year) {
           <p>L'horaire demandé (${requestedTime}) est en conflit avec un ou plusieurs cours existants.</p>
         </div>
       `;
-    } else {
+  } else {
       scheduleHTML += `
         <div class="no-conflict">
           <p>✅ L'horaire demandé est disponible dans tous les départements.</p>
           <p>Aucun conflit détecté pour ${requestedTime}.</p>
         </div>
       `;
-    }
+  }
   }
 
   scheduleHTML += '</div>';
   scheduleDisplay.innerHTML = scheduleHTML;
 }
+  // Add event listener for the Valider button
+  document.addEventListener('DOMContentLoaded', () => {
+    const validerBtn = document.getElementById('addDayBtn');
+    if (validerBtn) {
+      validerBtn.addEventListener('click', async function() {
+        const currentDemande = allDemandes[selectedDepartment][selectedDemandeIndex];
+        
+        if (currentDemande?.id) {
+          // Check if there's a conflict warning in the schedule display
+          const conflictWarning = document.querySelector('.conflict-warning');
+          if (conflictWarning) {
+            showSuccessMessage("❌ Erreur: L'horaire est déjà pris. Veuillez choisir un autre créneau.");
+            return;
+          }
+          await approveConference(currentDemande.id);
+  }
+});
+    }
+  });
 
 // Update the DOMContentLoaded event to fetch calendar data
 document.addEventListener('DOMContentLoaded', async () => {
