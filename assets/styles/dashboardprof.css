@@ -779,19 +779,7 @@ footer {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   .profile-side-bar{
-    width:270px;
     height: 180px;
     background: #1A0495;
     border-radius: 10px;
@@ -816,7 +804,6 @@ footer {
     margin-top: 15px;
     background:  #1A0495;
     border-radius: 10px;
-    width: 270px;
     color: white;
 }
 .wrapper2 header{
@@ -967,7 +954,6 @@ header .current-date2 {
 
 
 .cours-sidebar{
-    width: 16.875rem;
     height: auto;
     margin-top: 20px;
     border-radius: 10px;
