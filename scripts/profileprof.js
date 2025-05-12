@@ -124,10 +124,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Load saved profile picture from local storage
-    const savedImage = localStorage.getItem("profileImage");
-    if (savedImage) {
-        profilePic.src = savedImage;
+ async function fetchUserProfile() {
+    try {
+        const response = await fetch("http://localhost:8000/users/me", {
+            method: "GET",
+            credentials: "include",
+        });
+
+        if (!response.ok) throw new Error("Failed to fetch user");
+
+        const userData = await response.json();
+
+        // Update profile picture
+        if (userData.profile_picture_url) {
+            profilePic.src = userData.profile_picture_url;
+        } else {
+            profilePic.src = defaultImage;
+        }
+
+        // Update input fields with user data
+        document.getElementById("username").value = userData.username || "";
+        document.getElementById("email").value = userData.email || "";
+        document.getElementById("password").value = "••••••"; // for display only
+    } catch (err) {
+        console.error("Error fetching user profile:", err);
     }
+}
+
+fetchUserProfile();
+
 
     // Save and restore user details
     const saveBtn = document.querySelector(".save-btn");
@@ -179,60 +204,54 @@ document.addEventListener("DOMContentLoaded", function () {
     const averageProgress = document.getElementById("averageProgress");
 
     // Récupérer les cours stockés
-    let userCourses = JSON.parse(localStorage.getItem("userCourses")) || [];
-
-    function loadCourses() {
-        courseTableBody.innerHTML = "";
-        let completedCount = 0;
-        let totalProgress = 0;
-
-        userCourses.forEach(course => {
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                <td>${course.title}</td>
-                <td>
-                    <div class="progress-bar">
-                        <span style="width: ${course.progress}%;"></span>
-                    </div>
-                    ${course.progress}%
-                </td>
-                <td>${course.startDate}</td>
-                <td>${course.endDate}</td>
-                <td>${course.completed ? "✅ Terminé" : "⌛ En cours"}</td>
-            `;
-
-            courseTableBody.appendChild(row);
-
-            if (course.completed) completedCount++;
-            totalProgress += course.progress;
+async function fetchCourseProgress() {
+    try {
+        const response = await fetch("http://localhost:8000/courses/progress", {
+            method: "GET",
+            credentials: "include",
         });
 
-        totalCourses.textContent = userCourses.length;
-        completedCourses.textContent = completedCount;
-        averageProgress.textContent = userCourses.length > 0 ? Math.round(totalProgress / userCourses.length) + "%" : "0%";
+        if (!response.ok) throw new Error("Failed to fetch course progress");
+
+        const userCourses = await response.json();
+        renderCourses(userCourses);
+        renderSkills(userCourses);
+    } catch (err) {
+        console.error("Error fetching course progress:", err);
     }
+}
 
-    function loadSkills() {
-        skillsList.innerHTML = "";
-        const allSkills = new Set();
 
-        userCourses.forEach(course => {
-            if (course.completed) {
-                course.skills.forEach(skill => allSkills.add(skill));
-            }
-        });
+ function renderCourses(courses) {
+    courseTableBody.innerHTML = "";
+    let completedCount = 0;
+    let totalProgress = 0;
 
-        allSkills.forEach(skill => {
-            const li = document.createElement("li");
-            li.textContent = skill;
-            skillsList.appendChild(li);
-        });
-    }
+    courses.forEach(course => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${course.title}</td>
+            <td>
+                <div class="progress-bar">
+                    <span style="width: ${course.progress}%;"></span>
+                </div>
+                ${course.progress}%
+            </td>
+            <td>${course.startDate}</td>
+            <td>${course.endDate}</td>
+            <td>${course.completed ? "✅ Terminé" : "⌛ En cours"}</td>
+        `;
+        courseTableBody.appendChild(row);
 
-    loadCourses();
-    loadSkills();
-});
+        if (course.completed) completedCount++;
+        totalProgress += course.progress;
+    });
+
+    totalCourses.textContent = courses.length;
+    completedCourses.textContent = completedCount;
+    averageProgress.textContent = courses.length > 0 ? Math.round(totalProgress / courses.length) + "%" : "0%";
+}
+
 
  // Fermer la sidebar en cliquant en dehors
  document.addEventListener("click", function (event) {
