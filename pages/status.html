@@ -76,6 +76,62 @@
         .form-container:target {
             animation: highlightForm 0.5s ease-out;
         }
+
+        /* Styles pour les statuts */
+        .status {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status.approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status.denied {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .error-message {
+            text-align: center;
+            color: #dc3545;
+            padding: 20px;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #6c757d;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        .delete-button {
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .delete-button:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -135,27 +191,8 @@
                     </tr>
                 </thead>
                 <tbody id="formation-table-body">
-                  
-                <tbody>
-                    <tr>
-                       
-                    
-                        
-                    </tr> 
-                    <tr>
-                       
-                     
-                        
-                    </tr>
-    
-                    <tr>
-                    
-                       
-                    </tr>
-    
-                    <tr>
-                    
-                    </tr>
+                 
+                
                 </tbody>
             </table>
         </div>
