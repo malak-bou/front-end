@@ -23,6 +23,7 @@ function handleFormationType() {
         formationLink.style.opacity = '0.5';
     }
 }
+
 // Fonction pour supprimer une formation
 function removeFormation(id) {
     formations = formations.filter(formation => formation.id !== id);
@@ -312,30 +313,111 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAndDisplayConferences();
 });
 
-const dateInput = document.getElementById('datePicker');
-const selectedDateLabel = document.getElementById('selectedDate');
+document.getElementById('formation-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-dateInput.addEventListener('change', function() {
-  selectedDateLabel.textContent = dateInput.value;
+    // Get form data
+    const formData = new FormData();
+    
+    // Récupérer et logger les valeurs pour le débogage
+    const formationName = document.getElementById('formation-name').value;
+    const description = document.getElementById('formation-description').value;
+    const department = document.getElementById('departement').value;
+    const date = document.getElementById('datePicker').value;
+    const time = document.getElementById('timePicker').value;
+    const type = document.getElementById('formation-type').value;
+    const link = document.getElementById('formation-link').value;
+
+    console.log('Form values:', {
+        formationName,
+        description,
+        department,
+        date,
+        time,
+        type,
+        link
+    });
+
+    // Ajouter les données au FormData avec les bons noms de champs
+    formData.append('name', formationName);
+    formData.append('description', description);
+    formData.append('departement', department);
+    formData.append('date', date);
+    formData.append('time', time);
+    formData.append('type', type);
+    if (link) {
+        formData.append('link', link);
+    }
+
+    // Handle file upload if exists
+    const fileInput = document.getElementById('file-upload');
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        if (!file.type.startsWith('image/')) {
+            alert('Veuillez sélectionner une image valide');
+            return;
+        }
+        formData.append('image', file);
+    }
+
+    // Log the FormData contents
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Vous devez être connecté pour envoyer une demande');
+            return;
+        }
+
+        console.log('Sending request to server...');
+        const response = await fetch('https://backend-m6sm.onrender.com/request/', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        });
+
+        console.log('Server response status:', response.status);
+        const responseData = await response.json();
+        console.log('Server response:', responseData);
+
+        if (response.ok) {
+            alert('Formation demandée avec succès!');
+            this.reset();
+            document.getElementById('preview').src = '';
+            await fetchAndDisplayConferences();
+        } else {
+            let errorMessage = 'Une erreur est survenue';
+            if (response.status === 422) {
+                errorMessage = 'Les données envoyées ne sont pas valides. Détails des erreurs:\n' + 
+                    JSON.stringify(responseData, null, 2);
+            } else if (responseData.message) {
+                errorMessage = responseData.message;
+            }
+            console.error('Error details:', responseData);
+            alert('Erreur: ' + errorMessage);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Une erreur est survenue lors de l\'envoi de la demande');
+    }
 });
-// add formation button//
-const timeInput = document.getElementById('timePicker');
-const selectedHourLabel = document.getElementById('selectedHour');
-
-timeInput.addEventListener('change', function () {
-  const timeValue = timeInput.value; // e.g. "14:30"
-  const hourOnly = timeValue.split(':')[0]; // "14"
-  selectedHourLabel.textContent = hourOnly + ":00";
-});
-
-// Nav barre
 
 // Fonction pour gérer l'affichage de la barre de navigation
 function toggleNav() {
     document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
 }
 
-
+const formationType = document.getElementById('formation-type');
+    if (formationType) {
+        formationType.addEventListener('change', handleFormationType);
+        // Appeler la fonction une fois au chargement pour gérer l'état initial
+        handleFormationType();
+    }
 
 
 
