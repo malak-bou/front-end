@@ -213,14 +213,7 @@ body {
     background-color: #666;
 }
 
-/* Responsive design */
-@media (max-width: 992px) {
-    .container {
-        flex-direction: column;
-    }
 
-    
-}
 
 .failed {
 background-color: #ffc6cf;
@@ -253,11 +246,12 @@ padding: 8px 12px;
 .form-container {
     background: white;
     color: black;
-    width: 50%;
-    margin: 20px auto;
+    width: 80%;
+    margin: auto;
     padding: 20px;
     border-radius: 10px;
     text-align: left;
+    max-width: 650px;
 }
 
 form input, textarea {
@@ -695,7 +689,14 @@ footer {
     height:auto ;
     }
 
+/* Responsive design */
+@media (max-width: 992px) {
+  .container {
+      flex-direction: column;
+  }
 
+  
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   /* Centrer le header */
@@ -734,7 +735,18 @@ footer {
   }
   .container-contact{
     flex-direction: column;
-}
+  }
+  .table-container{
+    scroll-behavior: auto;
+    overflow-x: auto;
+    
+  }
+
+
+  tr{
+    font-size: 12px;
+    width: auto;
+  }
 
 }
 main{
