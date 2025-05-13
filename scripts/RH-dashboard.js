@@ -285,7 +285,7 @@ async function loadCalendarCourses() {
                     title: conf.name,
                     trainer: `${conf.requested_by.prenom} ${conf.requested_by.nom}`,
                     time: conf.time || "Non spécifié",
-                    type: conf.type || "Présentiel",
+                    type: conf.type,
                     meetingLink: conf.link || "#",
                     date: conf.date
                 });

@@ -13,29 +13,7 @@ const months = [
 // French day names for the calendar header
 const weekDays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 
-// Course schedule data - this could be loaded from a database in a real application
-const courseSchedule = {
-    // Day 3 courses
-    "3": [
-        {
-            id: 1,
-            title: "Droit du travail et relations professionnelles",
-            trainer: "Amani Amel",
-            time: "09:00-10:00",
-            type: "online"
-        }
-    ],
-    // Day 22 courses
-    "22": [
-        {
-            id: 2,
-            title: "Recrutement et sélection des talents",
-            trainer: "Hamadi Ali",
-            time: "14:00-15:00",
-            type: "in-person"
-        }
-    ]
-};
+
 
 // Elements for timetable modal
 const timetableModal = document.getElementById('timetable-modal');
@@ -61,34 +39,123 @@ const timeSlots = [
     "12:00-13:00", "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00"
 ];
 
-// --- Dynamic courses data (simulate backend or fetch from API) ---
-const courses = [
-    { id: 1, title: "Droit du travail et relations professionnelles", trainer: "Amani Amel", time: "09:00-10:00", type: "online", department: "RH", date: "2025-03-03" },
-    { id: 2, title: "Recrutement et sélection des talents", trainer: "Hamadi Ali", time: "14:00-15:00", type: "in-person", department: "RH", date: "2025-03-22" },
-    { id: 3, title: "Mastering React & Next.js", trainer: "M.hacene", time: "10:00-11:00", type: "online", department: "Information Technology", date: "2025-03-10" },
-    { id: 4, title: "Front-end Development", trainer: "M. Bazouzi", time: "13:00-14:00", type: "in-person", department: "Information Technology", date: "2025-03-15" },
-    { id: 5, title: "Marketing Digital", trainer: "Mme Martin", time: "11:00-12:00", type: "online", department: "Marketing", date: "2025-03-10" },
-    { id: 6, title: "Stratégie de Contenu", trainer: "M. Dupont", time: "15:00-16:00", type: "in-person", department: "Marketing", date: "2025-03-18" },
-    { id: 7, title: "Cloud Networking", trainer: "M. Lefebvre", time: "09:00-10:00", type: "online", department: "Network", date: "2025-03-10" },
-    { id: 8, title: "Sécurité des Réseaux", trainer: "Mme Benali", time: "16:00-17:00", type: "in-person", department: "Network", date: "2025-03-22" },
-    { id: 9, title: "Comptabilité Avancée", trainer: "M. Mohamed", time: "10:00-11:00", type: "online", department: "Finance & Accounting", date: "2025-03-18" },
-    { id: 10, title: "Audit Interne", trainer: "Mme Nessrin", time: "14:00-15:00", type: "in-person", department: "Quality & Internal Control", date: "2025-03-15" },
-    // ... add more courses as needed
-];
+
+// Function to fetch calendar courses
+async function fetchCalendarCourses() {
+    const token = localStorage.getItem("token");
+    const response = await fetch("https://backend-m6sm.onrender.com/calendar", {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    });
+    if (!response.ok) {
+        console.error("Erreur lors de la récupération du calendrier:", response.status);
+        throw new Error("Erreur lors de la récupération du calendrier");
+    }
+    const data = await response.json();
+    return data;
+}
+
+// Initialize course schedule as empty
+let courseSchedule = {};
+
+// Function to format time to match timeSlots format
+function formatTime(time) {
+    
+    // Si déjà au bon format (ex: 09:00-10:00)
+    if (/^\d{2}:\d{2}-\d{2}:\d{2}$/.test(time)) {
+        return time;
+    }
+    // Si format "H:MM" ou "HH:MM"
+    if (/^\d{1,2}:\d{2}$/.test(time)) {
+        let [h, m] = time.split(":");
+        h = h.padStart(2, '0');
+        let nextH = (parseInt(h, 10) + 1).toString().padStart(2, '0');
+        return `${h}:00-${nextH}:00`;
+    }
+    // Si format "H:MM-H:MM" ou "HH:MM-HH:MM"
+    if (/^\d{1,2}:\d{2}-\d{1,2}:\d{2}$/.test(time)) {
+        let [start, end] = time.split("-");
+        let [h1, m1] = start.split(":");
+        let [h2, m2] = end.split(":");
+        h1 = h1.padStart(2, '0');
+        h2 = h2.padStart(2, '0');
+        return `${h1}:00-${h2}:00`;
+    }
+
+}
+
+// Function to load calendar courses
+async function loadCalendarCourses() {
+    try {
+        const conferences = await fetchCalendarCourses();
+        
+        // Reset the schedule
+        courseSchedule = {};
+        
+        // Only process conferences that have valid data
+        conferences.forEach(conf => {
+            if (!conf.date || !conf.name) return;
+            
+            const dateObj = new Date(conf.date);
+            if (isNaN(dateObj.getTime())) return;
+            
+            const year = dateObj.getFullYear();
+            const month = dateObj.getMonth();
+            const day = dateObj.getDate();
+            const key = `${year}-${month}`;
+            
+            if (!courseSchedule[key]) {
+                courseSchedule[key] = [];
+            }
+            
+            // Only add conferences with required data
+            if (conf.name && conf.requested_by) {
+                const courseData = {
+                    day: day,
+                    id: conf.id,
+                    title: conf.name,
+                    trainer: `${conf.requested_by.prenom} ${conf.requested_by.nom}`,
+                    time: formatTime(conf.time),
+                    type: conf.type,
+                    date: conf.date,
+                    department: conf.departement,
+                };
+                courseSchedule[key].push(courseData);
+            }
+        });
+        
+        console.log("Calendrier chargé:", courseSchedule);
+        
+        // Update the calendar with new data
+        renderCalendar();
+    } catch (error) {
+        console.error("Erreur lors du chargement des cours du calendrier:", error);
+        courseSchedule = {};
+        renderCalendar();
+    }
+}
+
 
 // --- Calendar state ---
 let selectedDepartment = "Calendrier Général";
 
 // --- Helper: get courses for a given month/year and department ---
 function getCoursesForMonth(year, month, department) {
-    // month: 0-based (0=Jan)
-    return courses.filter(course => {
-        const d = new Date(course.date);
-        const matchMonth = d.getFullYear() === year && d.getMonth() === month;
+    const key = `${year}-${month}`;
+    
+    if (!courseSchedule[key]) {
+        return [];
+    }
+    
+    const filteredCourses = courseSchedule[key].filter(course => {
         const matchDep = (department === "Calendrier Général") ? true : course.department === department;
-        // Only include courses with a valid time slot
-        return matchMonth && matchDep && timeSlots.includes(course.time);
+        const matchTime = timeSlots.includes(course.time);
+        return matchDep && matchTime;
     });
+    
+    return filteredCourses;
 }
 
 // --- Render calendar dynamically ---
@@ -97,21 +164,26 @@ const renderCalendar = () => {
         lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
         lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
         lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+    
     let liTag = "";
     for (let i = firstDayofMonth; i > 0; i--) {
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
     }
+    
     // Get all course days for this month and department
     const monthCourses = getCoursesForMonth(currYear, currMonth, selectedDepartment);
     const courseDays = monthCourses.map(c => new Date(c.date).getDate());
+    
     for (let i = 1; i <= lastDateofMonth; i++) {
         let isToday = i === date.getDate() && currMonth === new Date().getMonth() && currYear === new Date().getFullYear() ? "active" : "";
         let isCourseDay = courseDays.includes(i) ? "courss" : "";
         liTag += `<li class="${isToday} ${isCourseDay}">${i}</li>`;
     }
+    
     for (let i = lastDayofMonth; i < 6; i++) {
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
     }
+    
     currentDate.innerText = `${months[currMonth]} ${currYear}`;
     daysTag.innerHTML = liTag;
 };
@@ -126,7 +198,7 @@ document.querySelectorAll('.button-dep').forEach(btn => {
             b.style.fontWeight = '';
         });
         // Style selected
-        this.style.background = 'gray';
+        this.style.background = 'white';
         this.style.color = 'black';
         this.style.fontWeight = 'bold';
         selectedDepartment = this.getAttribute('data-department');
@@ -144,18 +216,47 @@ document.querySelectorAll('.button-dep').forEach(btn => {
 
 // --- Update text above calendar on load ---
 document.addEventListener('DOMContentLoaded', function() {
+    // Load courses from backend
+    loadCalendarCourses();
+    
     // Style the default button
     const defaultBtn = document.querySelector('.button-dep[data-department="Calendrier Général"]');
     if (defaultBtn) {
-        defaultBtn.style.background = 'gray';
+        defaultBtn.style.background = 'white';
         defaultBtn.style.color = 'black';
         defaultBtn.style.fontWeight = 'bold';
     }
     // Set text
     const textChange = document.getElementById('text3');
     textChange.textContent = 'Le calendrier général (tous les départements)';
+    
+    // Render initial calendar
     renderCalendar();
     updateCalendarWithClickableCourseDays();
+    
+    // Add click event for calendar days
+    document.querySelector('.calendar').addEventListener('click', function(e) {
+        if (e.target.tagName === 'LI' && e.target.classList.contains('courss')) {
+            const day = parseInt(e.target.textContent);
+            showTimetableForDay(day);
+        }
+    });
+    
+    // Add event listeners for navigation
+    prevNextIcon.forEach(icon => {
+        icon.addEventListener("click", () => {
+            currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+            if(currMonth < 0 || currMonth > 11) {
+                date = new Date(currYear, currMonth, new Date().getDate());
+                currYear = date.getFullYear();
+                currMonth = date.getMonth();
+            } else {
+                date = new Date();
+            }
+            renderCalendar();
+            updateCalendarWithClickableCourseDays();
+        });
+    });
 });
 
 // --- Make course days clickable ---
@@ -186,20 +287,8 @@ function showTimetableForDay(day) {
 function generateTimetableContent(day) {
     timetable.innerHTML = '';
     // Get all courses for this day
-    let dayCourses;
-    if (selectedDepartment === "Calendrier Général") {
-        // All departments
-        dayCourses = courses.filter(c => {
-            const d = new Date(c.date);
-            return d.getFullYear() === currYear && d.getMonth() === currMonth && d.getDate() === day;
-        });
-    } else {
-        // Only selected department
-        dayCourses = courses.filter(c => {
-            const d = new Date(c.date);
-            return d.getFullYear() === currYear && d.getMonth() === currMonth && d.getDate() === day && c.department === selectedDepartment;
-        });
-    }
+    const dayCourses = getCoursesForMonth(currYear, currMonth, selectedDepartment)
+        .filter(c => new Date(c.date).getDate() === day);
     // Create time slots
     timeSlots.forEach(timeSlot => {
         const course = dayCourses.find(course => course.time === timeSlot);
@@ -351,27 +440,50 @@ function confirmDeleteCourse(courseId, day) {
 }
 
 // Function to delete course
-function deleteCourse(courseId, day) {
-    // Remove from courseSchedule (sidebar)
-    if (courseSchedule[day]) {
-        const courseIndex = courseSchedule[day].findIndex(course => course.id === courseId);
-        if (courseIndex !== -1) {
-            courseSchedule[day].splice(courseIndex, 1);
-            if (courseSchedule[day].length === 0) {
-                delete courseSchedule[day];
-            }
+async function deleteCourse(courseId) {
+    try {
+        // Find the course by ID to get its details
+        const course = Object.values(courseSchedule).flat().find(c => c.id === courseId);
+        if (!course) {
+            console.error("Course not found");
+            alert("Le cours spécifié est introuvable.");
+            return;
         }
-    }
 
-    // Remove from courses array (main calendar/timetable)
-    const mainIndex = courses.findIndex(course => course.id === courseId);
-    if (mainIndex !== -1) {
-        courses.splice(mainIndex, 1);
-    }
+        const courseName = encodeURIComponent(course.title); // Ensure the course name is URL-safe
 
-    // Refresh the timetable and calendars
-    generateTimetableContent(day);
-    updateCalendars();
+        // Make the API call to delete the course
+        const token = localStorage.getItem("token");
+        const response = await fetch(`https://backend-m6sm.onrender.com/conferences/${courseName}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            console.error(`Failed to delete course: ${response.status} - ${response.statusText}`);
+            alert("Erreur lors de la suppression du cours. Veuillez réessayer.");
+            return;
+        }
+
+        // Remove the course from the local schedule
+        const key = `${currYear}-${currMonth}`;
+        if (courseSchedule[key]) {
+            courseSchedule[key] = courseSchedule[key].filter(c => c.id !== courseId);
+        }
+
+        // Refresh the timetable and calendars
+        const day = new Date(course.date).getDate(); // Extract the day from the course date
+        generateTimetableContent(day);
+        updateCalendars();
+
+        alert("Cours supprimé avec succès.");
+    } catch (error) {
+        console.error("Erreur lors de la suppression du cours:", error);
+        alert("Une erreur s'est produite lors de la suppression du cours. Veuillez vérifier votre connexion ou réessayer plus tard.");
+    }
 }
 
 // Function to generate a unique ID for new courses
@@ -412,36 +524,6 @@ cancelEditBtn.addEventListener('click', () => {
 // Update the event listener for the edit course form
 editCourseForm.removeEventListener('submit', saveCourse);
 editCourseForm.addEventListener('submit', saveCourse);
-
-// Initialize clickable course days
-document.addEventListener('DOMContentLoaded', function() {
-    renderCalendar(); // First render the calendar
-    updateCalendarWithClickableCourseDays(); // Then make course days clickable
-    
-    // Add click event for calendar days
-    document.querySelector('.calendar').addEventListener('click', function(e) {
-        if (e.target.tagName === 'LI' && e.target.classList.contains('courss')) {
-            const day = parseInt(e.target.textContent);
-            showTimetableForDay(day);
-        }
-    });
-    
-    // Add event listeners for navigation
-    prevNextIcon.forEach(icon => {
-        icon.addEventListener("click", () => {
-            currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
-            if(currMonth < 0 || currMonth > 11) {
-                date = new Date(currYear, currMonth, new Date().getDate());
-                currYear = date.getFullYear();
-                currMonth = date.getMonth();
-            } else {
-                date = new Date();
-            }
-            renderCalendar();
-            updateCalendarWithClickableCourseDays();
-        });
-    });
-});
 
 const daysTag2 = document.querySelector(".days2"),
 currentDate2 = document.querySelector(".current-date2"),
@@ -639,15 +721,11 @@ deleteButtons.forEach(button => {
   });
 });
 
-// Handle the confirmation to delete the course
-confirmDeleteButton.addEventListener('click', () => {
-  // Remove the selected course div
-  selectedCourse.remove();
-  
-  // Close the popup
-  popup.style.display = 'none';
-  selectedCourse = null; // Reset selected course
-});
+newConfirmBtn.onclick = function() {
+    deleteCourse(courseId, day); // Call the updated deleteCourse function
+    popup.style.display = 'none';
+    if (overlay) overlay.style.display = 'none';
+};
 
 // Handle cancel action
 cancelDeleteButton.addEventListener('click', () => {
@@ -655,6 +733,8 @@ cancelDeleteButton.addEventListener('click', () => {
   popup.style.display = 'none';
   selectedCourse = null; // Reset selected course
 });
+
+
 
 // menu showing after clicking dot3
     const menuWrapper = document.querySelector('.menu-wrapper');
@@ -924,4 +1004,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Vérifie périodiquement les nouvelles demandes
     setInterval(checkFormationRequests, 1000);
-}); 
+});
