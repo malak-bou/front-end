@@ -1,83 +1,94 @@
-// document.addEventListener("DOMContentLoaded", function () {
-//     const storedData = localStorage.getItem("selectedCourse");
+ // --- Dynamic Course Logic using localStorage and robust selectors ---
+  const course = JSON.parse(localStorage.getItem('selectedCourse'));
 
-//     if (!storedData) {
-//         document.querySelector("main").innerHTML = "<p>Error: Course data not found.</p>";
-//         console.error("No course data in localStorage.");
-//         return;
-//     }
 
-//     const courseData = JSON.parse(storedData);
-//     document.getElementById("course-title").textContent = courseData.title;
-//     document.getElementById("course-description").textContent = courseData.description;
-//     document.getElementById("course-teacher").textContent = courseData.teacher;
-//     document.getElementById("course-department").textContent = courseData.department;
 
-//     const mainContentDiv = document.getElementById("main-content");
+function renderCourseDetails(course) {
+    document.getElementById('course-domain').innerHTML = `<strong>Département :</strong> <span style="color: purple; font-weight: bold;">${course.departement}</span>`;
+    document.getElementById('course-image').src = course.image_url;
+    document.getElementById('course-image').alt = course.title;
+    document.getElementById('course-image').style.display = '';
+    document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
+    document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
+    document.getElementById('course-description').innerHTML = `${course.description}`;
+}
 
-//     if (courseData.type === "video") {
-//         mainContentDiv.innerHTML = `
-//             <video controls width="100%">
-//                 <source src="${courseData.mainContent}" type="video/mp4">
-//             </video>
-//         `;
-//     } else if (courseData.type === "pdf") {
-//         mainContentDiv.innerHTML = `
-//             <p><strong>Course Material:</strong></p>
-//             <iframe src="${courseData.mainContent}" width="100%" height="500px"></iframe>
-//             <a href="${courseData.mainContent}" target="_blank" class="btn-download">📄 Download PDF</a>
-//         `;
-//     }
-// });
+if (course) {
+    renderCourseDetails(course);
+}
 
-// document.addEventListener("DOMContentLoaded", function () {
-//     const storedData = localStorage.getItem("selectedCourse");
+let courseId = course.id ;
 
-//     if (!storedData) {
-//         document.querySelector("main").innerHTML = "<p>❌ Erreur : Aucune donnée de cours trouvée.</p>";
-//         console.error("Aucun cours sélectionné.");
-//         return;
-//     }
+async function fetchCourseMaterials(courseId) {
+    try {
+        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}/materials/`);
+        if (!response.ok) {
+            throw new Error("Échec de chargement du contenu.");
+        }
 
-//     const courseData = JSON.parse(storedData);
+        const materials = await response.json();
+        const container = document.getElementById("course-resources");
+        container.innerHTML = ""; // Clear previous content
 
-//     // 🟢 Remplir les informations du cours
-//     document.getElementById("course-title").textContent = courseData.title;
-//     document.getElementById("course-description").textContent = courseData.description;
-//     document.getElementById("course-teacher").textContent = courseData.teacher;
-//     document.getElementById("course-department").textContent = courseData.department;
+        if (materials.length === 0) {
+            container.innerHTML = "<p>Aucun contenu disponible pour ce cours.</p>";
+            return;
+        }
 
-//     // 🟢 Sélection des éléments
-//     const startCourseBtn = document.getElementById("start-course-btn");
-//     const mainContent = document.getElementById("main-content");
-//     const dynamicContent = document.getElementById("dynamic-content");
+        materials.forEach((material) => {
+            if (material.file_category === "video") {
+                container.innerHTML += `
+                    <h4>${material.title}</h4>
+                    <video controls width="100%" style="margin-bottom: 20px;">
+                        <source src="${material.file_url}" type="video/mp4">
+                        Votre navigateur ne supporte pas la lecture vidéo.
+                    </video>
+                `;
+            } else if (material.file_category === "pdf") {
+                container.innerHTML += `
+                    <h4>${material.title}</h4>
+                    <iframe src="${material.file_url}" width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
+                    <a href="${material.file_url}" target="_blank" class="btn-download">📄 Télécharger PDF</a>
+                    <hr>
+                `;
+            } else {
+                container.innerHTML += `<p>${material.title} (type inconnu)</p>`;
+            }
+        });
+    } catch (error) {
+        console.error("Erreur:", error);
+        document.getElementById("course-resources").innerHTML = "<p>Erreur de chargement du contenu du cours.</p>";
+    }
+}
 
-//     // Vérifier si les éléments existent
-//     if (!startCourseBtn || !mainContent) {
-//         console.error("🚨 Erreur: Élément non trouvé !");
-//         return;
-//     }
+const startCourseBtn = document.getElementById('start-course-btn');
+const maincontent = document.getElementById('course-content');
 
-//     // 🟢 Fonction pour afficher le contenu du cours
-//     startCourseBtn.addEventListener("click", function () {
-//         console.log("✅ Bouton cliqué, affichage du cours...");
-        
-//         mainContent.classList.remove("hidden"); // Afficher le contenu
-//         mainContent.style.display = "block"; // Assurer l'affichage
-//         startCourseBtn.style.display = "none"; // Cacher le bouton
+startCourseBtn.addEventListener('click', function() {
+    maincontent.style.display = 'block';
+    startCourseBtn.style.display = 'none';
+    document.getElementById('course-description').style.display = 'none';
+    document.getElementById('course-image').style.display = 'none';
+    document.getElementById('course-teacher').style.display = 'none';
+    this.style.display = 'none';
+    fetchCourseMaterials(courseId);
+});
 
-//         // 🟢 Charger le contenu du cours (vidéo ou PDF)
-//         if (courseData.type === "video") {
-//             dynamicContent.innerHTML = `
-//                 <video controls width="100%">
-//                     <source src="${courseData.mainContent}" type="video/mp4">
-//                 </video>
-//             `;
-//         } else if (courseData.type === "pdf") {
-//             dynamicContent.innerHTML = `
-//                 <iframe src="${courseData.mainContent}" width="100%" height="500px"></iframe>
-//                 <a href="${courseData.mainContent}" target="_blank" class="btn-download">📄 Télécharger PDF</a>
-//             `;
-//         }
-//     });
-// });
+const quitCourseBtn = document.getElementById('quit-course-btn');
+// Quitter le cours
+quitCourseBtn.addEventListener('click', function() {
+    startCourseBtn.style.display = '';
+    document.getElementById('course-content').style.display = 'none';
+    document.getElementById('course-description').style.display = '';
+    document.getElementById('course-image').style.display = '';
+    document.getElementById('course-teacher').style.display = '';
+});
+
+const finishCourseBtn = document.getElementById('finish-course-btn');
+// Finir le cours
+finishCourseBtn.addEventListener('click', function() {
+    alert('Vous avez terminé ce cours!');
+    window.location.href = 'RH-dashboard.html';
+    // Tu pourrais aussi ici envoyer une requête pour "marquer terminé" si tu as un backend
+});
+

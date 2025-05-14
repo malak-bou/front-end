@@ -9,28 +9,26 @@
 <body>
     <header>
         <a href="dashboardprof.html">⬅ </a>
-
             <img src="../assets/images/profil-pic.png" class="profileimg" >
-
-
     </header>
     <main>
         <div class="depdiv"> <p class="info" id="course-domain"></p></div>
         <img class="info" id="course-image" src="" alt="">
         <p class="info" id="course-title"></p>
-        <p class="info" id="course-teacher"></p>
         <p class="info" id="course-description"></p>
-        <p class="info" id="course-field"></p>
+        <p class="info" id="course-teacher"></p>
 
         <button class="info" id="start-course-btn">Commencer le cours</button>
         
         <!-- Contenu du cours (caché au départ) -->
-        
-        <div id="course-resources" style="display:none; margin-top:20px;"></div>
-     <button id="quit-course-btn" style="display:none;">Quitter le cours</button>
-<button id="finish-course-btn" style="display:none;">Finir le cours</button>
+        <div id="course-content" style="display:none;">
+            <h2 style="color: black;">Contenu du cours</h2>
+          <div id="course-resources" style=margin-top:20px;></div>
+          <button id="quit-course-btn">Quitter le cours</button>
+          <button id="finish-course-btn">Finir le cours</button>
+        </div>
 
-    </main>
+      </main>
     
     <section class="contact" id="contact">
         <div class="container-contact">
@@ -147,126 +145,5 @@
         </div>
     </section>
     <script src="../../scripts/prof-course.js"></script>
-    <script>
-    // --- Dynamic Course Logic using localStorage and robust selectors ---
-  const course = JSON.parse(localStorage.getItem('selectedCourse'));
-
-function showNoCourse() {
-    document.getElementById('course-domain').innerHTML = '<strong>Aucun cours sélectionné</strong>';
-    document.getElementById('course-image').style.display = 'none';
-    document.getElementById('course-title').innerHTML = '';
-    document.getElementById('course-teacher').innerHTML = '';
-    document.getElementById('course-description').innerHTML = '';
-    document.getElementById('course-field').innerHTML = '';
-    document.getElementById('start-course-btn').style.display = 'none';
-}
-
-function renderCourseDetails(course) {
-    document.getElementById('course-domain').innerHTML = `<strong>Département :</strong> <span style="color: purple; font-weight: bold;">${course.domain}</span>`;
-    document.getElementById('course-image').src = course.image;
-    document.getElementById('course-image').alt = course.title;
-    document.getElementById('course-image').style.display = '';
-    document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
-    document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
-    document.getElementById('course-description').innerHTML = `<strong>Description :</strong> ${course.description}`;
-    document.getElementById('course-field').innerHTML = `<strong>Domaine :</strong> ${course.field}`;
-    document.getElementById('start-course-btn').style.display = '';
-}
-
-if (course) {
-    renderCourseDetails(course);
-} else {
-    showNoCourse();
-}
-
-document.getElementById('start-course-btn').addEventListener('click', function() {
-    if (!course) return;
-
-    const r = course.resources || {};
-    let html = '<h3>🎯 Ressources du cours</h3>';
-
-    if (r.record) {
-    html += `
-        <div class="resource-item">
-            📹 <h4>Regarder l'enregistrement :</h4>
-            <video controls width="600">
-                <source src="${r.record}" type="video/mp4">
-                Votre navigateur ne supporte pas la lecture vidéo.
-            </video>
-        </div>`;
-}
-if (r.pdf) {
-    html += `
-        <div class="resource-item">
-            📄 <h4>Consulter le document PDF :</h4>
-            <iframe src="${r.pdf}" width="100%" height="600px" style="border:none;"></iframe>
-        </div>`;
-}
-    if (r.quiz) {
-        html += `
-            <div class="resource-item">
-                ❓ <a href="${r.quiz}" target="_blank">Passer le quiz</a>
-            </div>`;
-    }
-    if (r.extraLinks && r.extraLinks.length > 0) {
-        html += `
-            <div class="resource-item">
-                🔗 Liens supplémentaires :
-                <ul style="margin-left: 20px;">`;
-        r.extraLinks.forEach(link => {
-            html += `<li><a href="${link.url}" target="_blank">${link.label}</a></li>`;
-        });
-        html += '</ul></div>';
-    }
-
-    if (html === '<h3>🎯 Ressources du cours</h3>') {
-        html += '<div>Aucune ressource disponible pour ce cours.</div>';
-    }
-
-    const resourcesDiv = document.getElementById('course-resources');
-    resourcesDiv.innerHTML = html;
-    resourcesDiv.style.display = 'block';
-    this.disabled = true;
-});
-const quitCourseBtn = document.getElementById('quit-course-btn');
-const finishCourseBtn = document.getElementById('finish-course-btn');
-
-document.getElementById('start-course-btn').addEventListener('click', function() {
-    if (!course) return;
-
-    const r = course.resources || {};
-    let html = '<h3>🎯 Ressources du cours</h3>';
-
-    // (TON CODE POUR AFFICHER LES RESSOURCES...)
-
-    const resourcesDiv = document.getElementById('course-resources');
-    resourcesDiv.innerHTML = html;
-    resourcesDiv.style.display = 'block';
-    this.disabled = true;
-
-    // --> Quand on commence : montrer "Quitter" et "Finir"
-    quitCourseBtn.style.display = 'inline-block';
-    finishCourseBtn.style.display = 'inline-block';
-});
-
-// Quitter le cours
-quitCourseBtn.addEventListener('click', function() {
-    document.getElementById('course-resources').style.display = 'none';
-    document.getElementById('start-course-btn').disabled = false;
-    quitCourseBtn.style.display = 'none';
-    finishCourseBtn.style.display = 'none';
-});
-
-// Finir le cours
-finishCourseBtn.addEventListener('click', function() {
-    alert('Vous avez terminé ce cours!');
-    document.getElementById('course-resources').style.display = 'none';
-    document.getElementById('start-course-btn').disabled = false;
-    quitCourseBtn.style.display = 'none';
-    finishCourseBtn.style.display = 'none';
-    // Tu pourrais aussi ici envoyer une requête pour "marquer terminé" si tu as un backend
-});
-
-    </script>
 </body>
 </html>

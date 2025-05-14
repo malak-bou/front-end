@@ -86,7 +86,7 @@ main {
 
 /* Download Button */
 
-.contact {
+    .contact {
     background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
     padding: 1rem;
@@ -235,9 +235,9 @@ main {
               justify-content: center;
           }
       
-        }
+}
 
-#course-image{
+    #course-image{
     width:50vh;
     border-radius: 10px;
         }

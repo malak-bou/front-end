@@ -61,6 +61,8 @@ async function fetchCourseMaterials(courseId) {
     }
 }
 
+    
+
 const startCourseBtn = document.getElementById('start-course-btn');
 const maincontent = document.getElementById('course-content');
 
@@ -88,7 +90,7 @@ const finishCourseBtn = document.getElementById('finish-course-btn');
 // Finir le cours
 finishCourseBtn.addEventListener('click', function() {
     alert('Vous avez terminé ce cours!');
-    window.location.href = 'dashboardprof.html';
+    window.location.href = 'RH-mescours.html';
     // Tu pourrais aussi ici envoyer une requête pour "marquer terminé" si tu as un backend
 });
 
