@@ -68,10 +68,7 @@ function loadCourses() {
 
             // Récupérer les informations du professeur
             const instructor = course.instructor || {};
-            const instructorName = instructor.nom && instructor.prenom 
-                ? `${instructor.prenom} ${instructor.nom}`
-                : 'Non spécifié';
-
+            const instructorName = instructor.nom + ' ' + instructor.prenom ;
             // Préparer les données du cours pour le stockage
             const courseData = {
                 id: course.id,

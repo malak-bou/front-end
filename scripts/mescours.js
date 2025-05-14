@@ -124,7 +124,7 @@ function loadCourses() {
                 // Stocker les données complètes du cours dans localStorage
                 localStorage.setItem('selectedCourse', JSON.stringify(courseData));
                 // Rediriger vers la page de détail du cours
-                window.location.href = 'prof-course-mescours.html';
+                window.location.href = '../pages/prof-course-mescours.html';
             });
 
             container.appendChild(card);
