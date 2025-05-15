@@ -15,23 +15,7 @@ const BACKEND_URL = "https://backend-m6sm.onrender.com";
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Starting with backend integration...");
 
-    // ======= SIDEBAR SETUP (Always works) =======
-    const menuIcon = document.querySelector(".menu-icon");
-    const closeBtn = document.querySelector(".close-btn");
-    const sidebar = document.getElementById("sidebar");
 
-    if (menuIcon) menuIcon.addEventListener("click", toggleNav);
-    if (closeBtn) closeBtn.addEventListener("click", toggleNav);
-
-    // Close sidebar on outside click
-    document.addEventListener("click", function (event) {
-        if (sidebar && menuIcon && 
-            !sidebar.contains(event.target) && 
-            !menuIcon.contains(event.target) &&
-            sidebar.style.left === "0px") {
-            sidebar.style.left = "-250px";
-        }
-    });
 
     // ======= TOKEN CHECK =======
     const token = localStorage.getItem("token") || localStorage.getItem("access_token");
