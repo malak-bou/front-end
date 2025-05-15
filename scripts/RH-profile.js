@@ -1,10 +1,13 @@
 // Global toggleNav function for HTML onclick
-function toggleNav() {
-    const sidebar = document.getElementById("sidebar");
-    const currentLeft = window.getComputedStyle(sidebar).left;
-    sidebar.style.left = currentLeft === "0px" ? "-250px" : "0px";
+function toggleSidebar() {
+    var sidebar = document.getElementById("sidebar");
+    // Check the current width of the sidebar and adjust it
+    if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0"; // Close the sidebar
+    } else {
+        sidebar.style.width = "250px"; // Open the sidebar
+    }
 }
-
 
 // Backend URL - use the deployed version consistently
 const BACKEND_URL = "https://backend-m6sm.onrender.com";
