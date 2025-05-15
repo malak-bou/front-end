@@ -26,41 +26,51 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Create FormData object
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('description', description);
-        formData.append('departement', departement);
-        
-        if (external_links) formData.append('external_links', external_links);
-        if (quiz_link) formData.append('quiz_link', quiz_link);
-        if (course_photo) formData.append('course_photo', course_photo);
-        if (course_material) formData.append('course_material', course_material);
-        if (course_record) formData.append('course_record', course_record);
+        // Récupérez d'abord les fichiers
+const course_pdf = document.getElementById('pdf').files[0];
+const course_video = document.getElementById('record').files[0];
 
-        try {
-            const response = await fetch('https://backend-m6sm.onrender.com/courses/', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
-            });
+// Créez le FormData
+const formData = new FormData();
+formData.append('title', title);
+formData.append('description', description);
+formData.append('departement', departement);
+formData.append('course_image', course_photo);  // Nom exact attendu par l'API
+formData.append('course_pdf', course_pdf);      // Nom exact attendu par l'API
 
-            if (response.ok) {
-                const result = await response.json();
-                alert('Cours créé avec succès!');
-                window.location.href = 'mescours.html'; // Redirect to courses list
-            } else {
-                const error = await response.json();
-                alert(`Erreur: ${error.detail || 'Une erreur est survenue'}`);
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Une erreur est survenue lors de la création du cours');
-        }
+// Ajoutez les champs optionnels s'ils sont remplis
+if (external_links) formData.append('external_links', external_links);
+if (quiz_link) formData.append('quiz_link', quiz_link);
+if (course_video) formData.append('course_video', course_video);
+
+// Ajoutez le token d'authentification
+const token = localStorage.getItem('token');
+
+// Envoyez la requête
+try {
+    const response = await fetch('https://backend-m6sm.onrender.com/courses/', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+            // Ne pas mettre 'Content-Type': 'multipart/form-data', le navigateur le fera automatiquement
+        },
+        body: formData
     });
 
+    if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Erreur du serveur:', errorData);
+        throw new Error('Erreur lors de la création du cours');
+    }
+
+    const data = await response.json();
+    console.log('Succès:', data);
+    // Rediriger ou afficher un message de succès
+    window.location.href = 'mescours.html';
+} catch (error) {
+    console.error('Erreur:', error);
+    alert('Une erreur est survenue lors de la création du cours');
+}
     // Handle cancel button
     const cancelButton = document.querySelector('.cancel');
     cancelButton.addEventListener('click', function(e) {
@@ -118,4 +128,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-   
+})
