@@ -258,11 +258,6 @@ main {
         
 /* Responsive Mobile */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
-    }
-    
-
     .container-contact {
         flex-direction: column;
         justify-content: center;

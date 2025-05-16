@@ -80,6 +80,7 @@ function loadCourses() {
                 quiz_link: course.quiz_link,
                 created_at: course.created_at,
                 updated_at: course.updated_at,
+                image: course.image_url,
                 instructor: {
                     id: instructor.id,
                     nom: instructor.nom,

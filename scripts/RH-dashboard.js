@@ -769,6 +769,7 @@ function createCourseCard(course) {
     const isNew = isCourseNew(course.created_at);
     
     const courseData = {
+        id: course.id,
         departement: course.departement,
         image: course.image_url,
         title: course.title,
