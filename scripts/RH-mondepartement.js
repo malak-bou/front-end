@@ -79,12 +79,19 @@ function loadCourses() {
 
             const courseData = {
                 id: course.id,
-                title: course.title,
-                image: imageUrl,
                 departement: course.departement,
+                image: course.image_url,
+                title: course.title,
+                teacher: instructorName,
                 description: course.description || "Aucune description",
-                created_at: course.created_at,
-                materials: course.materials
+                field: course.domain,
+                resources: {
+                    record: null,
+                    pptx: null,
+                    pdf: null,
+                    extraLinks: course.external_links || [],
+                    quiz: null
+                }
             };
 
             card.dataset.course = JSON.stringify(courseData);

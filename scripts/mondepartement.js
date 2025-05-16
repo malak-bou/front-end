@@ -79,7 +79,7 @@ function loadCourses() {
             const courseData = {
                 id: course.id,
                 title: course.title,
-                image: imageUrl,
+                image: course.image_url,
                 departement: course.departement,
                 description: course.description || "Aucune description",
                 created_at: course.created_at,

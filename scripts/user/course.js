@@ -2,17 +2,6 @@
   const course = JSON.parse(localStorage.getItem('selectedCourse'));
 
 
-
-function renderCourseDetails(course) {
-    document.getElementById('course-domain').innerHTML = `<strong>Département :</strong> <span style="color: purple; font-weight: bold;">${course.departement}</span>`;
-    document.getElementById('course-image').src = course.image_url;
-    document.getElementById('course-image').alt = course.title;
-    document.getElementById('course-image').style.display = '';
-    document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
-    document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
-    document.getElementById('course-description').innerHTML = `${course.description}`;
-}
-
 if (course) {
     renderCourseDetails(course);
 }
@@ -29,6 +18,7 @@ async function fetchCourseMaterials(courseId) {
         const courseData = await response.json();
         const materials = courseData.materials || [];
         const container = document.getElementById("course-resources");
+
         container.innerHTML = ""; // Clear previous content
 
         if (materials.length === 0) {
@@ -37,29 +27,20 @@ async function fetchCourseMaterials(courseId) {
         }
 
         materials.forEach((material) => {
-            if (material.file_category === "record" && material.file_type.startsWith("video")) {
+            if (material.file_category === "material" && material.file_type === "application/pdf") {
                 container.innerHTML += `
-                    <h4>${material.file_name}</h4>
+                <div style="margin-bottom: 20px;">
+                    <a href="${material.file_path}" class="btn-download">Télécharger Support du cour 📄</a>
+                    <hr>
+                </div>
+                `;
+            } else if (material.file_category === "record" && material.file_type.startsWith("video")) {
+                container.innerHTML += `
                     <video controls width="100%" style="margin-bottom: 20px;">
                         <source src="${material.file_path}" type="${material.file_type}">
                         Votre navigateur ne supporte pas la lecture vidéo.
-                    </video>
+                    </video>    
                 `;
-            } else if (material.file_category === "material" && material.file_type === "application/pdf") {
-                container.innerHTML += `
-                    <h4>${material.file_name}</h4>
-                    <iframe src="${material.file_path}" width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
-                    <a href="${material.file_path}" target="_blank" class="btn-download">📄 Télécharger PDF</a>
-                    <hr>
-                `;
-            } else if (material.file_category === "photo" && material.file_type.startsWith("image")) {
-                container.innerHTML += `
-                    <h4>${material.file_name}</h4>
-                    <img src="${material.file_path}" alt="${material.file_name}" style="max-width:100%;margin-bottom:20px;" />
-                    <hr>
-                `;
-            } else {
-                container.innerHTML += `<p>${material.file_name} (type inconnu)</p>`;
             }
         });
     } catch (error) {
@@ -68,7 +49,17 @@ async function fetchCourseMaterials(courseId) {
     }
 }
 
-    
+function renderCourseDetails(course) {
+    console.log('Info de course:', course.image);
+    fetchCourseMaterials(course.id);
+    document.getElementById('course-domain').innerHTML = `<strong>Département :</strong> <span style="color: purple; font-weight: bold;">${course.departement}</span>`;
+    const courseImage = document.getElementById('course-image');
+    courseImage.src = course.image;
+    courseImage.alt = course.title;
+    document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
+    document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
+    document.getElementById('course-description').innerHTML = `${course.description}`;
+}
 
 const startCourseBtn = document.getElementById('start-course-btn');
 const maincontent = document.getElementById('course-content');

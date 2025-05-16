@@ -72,39 +72,18 @@ function loadCourses() {
             // Préparer les données du cours pour le stockage
             const courseData = {
                 id: course.id,
+                departement: course.departement,
+                image: course.image_url,
                 title: course.title,
+                teacher: instructorName,
                 description: course.description || "Aucune description",
-                departement: course.departement || "Non spécifié",
-                external_links: course.external_links,
-                quiz_link: course.quiz_link,
-                created_at: course.created_at,
-                updated_at: course.updated_at,
-                instructor: {
-                    id: instructor.id,
-                    nom: instructor.nom,
-                    prenom: instructor.prenom,
-                    email: instructor.email,
-                    departement: instructor.departement
-                },
-                materials: {
-                    photo: photoMaterial ? {
-                        id: photoMaterial.id,
-                        file_name: photoMaterial.file_name,
-                        file_path: photoMaterial.file_path,
-                        file_type: photoMaterial.file_type
-                    } : null,
-                    pdf: pdfMaterial ? {
-                        id: pdfMaterial.id,
-                        file_name: pdfMaterial.file_name,
-                        file_path: pdfMaterial.file_path,
-                        file_type: pdfMaterial.file_type
-                    } : null,
-                    record: recordMaterial ? {
-                        id: recordMaterial.id,
-                        file_name: recordMaterial.file_name,
-                        file_path: recordMaterial.file_path,
-                        file_type: recordMaterial.file_type
-                    } : null
+                field: course.domain,
+                resources: {
+                    record: null,
+                    pptx: null,
+                    pdf: null,
+                    extraLinks: course.external_links || [],
+                    quiz: null
                 }
             };
 
