@@ -21,12 +21,13 @@ let courseId = course.id ;
 
 async function fetchCourseMaterials(courseId) {
     try {
-        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}/materials/`);
+        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}`);
         if (!response.ok) {
             throw new Error("Échec de chargement du contenu.");
         }
 
-        const materials = await response.json();
+        const courseData = await response.json();
+        const materials = courseData.materials || [];
         const container = document.getElementById("course-resources");
         container.innerHTML = ""; // Clear previous content
 
@@ -36,23 +37,29 @@ async function fetchCourseMaterials(courseId) {
         }
 
         materials.forEach((material) => {
-            if (material.file_category === "video") {
+            if (material.file_category === "record" && material.file_type.startsWith("video")) {
                 container.innerHTML += `
-                    <h4>${material.title}</h4>
+                    <h4>${material.file_name}</h4>
                     <video controls width="100%" style="margin-bottom: 20px;">
-                        <source src="${material.file_url}" type="video/mp4">
+                        <source src="${material.file_path}" type="${material.file_type}">
                         Votre navigateur ne supporte pas la lecture vidéo.
                     </video>
                 `;
-            } else if (material.file_category === "pdf") {
+            } else if (material.file_category === "material" && material.file_type === "application/pdf") {
                 container.innerHTML += `
-                    <h4>${material.title}</h4>
-                    <iframe src="${material.file_url}" width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
-                    <a href="${material.file_url}" target="_blank" class="btn-download">📄 Télécharger PDF</a>
+                    <h4>${material.file_name}</h4>
+                    <iframe src="${material.file_path}" width="100%" height="500px" style="border:1px solid #ccc;"></iframe>
+                    <a href="${material.file_path}" target="_blank" class="btn-download">📄 Télécharger PDF</a>
+                    <hr>
+                `;
+            } else if (material.file_category === "photo" && material.file_type.startsWith("image")) {
+                container.innerHTML += `
+                    <h4>${material.file_name}</h4>
+                    <img src="${material.file_path}" alt="${material.file_name}" style="max-width:100%;margin-bottom:20px;" />
                     <hr>
                 `;
             } else {
-                container.innerHTML += `<p>${material.title} (type inconnu)</p>`;
+                container.innerHTML += `<p>${material.file_name} (type inconnu)</p>`;
             }
         });
     } catch (error) {
