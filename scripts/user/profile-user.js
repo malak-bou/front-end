@@ -1,18 +1,15 @@
-// Global toggleNav function for HTML onclick
+// SIDEBAR TOGGLE
 function toggleNav() {
     const sidebar = document.getElementById("sidebar");
     const currentLeft = window.getComputedStyle(sidebar).left;
     sidebar.style.left = currentLeft === "0px" ? "-250px" : "0px";
 }
 
-
-// Backend URL - use the deployed version consistently
 const BACKEND_URL = "https://backend-m6sm.onrender.com";
 
 document.addEventListener("DOMContentLoaded", function () {
     console.log("Starting with backend integration...");
 
-    // ======= SIDEBAR SETUP (Always works) =======
     const menuIcon = document.querySelector(".menu-icon");
     const closeBtn = document.querySelector(".close-btn");
     const sidebar = document.getElementById("sidebar");
@@ -20,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (menuIcon) menuIcon.addEventListener("click", toggleNav);
     if (closeBtn) closeBtn.addEventListener("click", toggleNav);
 
-    // Close sidebar on outside click
     document.addEventListener("click", function (event) {
         if (sidebar && menuIcon && 
             !sidebar.contains(event.target) && 
@@ -30,60 +26,31 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // ======= TOKEN CHECK =======
     const token = localStorage.getItem("token") || localStorage.getItem("access_token");
     
     if (!token) {
-        console.log("No token found - loading offline mode");
-        loadFromLocalStorage();
-        setupProfileFeatures();
+        console.error("Token non trouvé. Rediriger ou afficher une erreur.");
         return;
     }
 
-    console.log("Token found, checking backend...");
-
-    // ======= BACKEND INTEGRATION =======
     initializeWithBackend(token);
 });
 
 async function initializeWithBackend(token) {
     try {
-        // ======= 1. GET USER INFO =======
-        console.log("Fetching user info...");
         const userInfo = await fetchUserInfo(token);
-        console.log("User info received:", userInfo);
         populateUserForm(userInfo.profile);
-
-
-        // ======= 2. GET USER COURSES =======
-        console.log("Fetching user courses...");
         displayCourseStats(userInfo.courses || []);
-       displayCourseTable(userInfo.courses || []);
+        displayCourseTable(userInfo.courses || []);
         displaySkills(userInfo.courses || []);
-
-
-        // ======= 3. SETUP PROFILE FEATURES =======
         setupProfileFeatures(token, userInfo);
-
-        console.log("Backend integration complete!");
-
     } catch (error) {
-        console.error("Backend integration failed:", error);
-        
-        if (error.message.includes("401")) {
-            console.log("Token expired - loading offline mode");
-            loadFromLocalStorage();
-        } else {
-            console.log("Backend error - loading offline mode");
-            loadFromLocalStorage();
-        }
-        setupProfileFeatures();
+        console.error("Erreur de connexion au backend :", error);
+        alert("Erreur de chargement des données. Veuillez réessayer plus tard.");
     }
 }
 
 async function fetchUserInfo(token) {
-    console.log("Making API call to /users/me");
-    
     const response = await fetch(`${BACKEND_URL}/users/me`, {
         method: "GET",
         headers: {
@@ -92,43 +59,14 @@ async function fetchUserInfo(token) {
         }
     });
 
-    console.log("User info response status:", response.status);
-
     if (!response.ok) {
-        throw new Error(`User info fetch failed: ${response.status}`);
+        throw new Error(`Échec de la récupération : ${response.status}`);
     }
 
     return await response.json();
 }
 
-async function fetchUserCourses(token) {
-    try {
-        const response = await fetch(`${BACKEND_URL}/users/progress`, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        });
-
-        if (response.ok) {
-            const courses = await response.json();
-            displayCourseStats(courses);
-            displayCourseTable(courses);
-            displaySkills(courses);
-        } else {
-            console.log("No course data available, using localStorage");
-            loadCoursesFromLocalStorage();
-        }
-    } catch (error) {
-        console.error("Erreur lors du chargement des cours:", error);
-        loadCoursesFromLocalStorage();
-    }
-}
-
 function populateUserForm(userInfo) {
-    console.log("Populating form with user info");
-    
     document.getElementById("nom").value = userInfo.nom || "";
     document.getElementById("prenom").value = userInfo.prenom || "";
     document.getElementById("email").value = userInfo.email || "";
@@ -143,7 +81,7 @@ function displayCourseStats(courses) {
     const avgProgress = totalCourses > 0 
         ? Math.round(courses.reduce((sum, course) => sum + (course.progress || 0), 0) / totalCourses)
         : 0;
-    
+
     document.getElementById("totalCourses").textContent = totalCourses;
     document.getElementById("completedCourses").textContent = completedCourses;
     document.getElementById("averageProgress").textContent = avgProgress + "%";
@@ -155,15 +93,11 @@ function displayCourseTable(courses) {
 
     courses.forEach(course => {
         const title = course.nom_du_cours || "Cours sans nom";
-        
-        // Strip % if necessary
         const progressStr = course.progres || "0%";
         const progress = parseFloat(progressStr.replace('%', '')) || 0;
-
         const startDate = course.date_debut || "N/A";
         const endDate = course.date_fin || "En cours...";
         const completed = progress === 100;
-
         const status = completed ? "✅ Terminé" : "📚 En cours";
 
         const row = document.createElement("tr");
@@ -184,58 +118,23 @@ function displayCourseTable(courses) {
     });
 }
 
-
 function displaySkills(courses) {
     const skillsList = document.getElementById("skillsList");
     skillsList.innerHTML = "";
-    
+
     const allSkills = courses.flatMap(course => course.skills || []).filter(skill => skill);
     const uniqueSkills = [...new Set(allSkills)];
-    
+
     if (uniqueSkills.length === 0) {
         skillsList.innerHTML = "<li>Aucune compétence enregistrée</li>";
         return;
     }
-    
+
     uniqueSkills.forEach(skill => {
         const li = document.createElement("li");
         li.innerHTML = `<span style="background: #e1f5fe; padding: 5px 10px; border-radius: 15px; display: inline-block; margin: 2px;">🎯 ${skill}</span>`;
         skillsList.appendChild(li);
     });
-}
-
-function loadFromLocalStorage() {
-    console.log("Loading user data from localStorage");
-    
-    // Load user data from localStorage
-    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-    
-    document.getElementById("nom").value = userData.nom || "";
-    document.getElementById("prenom").value = userData.prenom || "";
-    document.getElementById("email").value = userData.email || "";
-    document.getElementById("telephone").value = userData.telephone || "";
-    document.getElementById("departement").value = userData.departement || "";
-    document.getElementById("fonction").value = userData.fonction || "";
-    
-    loadCoursesFromLocalStorage();
-}
-
-function loadCoursesFromLocalStorage() {
-    const userCourses = JSON.parse(localStorage.getItem("userCourses") || "[]");
-    
-    // If no courses in localStorage, show default values
-    if (userCourses.length === 0) {
-        document.getElementById("totalCourses").textContent = "0";
-        document.getElementById("completedCourses").textContent = "0";
-        document.getElementById("averageProgress").textContent = "0%";
-        document.getElementById("courseTableBody").innerHTML = "<tr><td colspan='5'>Aucun cours trouvé</td></tr>";
-        document.getElementById("skillsList").innerHTML = "<li>Aucune compétence enregistrée</li>";
-        return;
-    }
-    
-    displayCourseStats(userCourses);
-    displayCourseTable(userCourses);
-    displaySkills(userCourses);
 }
 
 function setupProfileFeatures(token = null, userInfo = null) {
@@ -245,13 +144,6 @@ function setupProfileFeatures(token = null, userInfo = null) {
     const deletePicBtn = document.getElementById("deletePicBtn");
     const defaultImage = "../assets/images/profil-pic.png";
 
-    // Load saved profile picture
-    const savedPic = localStorage.getItem("profilePicture");
-    if (savedPic) {
-        profilePic.src = savedPic;
-    }
-
-    // Profile picture click to enlarge
     if (profilePic) {
         profilePic.addEventListener("click", function () {
             const existingOverlay = document.getElementById("imgOverlay");
@@ -321,7 +213,6 @@ function setupProfileFeatures(token = null, userInfo = null) {
                     await deleteProfilePictureFromBackend(token);
                 } else {
                     profilePic.src = defaultImage;
-                    localStorage.removeItem("profilePicture");
                 }
             });
 
@@ -353,24 +244,20 @@ function setupProfileFeatures(token = null, userInfo = null) {
         });
     }
 
-    // Change picture button
     if (changePicBtn) {
         changePicBtn.addEventListener("click", () => uploadInput.click());
     }
 
-    // Delete picture button
     if (deletePicBtn) {
         deletePicBtn.addEventListener("click", async () => {
             if (token) {
                 await deleteProfilePictureFromBackend(token);
             } else {
                 profilePic.src = defaultImage;
-                localStorage.removeItem("profilePicture");
             }
         });
     }
 
-    // File upload handler
     if (uploadInput) {
         uploadInput.addEventListener("change", async function (event) {
             const file = event.target.files[0];
@@ -378,11 +265,8 @@ function setupProfileFeatures(token = null, userInfo = null) {
                 const reader = new FileReader();
                 reader.onload = async function (e) {
                     profilePic.src = e.target.result;
-                    
                     if (token) {
                         await uploadProfilePictureToBackend(token, file);
-                    } else {
-                        localStorage.setItem("profilePicture", e.target.result);
                     }
                 };
                 reader.readAsDataURL(file);
@@ -434,30 +318,3 @@ async function deleteProfilePictureFromBackend(token) {
         console.error("Error deleting profile picture:", error);
     }
 }
-
-// Token refresh checker
-function startTokenChecker() {
-    setInterval(() => {
-        const token = localStorage.getItem("token");
-        if (token) {
-            try {
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                const expiry = new Date(payload.exp * 1000);
-                const now = new Date();
-                const minutesLeft = (expiry - now) / 1000 / 60;
-                
-                if (minutesLeft < 5 && minutesLeft > 0) {
-                    console.log(`Token expires in ${Math.round(minutesLeft)} minutes`);
-                } else if (minutesLeft <= 0) {
-                    console.log("Token expired");
-                }
-            } catch (error) {
-                console.error("Error checking token:", error);
-            }
-        }
-    }, 5 * 60 * 1000); // Check every 5 minutes
-}
-
-// Start token checker
-startTokenChecker();
-   
