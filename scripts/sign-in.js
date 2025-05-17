@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('signupForm');
     const emailInput = document.getElementById('email');
     const emailError = document.getElementById('emailError');
-    const emailRegex = /^[a-z]+(?:\.[a-z]+)*@GIG\.com$/;
+    // Expression régulière mise à jour pour @gig.com en minuscules
+    const emailRegex = /^[a-z]+(?:\.[a-z]+)*@gig\.com$/;
+    
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -35,24 +37,38 @@ document.addEventListener("DOMContentLoaded", function () {
             emailInput.focus();
             return;
         }
+    
+        emailError.style.display = 'none';
 
         // Validation des mots de passe
         if (passwordInput.value !== passwordInput2.value) {
             alert("Les mots de passe ne correspondent pas!");
             return;
         }
+                const fonctionValue = document.getElementById('fonction').value;
+                let role;
+
+                if (fonctionValue === 'professeur') {
+                    role = 'prof';
+                } else if (fonctionValue === 'administrateur') {
+                    role = 'admin';
+                } else {
+                    role = 'employer';
+                }
+
+            
 
         // Récupération des données du formulaire
-        const userData = {
-            nom: document.getElementById('nom').value.trim(),
-            prenom: document.getElementById('prenom').value.trim(),
-            departement: document.getElementById('departement').value,
-            role: document.getElementById('fonction').value === 'professeur' ? 'prof' : 'employer',
-            email: email,
-            telephone: document.getElementById('telephone').value.trim(),
-            password: passwordInput.value,
-            confirm_password: passwordInput2.value
-        };
+                const userData = {
+                nom: document.getElementById('nom').value.trim(),
+                prenom: document.getElementById('prenom').value.trim(),
+                departement: document.getElementById('departement').value,
+                role: role,
+                email: email,
+                telephone: document.getElementById('telephone').value.trim(),
+                password: passwordInput.value,
+                confirm_password: passwordInput2.value
+                 };
 
         try {
             console.log("Envoi des données d'inscription:", userData);
