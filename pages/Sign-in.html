@@ -53,21 +53,21 @@
 
 
                 <label for="fonction">Fonction</label>
-                <select id="fonction" required>
-                    <option value="" disabled selected class="graytext">Fonction</option>
-                    <option value="employee">Employé</option>
+                <select id="fonction">
                     <option value="professeur">Professeur</option>
                     <option value="administrateur">Administrateur</option>
-                   
+                    <option value="employer">Employé</option>
                 </select>
+                
 
                 
                 <label for="email">Email Professionnel</label>
-                <input type="email" id="email" placeholder="prenom.nom@GIG.com" required 
-                    pattern="^[a-z]+(?:\.[a-z]+)*@GIG\.com$">
+                <input type="email" id="email" placeholder="prenom.nom@gig.com" required 
+                pattern="^[a-z]+(?:\.[a-z]+)*@gig\.com$">
                 <div class="error" id="emailError" style="color:red; display:none;">
-                     Veuillez vous connecter en utilisant votre adresse e-mail d'entreprise (ex. : nom.prenom@GIG.com) 
+                   Veuillez vous connecter en utilisant votre adresse e-mail d'entreprise (ex. : nom.prenom@gig.com) 
                 </div>
+         
 
                 <label for="telephone">Numéro de téléphone</label>
                 <input type="text" id="telephone" placeholder="Numéro de téléphone" required>
