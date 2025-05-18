@@ -2,7 +2,42 @@ function toggleNav() {
     document.getElementById("sidebar").classList.toggle("active");
   }
   
+  // 🔄 Charger les infos utilisateur depuis l'API
+  async function loadUserInfo() {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+  
+    try {
+      const res = await fetch("https://backend-m6sm.onrender.com/personal-info", {
+        method: "GET",
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Accept": "application/json"
+        }
+      });
+  
+      const data = await res.json();
+      if (res.ok) {
+        if (document.getElementById("nom")) {
+          document.getElementById("nom").value = data.nom || "";
+        }
+        if (document.getElementById("prenom")) {
+          document.getElementById("prenom").value = data.prenom || "";
+        }
+        if (document.getElementById("telephone")) {
+          document.getElementById("telephone").value = data.telephone || "";
+        }
+      } else {
+        console.warn("Erreur API :", data.message);
+      }
+    } catch (err) {
+      console.error("Erreur GET /personal-info :", err);
+    }
+  }
+  
   document.addEventListener("DOMContentLoaded", () => {
+    loadUserInfo(); // 🔁 Charger automatiquement les infos
+  
     // 🌗 Mode sombre
     const darkModeToggle = document.getElementById("darkModeToggle");
     if (localStorage.getItem("darkMode") === "enabled") {
@@ -26,7 +61,7 @@ function toggleNav() {
       });
     }
   
-    // 🔽 Dépliage des sections
+    // 🔽 Sections déroulantes
     document.querySelectorAll(".option").forEach(option => {
       option.addEventListener("click", () => {
         const sectionId = option.getAttribute("data-target");
@@ -45,7 +80,7 @@ function toggleNav() {
       });
     });
   
-    // 👁️ Afficher / masquer le mot de passe
+    // 👁️ Afficher/masquer mot de passe
     const togglePassword = document.querySelector(".toggle-password");
     const passwordInput = document.getElementById("password");
     if (togglePassword && passwordInput) {
@@ -54,7 +89,7 @@ function toggleNav() {
       });
     }
   
-    // 🔴 Notification comptes en attente
+    // 🔴 Notification comptes
     const icon = document.querySelector("i.fa-users");
     const dot = icon ? icon.querySelector(".notification-dot") : null;
     if (dot) {
@@ -80,9 +115,10 @@ function toggleNav() {
     setInterval(checkFormationRequests, 1000);
   });
   
-  
-  // ✅ Enregistrement des infos personnelles (appel API backend)
+  // ✅ Enregistrement du téléphone
   async function saveUserInfo() {
+    const nom = document.getElementById("nom").value;
+    const prenom = document.getElementById("prenom").value;
     const telephone = document.getElementById("telephone").value;
     const token = localStorage.getItem("token");
   
@@ -91,8 +127,8 @@ function toggleNav() {
       return;
     }
   
-    if (!telephone) {
-      alert("⚠️ Numéro de téléphone requis.");
+    if (!telephone || !nom || !prenom) {
+      alert("⚠️ Tous les champs sont requis !");
       return;
     }
   
@@ -105,8 +141,8 @@ function toggleNav() {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          nom: "",
-          prenom: "",
+          nom: nom,
+          prenom: prenom,
           telephone: telephone
         })
       });
@@ -118,12 +154,12 @@ function toggleNav() {
         alert("❌ Erreur : " + (data.message || "Échec de mise à jour"));
       }
     } catch (err) {
-      console.error("Erreur:", err);
+      console.error("Erreur PUT /personal-info :", err);
       alert("❌ Une erreur est survenue.");
     }
   }
   
-  // ✅ Changement de mot de passe (appel API backend)
+  // ✅ Changement de mot de passe
   async function changePassword() {
     const current = document.getElementById("current_password").value;
     const nouveau = document.getElementById("new_password").value;
@@ -170,7 +206,7 @@ function toggleNav() {
         alert("❌ Erreur : " + (data.message || "Échec de mise à jour"));
       }
     } catch (err) {
-      console.error("Erreur:", err);
+      console.error("Erreur PUT /password :", err);
       alert("❌ Une erreur est survenue.");
     }
   }
