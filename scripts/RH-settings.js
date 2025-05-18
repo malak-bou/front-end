@@ -3,7 +3,7 @@ function toggleNav() {
   }
   
   // 🔄 Charger les infos utilisateur depuis l'API
-  async function loadUserInfo() {
+async function loadUserInfo() {
     const token = localStorage.getItem("token");
     if (!token) return;
   
@@ -117,8 +117,7 @@ function toggleNav() {
   
   // ✅ Enregistrement du téléphone
   async function saveUserInfo() {
-    const nom = document.getElementById("nom").value;
-    const prenom = document.getElementById("prenom").value;
+    
     const telephone = document.getElementById("telephone").value;
     const token = localStorage.getItem("token");
   
@@ -127,7 +126,7 @@ function toggleNav() {
       return;
     }
   
-    if (!telephone || !nom || !prenom) {
+    if (!telephone ) {
       alert("⚠️ Tous les champs sont requis !");
       return;
     }
@@ -141,15 +140,14 @@ function toggleNav() {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          nom: nom,
-          prenom: prenom,
+         
           telephone: telephone
         })
       });
   
       const data = await res.json();
       if (res.ok) {
-        alert("✅ Téléphone mis à jour !");
+        alert(" Mise à jour du téléphone effectuée !");
       } else {
         alert("❌ Erreur : " + (data.message || "Échec de mise à jour"));
       }
@@ -198,7 +196,7 @@ function toggleNav() {
   
       const data = await res.json();
       if (res.ok) {
-        alert("✅ Mot de passe mis à jour !");
+        alert(" Mise à jour du mot de passe effectuée !");
         document.getElementById("current_password").value = "";
         document.getElementById("new_password").value = "";
         document.getElementById("confirm_password").value = "";
