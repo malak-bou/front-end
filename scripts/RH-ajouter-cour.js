@@ -69,7 +69,7 @@ try {
     window.location.href = 'RH-mescours.html';
 } catch (error) {
     console.error('Erreur:', error);
-    alert('Une erreur est survenue lors de la création du cours');
+    alert('Une erreur est survenue lors de la création du cours' + error);
 }
     // Handle cancel button
     const cancelButton = document.querySelector('.cancel');
