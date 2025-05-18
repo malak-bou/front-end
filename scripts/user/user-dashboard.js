@@ -287,7 +287,6 @@ async function loadCalendarCourses() {
                 trainer: conf.requested_by.prenom + " " + conf.requested_by.nom,
                 time: conf.time,
                 type: conf.type,
-                image: conf.image_path ? `https://backend-m6sm.onrender.com/conferences/${conf.id}/image` : "default.jpg",
                 meetingLink: conf.link || "#"
             });
         });
@@ -376,7 +375,6 @@ function updateSidebarCourses() {
         const courseElement = document.createElement('div');
         courseElement.className = 'cours-sidebar';
         courseElement.innerHTML = `
-            <img src="${course.image.startsWith('http') ? course.image : '../../assets/images/' + course.image}" class="rh-commun">
             <div class="infooo">
                 <p class="date-cour2">${course.day} ${mois[currMonth]} ${currYear}</p>
                 <p class="nom-cour">${course.title}</p>
@@ -416,9 +414,6 @@ function showCourseDetailsPopup(course) {
                 <p><strong>Heure:</strong> ${course.time}</p>
                 <p><strong>Formateur:</strong> ${course.trainer}</p>
                 <p><strong>Type:</strong> ${course.type === 'online' ? 'En ligne' : 'Présentiel'}</p>
-            </div>
-            <div class="popup-image">
-                <img src="${course.image.startsWith('http') ? course.image : '../../assets/images/' + course.image}" alt="${course.title}">
             </div>
         </div>
         <div class="popup-footer">
@@ -515,19 +510,6 @@ function addPopupStyles() {
                 flex: 1;
                 min-width: 200px;
                 color: black;
-            }
-            
-            .popup-image {
-                flex: 1;
-                min-width: 200px;
-                display: flex;
-                justify-content: center;
-            }
-            
-            .popup-image img {
-                max-width: 100%;
-                max-height: 150px;
-                object-fit: contain;
             }
             
             .popup-footer {

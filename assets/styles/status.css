@@ -20,9 +20,9 @@ body {
   height: 70px;
 }
 
-  #add-formation {
-    background: gray;
-  color: black;
+#add-formation {
+    background: rgb(255, 255, 255);
+    color: black;
     border: none;
     padding: 10px 20px;
     font-size: 16px;

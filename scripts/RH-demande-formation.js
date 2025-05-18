@@ -66,7 +66,6 @@ async function fetchConferenceRequests() {
         hour: request.time,
         description: request.description,
         meetingLink: request.link || '',
-        image: request.image_path || '../assets/images/placeholder.png'
       };
 
       groupedRequests[departement].push(formattedRequest);
@@ -238,19 +237,6 @@ function updateDemande() {
     document.getElementById("hour").innerText = demande.hour || "N/A";
     document.getElementById("description").innerText = demande.description || "Aucune description disponible";
     
-    // Handle image
-    const imageElement = document.getElementById("formationImage");
-    if (demande.image) {
-      imageElement.src = demande.image;
-      imageElement.alt = `Image ${demande.course}`;
-      imageElement.style.opacity = "1";
-      imageElement.style.filter = "none";
-    } else {
-      imageElement.src = "../assets/images/placeholder.png";
-      imageElement.alt = "Image placeholder";
-      imageElement.style.opacity = "0.8";
-      imageElement.style.filter = "none";
-    }
     
     // Handle meeting link
     const meetingLinkContainer = document.getElementById("meetingLinkContainer");
@@ -322,12 +308,6 @@ document.querySelectorAll(".departments button").forEach(btn => {
       document.getElementById("meetingLink").innerText = "-";
       document.getElementById("meetingLinkContainer").style.display = "none";
       
-      // Better handling for empty image display
-      const imageElement = document.getElementById("formationImage");
-      imageElement.src = "../assets/images/no-demands.png"; // Use a specific "no demands" image if available
-      imageElement.alt = "Pas de demande";
-      imageElement.style.opacity = "0.5"; // Make it slightly transparent
-      imageElement.style.filter = "grayscale(100%)"; // Make it grayscale
       
       // Disable navigation buttons when no demands
       if (nextBtn) nextBtn.style.opacity = "0.5";
@@ -822,14 +802,7 @@ function clearDemandeDisplay() {
     meetingLinkContainer.style.display = "none";
   }
   
-  // Reset image to placeholder or hide it
-  const imageElement = document.getElementById("formationImage");
-  if (imageElement) {
-    imageElement.src = "../assets/images/no-demands.png";
-    imageElement.alt = "Pas de demande";
-    imageElement.style.opacity = "0.5";
-    imageElement.style.filter = "grayscale(100%)";
-  }
+  
 }
 
 // Add styles for the popup and success message
@@ -1313,3 +1286,124 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ... rest of the existing DOMContentLoaded code ...
 });
+
+
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+  // Gérer la soumission du formulaire
+  const form = document.getElementById('formation-form');
+  form.addEventListener('submit', addFormation);
+
+  // Gérer le changement de type de formation
+  const formationType = document.getElementById('formation-type');
+  formationType.addEventListener('change', handleFormationType);
+  
+  // Initialiser l'état du champ de lien
+  handleFormationType();
+
+  // Gérer le bouton Annuler
+  document.querySelector('.cancel').addEventListener('click', function(e) {
+      e.preventDefault();
+      const form = document.getElementById('formation-form');
+      form.reset();
+ 
+      
+      // Réinitialiser l'état du champ de lien
+      handleFormationType();
+  });
+
+  // Initialiser le tableau
+  updateTable();
+  fetchAndDisplayConferences();
+});
+
+document.getElementById('formation-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  // Get form data
+  const formData = new FormData();
+  
+  // Récupérer et logger les valeurs pour le débogage
+  const formationName = document.getElementById('formation-name').value;
+  const description = document.getElementById('formation-description').value;
+  const department = document.getElementById('departement').value;
+  const date = document.getElementById('datePicker').value;
+  const time = document.getElementById('timePicker').value;
+  const type = document.getElementById('formation-type').value;
+  const link = document.getElementById('formation-link').value;
+
+  console.log('Form values:', {
+      formationName,
+      description,
+      department,
+      date,
+      time,
+      type,
+      link
+  });
+
+  // Ajouter les données au FormData avec les bons noms de champs
+  formData.append('name', formationName);
+  formData.append('description', description);
+  formData.append('departement', department);
+  formData.append('date', date);
+  formData.append('time', time);
+  formData.append('type', type);
+  if (link) {
+      formData.append('link', link);
+  }
+
+
+  // Log the FormData contents
+  for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+  }
+
+  try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+          alert('Vous devez être connecté pour envoyer une demande');
+          return;
+      }
+
+      console.log('Sending request to server...');
+      const response = await fetch('https://backend-m6sm.onrender.com/request/', {
+          method: 'POST',
+          headers: {
+              'Authorization': `Bearer ${token}`
+          },
+          body: formData
+      });
+
+      console.log('Server response status:', response.status);
+      const responseData = await response.json();
+      console.log('Server response:', responseData);
+
+      if (response.ok) {
+          alert('Formation demandée avec succès!');
+          this.reset();
+          document.getElementById('preview').src = '';
+          await fetchAndDisplayConferences();
+      } else {
+          let errorMessage = 'Une erreur est survenue';
+          if (response.status === 422) {
+              errorMessage = 'Les données envoyées ne sont pas valides. Détails des erreurs:\n' + 
+                  JSON.stringify(responseData, null, 2);
+          } else if (responseData.message) {
+              errorMessage = responseData.message;
+          }
+          console.error('Error details:', responseData);
+          alert('Erreur: ' + errorMessage);
+      }
+  } catch (error) {
+      console.error('Error:', error);
+  }
+});
+
+
+const formationType = document.getElementById('formation-type');
+  if (formationType) {
+      formationType.addEventListener('change', handleFormationType);
+      // Appeler la fonction une fois au chargement pour gérer l'état initial
+      handleFormationType();
+  }
