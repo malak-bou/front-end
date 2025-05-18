@@ -53,39 +53,17 @@
   <section class="main-content">
     <section class="settings-container">
       <h2>Paramètres</h2>
-  
-      <div class="menu">
-        <div class="option" data-target="info">
-              <span>Modifier les informations personnelles</span>
-              <span class="arrow">▼</span>
+  <div class="option" data-target="info">
+            <span>Modifier le numéro de téléphone</span>
+            <span class="arrow">▼</span>
           </div>
-
-
           <div id="info" class="section hidden">
-
             <div class="form-group">
               <div class="input-box">
-                <label for="nom">Nom</label>
-                <input type="text" id="nom" value="Benzema" readonly />
+                <label>Numéro de Téléphone</label>
+                <input type="text" id="telephone" value="">
               </div>
             </div>
-  
-            <div class="form-group">
-              <div class="input-box">
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" value="Karim" readonly />
-              </div>
-            </div>
-  
-
-            
-            <div class="form-group">
-              <div class="input-box">
-                  <label>Numéro de Téléphone</label>
-                  <input type="text" id="telephone" value="0555555555">
-              </div>
-            </div>
-            
             <button onclick="saveUserInfo()" class="btn-save">Enregistrer</button>
           </div>
           
@@ -100,21 +78,18 @@
                 <input type="password" id="current_password" placeholder="Mot de passe actuel">
               </div>
             </div>
-          
             <div class="form-group">
               <div class="input-box">
                 <label for="new_password">Nouveau mot de passe</label>
                 <input type="password" id="new_password" placeholder="Nouveau mot de passe">
               </div>
             </div>
-          
             <div class="form-group">
               <div class="input-box">
                 <label for="confirm_password">Confirmer le mot de passe</label>
                 <input type="password" id="confirm_password" placeholder="Confirmez le mot de passe">
               </div>
             </div>
-          
             <button class="btn-save" onclick="changePassword()">Mettre à jour le mot de passe</button>
           </div>
           
