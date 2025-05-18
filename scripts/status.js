@@ -84,23 +84,7 @@ function updateTable() {
     });
 }
 
-// Gestion de l'aperçu de l'image
-const fileInput = document.getElementById('file-upload');
-const preview = document.getElementById('preview');
 
-fileInput.addEventListener('change', function () {
-    const file = this.files[0];
-    if (file && file.type.startsWith('image/')) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    } else {
-        preview.style.display = 'none';
-    }
-});
 
 fetchAndDisplayConferences()
 
@@ -296,13 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const form = document.getElementById('formation-form');
         form.reset();
-        
-        // Réinitialiser l'aperçu de l'image
-        const preview = document.getElementById('preview');
-        if (preview) {
-            preview.src = '';
-            preview.style.display = 'none';
-        }
+   
         
         // Réinitialiser l'état du champ de lien
         handleFormationType();
@@ -349,16 +327,6 @@ document.getElementById('formation-form').addEventListener('submit', async funct
         formData.append('link', link);
     }
 
-    // Handle file upload if exists
-    const fileInput = document.getElementById('file-upload');
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        if (!file.type.startsWith('image/')) {
-            alert('Veuillez sélectionner une image valide');
-            return;
-        }
-        formData.append('image', file);
-    }
 
     // Log the FormData contents
     for (let pair of formData.entries()) {
@@ -407,10 +375,6 @@ document.getElementById('formation-form').addEventListener('submit', async funct
     }
 });
 
-// Fonction pour gérer l'affichage de la barre de navigation
-function toggleNav() {
-    document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
-}
 
 const formationType = document.getElementById('formation-type');
     if (formationType) {
@@ -419,6 +383,10 @@ const formationType = document.getElementById('formation-type');
         handleFormationType();
     }
 
+// Fonction pour gérer l'affichage de la barre de navigation
+function toggleNav() {
+    document.getElementById("sidebar").classList.toggle("active"); // Ajouter ou supprimer la classe active
+}
 
 
 

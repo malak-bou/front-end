@@ -335,7 +335,6 @@ function updateSidebarCourses() {
         const courseElement = document.createElement('div');
         courseElement.className = 'cours-sidebar';
         courseElement.innerHTML = `
-            <img src="${course.image}" class="rh-commun" alt="${course.title}">
             <div class="infooo">
                 <p class="date-cour2">${course.day} ${mois[currMonth]} ${currYear}</p>
                 <p class="nom-cour">${course.title}</p>
@@ -486,18 +485,6 @@ function addPopupStyles() {
                 color: black;
             }
             
-            .popup-image {
-                flex: 1;
-                min-width: 200px;
-                display: flex;
-                justify-content: center;
-            }
-            
-            .popup-image img {
-                max-width: 100%;
-                max-height: 150px;
-                object-fit: contain;
-            }
             
             .popup-footer {
                 padding: 15px 20px;

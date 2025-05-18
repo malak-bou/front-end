@@ -53,6 +53,78 @@ body {
 }
 
 
+#formation-form input[type="text"],
+#formation-form input[type="date"],
+#formation-form input[type="time"],
+#formation-form select,
+#formation-form textarea {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+#formation-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-container {
+  background: white;
+  color: black;
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+  max-width: 650px;
+}
+
+form input, textarea {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.cancel{
+font-weight: bold;
+color: white;
+border: 2px solid #1A0495;
+background:#1A0495;
+border-radius: 10px;
+padding: 10px 20px;
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+border: 3px solid transparent;
+cursor: pointer;
+}
+.cancel:hover{
+background:#34287a;
+}
+/* Style pour le bouton submit */
+.submit {
+  font-weight: bold;
+  color: black;
+  background:#D28C64;
+  border-radius: 10px;
+  padding: 5px 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border: 3px solid transparent;
+  cursor: pointer;
+}
+
+.submit:hover {
+    background-color: #b6744e;
+}
 
 
 .request{
