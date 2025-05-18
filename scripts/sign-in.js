@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('signupForm');
     const emailInput = document.getElementById('email');
     const emailError = document.getElementById('emailError');
-    // Expression régulière mise à jour pour @gig.com en minuscules
-    const emailRegex = /^[a-z]+(?:\.[a-z]+)*@gig\.com$/;
+    // Expression régulière mise à jour pour @gig.dz en minuscules
+    const emailRegex = /^[a-z]+(?:\.[a-z]+)*@gig\.dz$/;
     
 
     form.addEventListener('submit', async function(e) {
