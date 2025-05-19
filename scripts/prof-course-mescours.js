@@ -74,7 +74,7 @@
      courseImage.src = course.image;
      courseImage.alt = course.title;
      document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
-     document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
+     document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.instructor.nom} ${course.instructor.prenom}`;
      document.getElementById('course-description').innerHTML = `${course.description}`;
  }
  
