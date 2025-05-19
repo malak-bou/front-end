@@ -591,7 +591,7 @@ footer {
     top: 0;
     right: -350px; /* Move further out */
     width: 250px;
-    height: 100%;
+    height: 96vh;
     background:white;
     color: black;
     padding: 20px;
