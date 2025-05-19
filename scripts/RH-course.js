@@ -1,6 +1,6 @@
  // --- Dynamic Course Logic using localStorage and robust selectors ---
- const course = JSON.parse(localStorage.getItem('selectedCourse'));
-
+const course = JSON.parse(localStorage.getItem('selectedCourse'));
+console.log("course:", course);
 
  if (course) {
      renderCourseDetails(course);
@@ -59,6 +59,23 @@
      document.getElementById('course-title').innerHTML = `<strong>Nom du cours :</strong> ${course.title}`;
      document.getElementById('course-teacher').innerHTML = `<strong>Professeur :</strong> ${course.teacher}`;
      document.getElementById('course-description').innerHTML = `${course.description}`;
+      // Display external links and quiz link
+    const externalLinksDiv = document.getElementById('external-links');
+    const quizLinkDiv = document.getElementById('quiz-link');
+
+    if (course.external_links) {
+        externalLinksDiv.innerHTML = `
+            <p><strong>Liens externes :</strong> <a href="${course.external_links}" target="_blank">Cliquez ici</a></p>
+        `;
+    }
+    console.log("external_links", course.external_links);
+
+    if (course.quiz_link) {
+        quizLinkDiv.innerHTML = `
+            <p><strong>Quiz du cours :</strong> <a href="${course.quiz_link}" target="_blank">Accéder au quiz</a></p>
+        `;
+    }
+    console.log("quiz_link", course.quiz_link);
  }
  
  const startCourseBtn = document.getElementById('start-course-btn');

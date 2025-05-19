@@ -83,7 +83,9 @@ function loadCourses() {
                 departement: course.departement,
                 description: course.description || "Aucune description",
                 created_at: course.created_at,
-                materials: course.materials
+                materials: course.materials,
+                external_links: course.external_links,
+                quiz_link: course.quiz_link,
             };
 
             card.dataset.course = JSON.stringify(courseData);
