@@ -2196,6 +2196,7 @@ li.courss:hover {
     cursor: pointer;
     position: relative;
     color: white;
+    border-radius: 10px;
 }
 
 .calendar .days li.courss:hover {
