@@ -1,329 +1,262 @@
 /* General Styles */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-body{
-    background: linear-gradient(100deg, #7162E1 0%, #6759CD 28%, #564BAB 57%, #3E367B 100%);
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    color: white;
-    margin: 0;
-    padding: 0;
+
+body {
+    background: linear-gradient(135deg, #7162E1 0%, #6759CD 28%, #564BAB 57%, #3E367B 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.6;
 }
 
 /* Header */
 header {
-    background-color: #2a1d77;
-    color: white;
-    padding: 15px;
-    text-align: center;
+    background-color: rgba(42, 29, 119, 0.95);
+    padding: 1rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-}
-.profileimg{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+    gap: 1rem;
 }
 
-header a {
-
-    text-decoration: none;
+.back-button {
     color: white;
-    font-weight: bold;
-    font-size: 18px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: transform 0.2s;
 }
 
+.back-button:hover {
+    transform: translateX(-3px);
+}
+
+header h1 {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 
 /* Main Content */
 main {
-    margin-top: 50px;
-    max-width: 800px;
-    width: 80%;
-    margin: 20px auto;
-    padding: 20px;
-    background: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-    margin-top: 70px;
-    margin-bottom: 70px;
-      
-}
-.info{
-    margin-bottom: 15px;
-    color: black;
+    max-width: 1200px;
+    margin: 80px auto 40px;
+    padding: 0 20px;
 }
 
-.course-image{
-    width: 300px;
-    height: 250px;
-    border-radius: 10px;
+/* Course Header */
+.course-header {
+    margin-bottom: 2rem;
 }
 
-#start-course-btn{
-    background: #D28C64;
-    border-radius: 10px;
-    border: 3px solid transparent;
-    padding: 10px;
-    font-weight: 500;
-    cursor: pointer;
-    
-}
-#start-course-btn:hover{
-    border: 3px solid #2a1d77;
-}
-#start-course-btn button.active{
-    border: 3px solid #2a1d77;
-}
-/* Video */
-
-/* Download Button */
-
-    .contact {
-    background: linear-gradient(to right, #6759CD, #342D67);
-    color: #ffffff;
-    padding: 1rem;
-    }
-    ul {
-    list-style: none;
-    }
-    
-    .example-2 {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    }
-    .example-2 .icon-content {
-    margin: 0 10px;
+.course-banner {
     position: relative;
-    }
-    
-    .example-2 .icon-content a {
-    position: relative;
+    border-radius: 15px;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    color: #4d4d4d;
-    background-color: #fff;
-    transition: all 0.3s ease-in-out;
-    }
-    
-    .example-2 .icon-content a:hover {
-    box-shadow: 3px 2px 45px 0px rgb(0 0 0 / 12%);
-    }
-    
-    .example-2 .icon-content a svg {
-    position: relative;
-    z-index: 1;
-    width: 25px;
-    height: 25px;
-    }
-    
-    .example-2 .icon-content a:hover {
-    color: white;
-    }
-    
-    .example-2 .icon-content a .filled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.course-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.course-overlay {
     position: absolute;
-    top: auto;
     bottom: 0;
     left: 0;
-    width: 100%;
-    height: 0;
-    background-color: #000;
-    transition: all 0.3s ease-in-out;
-    }
-    .example-2 .icon-content a:hover .filled {
-    height: 100%;
-    }
-    
-    .example-2 .icon-content a[data-social="linkedin"] .filled,
-    .example-2 .icon-content a[data-social="linkedin"] ~ .tooltip {
-    background-color: #0274b3;
-    }
-    
-    .example-2 .icon-content a[data-social="facebook"] .filled,
-    .example-2 .icon-content a[data-social="facebook"] ~ .tooltip {
-    background-color: #3b5998;
-    }
-    .example-2 .icon-content a[data-social="instagram"] .filled,
-    .example-2 .icon-content a[data-social="instagram"] ~ .tooltip {
-    background: linear-gradient(
-      45deg,
-      #405de6,
-      #5b51db,
-      #b33ab4,
-      #c135b4,
-      #e1306c,
-      #fd1f1f
-    );
-    }
-    .example-2 .icon-content a[data-social="youtube"] .filled,
-    .example-2 .icon-content a[data-social="youtube"] ~ .tooltip {
-    background-color: #ff0000;
-    }  
-    .couleur{
-    color:  #D28C64;
-    }
-    
-    
-    .container-contact {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    max-width: 1450px;
-    margin: 0 auto;
-    }
-    
-    .partie-d{
-    flex: 0;
-    min-width: 300px;
-    margin: 1rem;
-    }
-    
-    .partie-g{
-    flex: 1;
-    min-width: 300px;
-    margin: 1rem;
-    padding-right: 20%;
-    }
-    
-    .gauche  {
-    display: flex;
-    justify-content:start;
-    align-items: center;
-    }
-    
-    
-    .gauche img, footer {
-    width: 200px;
-    height: 150px;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: 2rem;
     color: white;
-    }
-    
-    
-    
-    .photo-reseau {
-    width: 100%;
-    max-width: 200px;
-    
-    }
-    
-    footer {
-    text-align: start;
-    font-size: 0.7rem;
-    margin-top: 0.5rem;
-    width: auto;
-    height:auto ;
-    }
+}
 
+.course-info {
+    max-width: 800px;
+}
 
-#course-resources {
-    background: #f9f9f9;
-    padding: 15px;
+.course-domain {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+}
+
+.course-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.course-description {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.instructor-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Course Actions */
+.course-actions {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+    justify-content: center;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.8rem 2rem;
     border-radius: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-    color: #000;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
 }
-        
+
+.btn-primary {
+    background: #D28C64;
+    color: white;
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Course Content */
+.course-content {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.content-section {
+    margin-bottom: 2rem;
+}
+
+.content-section h2 {
+    color: #2a1d77;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Resources Grid */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
 .resource-item {
-    margin-bottom: 10px;
-    font-size: 16px;
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
 }
-        
+
+.resource-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
 .resource-item a {
+    color: #2a1d77;
     text-decoration: none;
-    color: #5a5aff;
+    font-weight: 500;
 }
-        
-.resource-item a:hover {
-    text-decoration: underline;
+
+/* Links Container */
+.links-container {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
 }
-        
-/* Responsive Mobile */
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.quiz-section {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .container-contact {
+    .course-title {
+        font-size: 2rem;
+    }
+
+    .course-image {
+        height: 300px;
+    }
+
+    .course-actions {
         flex-direction: column;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
         justify-content: center;
     }
 
-    header, .container-contact, .depdiv, #course-resources {
-        width: 100%;
-    }
-
-    img.profileimg {
-        width: 50px;
-        height: 50px;
-    }
-
-    video, iframe {
-        width: 100% !important;
-        height: auto !important;
-    }
-
-    .resource-item h4 {
-        font-size: 1.1em;
-    }
-
-    button {
-        width: 100%;
-        margin-bottom: 10px;
-        padding: 12px;
-        font-size: 1.1em;
+    .resources-grid {
+        grid-template-columns: 1fr;
     }
 }
 
-@media (max-width:450px) {
-    .course-image{
-        width: 90%;
-        height: 25vh;
-    }    
+@media (max-width: 480px) {
+    .course-title {
+        font-size: 1.5rem;
+    }
+
+    .course-image {
+        height: 200px;
+    }
+
+    .course-overlay {
+        padding: 1rem;
+    }
+
+    .course-description {
+        font-size: 1rem;
+    }
 }
 
-#quit-course-btn{
-    background: rgb(164, 164, 164);
-    border: 3px solid transparent;
-    padding: 9px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 15px;
-    margin-right: 80px;
-}
-
-#quit-course-btn:hover,
-#quit-course-btn:focus,
-#quit-course-btn.active{
-    border:3px solid#2a1d77;
-}
-#finish-course-btn{
-    background: #2a1d77;
-    border: 3px solid transparent;
-    padding: 9px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 15px;
-    color: white;
-}
-#finish-course-btn:hover,
-#finish-course-btn:focus,
-#finish-course-btn.active{
-    border:3px solid rgb(164, 164, 164);
-}
