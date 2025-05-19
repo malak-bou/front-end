@@ -58,8 +58,8 @@ body {
     position: fixed;
     top: 0;
     overflow-y: auto; /* Active le défilement vertical si nécessaire */
-    left: -250px; /* Sidebar is hidden by default */
-    width: 250px;
+    left: -260px; /* Sidebar is hidden by default */
+    width: 260px;
     height: 100%;
     background: #ffffff;
     color: #333;
