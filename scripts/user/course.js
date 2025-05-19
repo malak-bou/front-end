@@ -30,7 +30,7 @@ async function fetchCourseMaterials(courseId) {
             if (material.file_category === "material" && material.file_type === "application/pdf") {
                 container.innerHTML += `
                 <div style="margin-bottom: 20px;">
-                    <a href="${material.file_path}" class="btn-download">Télécharger Support du cour 📄</a>
+                    <a href="${material.file_path}" target="_blank" class="btn-download">Télécharger Support du cour 📄</a>
                     <hr>
                 </div>
                 `;

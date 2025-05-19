@@ -22,7 +22,7 @@ function toggleNav() {
 }
 
 function loadCourses() {
-    const url = "https://backend-m6sm.onrender.com/dashboard/prof/";
+    const url = "https://backend-m6sm.onrender.com/dashboard/admin/";
     const token = localStorage.getItem('token');
 
     fetch(url, {
