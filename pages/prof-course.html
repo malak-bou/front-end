@@ -5,41 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Details</title>
     <link rel="stylesheet" href="../assets/styles/user/course.css">
-    <style>
-      #course-links strong{
-        color: black;
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header style="background-color: transparent;">
-        <a href="dashboardprof.html">⬅ </a>
-    </header>
-    <main>
-      <div class="depdiv"> <p class="info" id="course-domain"></p></div>
-      <img class="info course-image" id="course-image" src="" alt="">
-      <p class="info" id="course-title"></p>
-      <p class="info" id="course-description"></p>
-      <p class="info" id="course-teacher"></p>
-
-      <button class="info" id="start-course-btn">Commencer le cours</button>
-      
-      <!-- Contenu du cours (caché au départ) -->
-      <div id="course-content" style="display:none;">
-        <h2 style="color: black;">Contenu du cours</h2>
-        <div id="course-resources" style="margin-top:20px;"></div>
-        <div id="course-links" style="margin-top:20px;">
-            <h3 style="color: black;">Liens utiles</h3>
-            <div id="external-links"></div>
-            <div id="quiz-link"></div>
+    <header>
+        <div class="header-content">
+            <a href="dashboardprof.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1>Course Details</h1>
         </div>
-        <button id="quit-course-btn">Quitter le cours</button>
-        <button id="finish-course-btn">Finir le cours</button>
-    </div>
+    </header>
 
+    <main>
+        <div class="course-header">
+            <div class="course-banner">
+                <img class="course-image" id="course-image" src="" alt="Course Image">
+                <div class="course-overlay">
+                    <div class="course-info">
+                        <span class="course-domain" id="course-domain"></span>
+                        <h2 class="course-title" id="course-title"></h2>
+                        <p class="course-description" id="course-description"></p>
+                        <div class="instructor-info">
+                            <i class="fas fa-user"></i>
+                            <span id="course-teacher"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-actions">
+            <button class="btn-primary" id="start-course-btn">
+                <i class="fas fa-play"></i> Start Course
+            </button>
+        </div>
+        
+        <div id="course-content" class="course-content" style="display:none;">
+            <div class="content-section">
+                <h2><i class="fas fa-book"></i> Course Content</h2>
+                <div id="course-resources" class="resources-grid"></div>
+            </div>
+
+            <div class="content-section">
+                <h2><i class="fas fa-link"></i> Useful Links</h2>
+                <div id="course-links" class="links-container">
+                    <div id="external-links" class="links-grid"></div>
+                    <div id="quiz-link" class="quiz-section"></div>
+                </div>
+            </div>
+
+            <div class="course-actions">
+                <button class="btn-secondary" id="quit-course-btn">
+                    <i class="fas fa-times"></i> Quit Course
+                </button>
+                <button class="btn-primary" id="finish-course-btn">
+                    <i class="fas fa-check"></i> Complete Course
+                </button>
+            </div>
+        </div>
     </main>
-    
-    
+
     <script src="../scripts/prof-course.js"></script>
 </body>
 </html>
