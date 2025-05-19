@@ -730,7 +730,7 @@ footer {
     top: 0;
     right: -350px; /* Initial off-screen position */
     width: 250px;
-    height: 100%;
+    height: 96vh;
     background:white;
     color: black;
     padding: 20px;

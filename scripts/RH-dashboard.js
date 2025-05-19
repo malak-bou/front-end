@@ -384,15 +384,11 @@ function showCourseDetailsPopup(course) {
                 <p><strong>Type:</strong> ${typeDisplay}</p>
                 ${course.description ? `<p><strong>Description:</strong> ${course.description}</p>` : ''}
                 ${course.departement ? `<p><strong>Département:</strong> ${course.departement}</p>` : ''}
+                <p><strong>Type de réunion:</strong> ${course.type}</p>
             </div>
         </div>
         <div class="popup-footer">
-            ${course.type === 'online' && meetingLink !== '#' ? 
-                `<a href="${meetingLink}" target="_blank" class="join-button">Rejoindre</a>` : 
-                course.type === 'online' ? 
-                `<p class="no-link">Lien de réunion non disponible</p>` : 
-                ''
-            }
+            ${course.type.toLowerCase() === 'en ligne' ? `<a href="${course.meetingLink}" target="_blank" class="join-button">Rejoindre</a>` : ''}
         </div>
     `;
     

@@ -415,11 +415,11 @@ function showCourseDetailsPopup(course) {
                 <p><strong>Date:</strong> ${course.day} ${mois[currMonth]} ${currYear}</p>
                 <p><strong>Heure:</strong> ${course.time}</p>
                 <p><strong>Formateur:</strong> ${course.trainer}</p>
-                <p><strong>Type:</strong> ${course.type === 'online' ? 'En ligne' : 'Présentiel'}</p>
+                <p><strong>Type:</strong> ${course.type}</p>
             </div>
         </div>
         <div class="popup-footer">
-            <a href="${course.meetingLink}" target="_blank" class="join-button">Rejoindre</a>
+            ${course.type.toLowerCase() === 'en ligne' ? `<a href="${course.meetingLink}" target="_blank" class="join-button">Rejoindre</a>` : ''}
         </div>
     `;
     
