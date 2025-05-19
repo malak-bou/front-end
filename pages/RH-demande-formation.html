@@ -331,7 +331,19 @@
         <input type="date" id="datePicker" required><br>
 
         <label for="timePicker">Heure:</label><br>
-        <input type="time" id="timePicker" required><br>
+                <select id="timePicker" required>
+                    <option value="" disabled selected>Sélectionner une heure</option>
+                    <option value="08:00">8:00</option>
+                    <option value="09:00">9:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="11:00">11:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="13:00">13:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                </select><br>
 
         <label for="formation-type">Type:</label><br>
         <select id="formation-type" style="width: 100px; " required>
