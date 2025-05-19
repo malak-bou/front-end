@@ -68,8 +68,11 @@ try {
     // Rediriger ou afficher un message de succès
     window.location.href = 'RH-mescours.html';
 } catch (error) {
-    console.error('Erreur:', error);
-    alert('Une erreur est survenue lors de la création du cours' + error);
+    if (errorMessage instanceof Error) {
+        alert('Erreur JS : ' + errorMessage.message);
+    } else {
+        alert('Erreur inconnue : ' + JSON.stringify(errorMessage));
+    }
 }
     // Handle cancel button
     const cancelButton = document.querySelector('.cancel');
