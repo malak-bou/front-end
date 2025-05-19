@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course Details</title>
     <link rel="stylesheet" href="../assets/styles/user/course.css">
+    <style>
+      #course-links strong{
+        color: black;
+      }
+    </style>
 </head>
 <body>
     <header>
@@ -22,11 +27,16 @@
         
         <!-- Contenu du cours (caché au départ) -->
         <div id="course-content" style="display:none;">
-            <h2 style="color: black;">Contenu du cours</h2>
-          <div id="course-resources" style=margin-top:20px;></div>
+          <h2 style="color: black;">Contenu du cours</h2>
+          <div id="course-resources" style="margin-top:20px;"></div>
+          <div id="course-links" style="margin-top:20px;">
+              <h3 style="color: black;">Liens utiles</h3>
+              <div id="external-links"></div>
+              <div id="quiz-link"></div>
+          </div>
           <button id="quit-course-btn">Quitter le cours</button>
           <button id="finish-course-btn">Finir le cours</button>
-        </div>
+      </div>
 
       </main>
     

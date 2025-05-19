@@ -764,6 +764,8 @@ function createCourseCard(course) {
         teacher: instructorName,
         description: course.description || "Aucune description",
         field: course.domain,
+        external_links: course.external_links,
+        quiz_link: course.quiz_link,
         resources: {
             record: null,
             pptx: null,

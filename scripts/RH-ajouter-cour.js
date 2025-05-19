@@ -69,9 +69,9 @@ try {
     window.location.href = 'RH-mescours.html';
 } catch (error) {
     if (errorMessage instanceof Error) {
-        alert('Erreur JS : ' + errorMessage.message);
+        console.log('Erreur JS : ' + errorMessage.message);
     } else {
-        alert('Erreur inconnue : ' + JSON.stringify(errorMessage));
+        console.log('Erreur inconnue : ' + JSON.stringify(errorMessage));
     }
 }
     // Handle cancel button

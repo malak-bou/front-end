@@ -76,11 +76,11 @@ function loadCourses() {
                 title: course.title,
                 description: course.description || "Aucune description",
                 departement: course.departement || "Non spécifié",
-                external_links: course.external_links,
-                quiz_link: course.quiz_link,
                 created_at: course.created_at,
                 updated_at: course.updated_at,
                 image: course.image_url,
+                external_links: course.external_links,
+                quiz_link: course.quiz_link,
                 instructor: {
                     id: instructor.id,
                     nom: instructor.nom,

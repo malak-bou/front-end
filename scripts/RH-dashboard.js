@@ -726,6 +726,7 @@ async function fetchCourses() {
     return await response.json();
 }
 
+console.log("fetchCourses", fetchCourses());
 // Function to filter courses
 function filterCourses() {
     const searchInput = document.querySelector(".search-wrapper .input-container");
@@ -763,6 +764,8 @@ function createCourseCard(course) {
         teacher: instructorName,
         description: course.description || "Aucune description",
         field: course.domain,
+        external_links: course.external_links,
+        quiz_link: course.quiz_link,
         resources: {
             record: null,
             pptx: null,

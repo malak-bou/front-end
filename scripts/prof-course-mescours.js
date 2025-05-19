@@ -43,6 +43,23 @@
                  `;
              }
          });
+         // Display external links and quiz link
+    const externalLinksDiv = document.getElementById('external-links');
+    const quizLinkDiv = document.getElementById('quiz-link');
+
+    if (course.external_links) {
+        externalLinksDiv.innerHTML = `
+            <p><strong>Liens externes :</strong> <a href="${course.external_links}" target="_blank">Cliquez ici</a></p>
+        `;
+    }
+    console.log("external_links", course.external_links);
+
+    if (course.quiz_link) {
+        quizLinkDiv.innerHTML = `
+            <p><strong>Quiz du cours :</strong> <a href="${course.quiz_link}" target="_blank">Accéder au quiz</a></p>
+        `;
+    }
+    console.log("quiz_link", course.quiz_link);
      } catch (error) {
          console.error("Erreur:", error);
          document.getElementById("course-resources").innerHTML = "<p>Erreur de chargement du contenu du cours.</p>";
