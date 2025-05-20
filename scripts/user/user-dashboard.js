@@ -289,6 +289,7 @@ async function loadCalendarCourses() {
                 trainer: conf.requested_by.prenom + " " + conf.requested_by.nom,
                 time: conf.time,
                 type: conf.type,
+                departement: conf.departement,
                 meetingLink: conf.link || "#"
             });
         });
@@ -380,6 +381,7 @@ function updateSidebarCourses() {
             <div class="infooo">
                 <p class="date-cour2">${course.day} ${mois[currMonth]} ${currYear}</p>
                 <p class="nom-cour">${course.title}</p>
+                <p class="depa-cour"><strong>Département:</strong> ${course.departement}</p>
             </div>
         `;
         
@@ -414,8 +416,9 @@ function showCourseDetailsPopup(course) {
             <div class="popup-info">
                 <p><strong>Date:</strong> ${course.day} ${mois[currMonth]} ${currYear}</p>
                 <p><strong>Heure:</strong> ${course.time}</p>
+                <p><strong>Département:</strong> ${course.departement}</p>
                 <p><strong>Formateur:</strong> ${course.trainer}</p>
-                <p><strong>Type:</strong> ${course.type}</p>
+                <p><strong>Type de réunion:</strong> ${course.type}</p>
             </div>
         </div>
         <div class="popup-footer">
@@ -689,5 +692,7 @@ async function fetchCalendarCourses() {
     if (!response.ok) {
         throw new Error("Erreur lors de la récupération du calendrier");
     }
-    return await response.json();
+    const data = await response.json();
+    console.log("Données des conférences:", data);
+    return data;
 }
