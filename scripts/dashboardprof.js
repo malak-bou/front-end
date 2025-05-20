@@ -248,7 +248,9 @@ async function fetchCalendarCourses() {
     if (!response.ok) {
         throw new Error("Erreur lors de la récupération du calendrier");
     }
-    return await response.json();
+    const data = await response.json();
+    console.log("Données des conférences:", data);
+    return data;
 }
 
 // Initialize course schedule as empty
@@ -287,7 +289,8 @@ async function loadCalendarCourses() {
                     time: conf.time || "Non spécifié",
                     type: conf.type,
                     meetingLink: conf.link || "#",
-                    date: conf.date
+                    date: conf.date,
+                    departement: conf.departement
                 });
             }
         });
@@ -338,6 +341,7 @@ function updateSidebarCourses() {
             <div class="infooo">
                 <p class="date-cour2">${course.day} ${mois[currMonth]} ${currYear}</p>
                 <p class="nom-cour">${course.title}</p>
+                <p class="depa-cour"><strong>Département:</strong> ${course.departement}</p>
             </div>
         `;
         
@@ -381,9 +385,7 @@ function showCourseDetailsPopup(course) {
                 <p><strong>Date:</strong> ${formattedDate}</p>
                 <p><strong>Heure:</strong> ${timeDisplay}</p>
                 <p><strong>Formateur:</strong> ${course.trainer}</p>
-                <p><strong>Type:</strong> ${typeDisplay}</p>
-                ${course.description ? `<p><strong>Description:</strong> ${course.description}</p>` : ''}
-                ${course.departement ? `<p><strong>Département:</strong> ${course.departement}</p>` : ''}
+                <p><strong>Département:</strong> ${course.departement}</p>
                 <p><strong>Type de réunion:</strong> ${course.type}</p>
             </div>
         </div>
