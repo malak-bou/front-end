@@ -48,29 +48,39 @@ const token = localStorage.getItem('token');
 
 // Envoyez la requête
 try {
-    const response = await fetch('https://backend-m6sm.onrender.com/courses/', {
+    const response = await fetch('http://127.0.0.1:8000/courses/', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`
-            // Ne pas mettre 'Content-Type': 'multipart/form-data', le navigateur le fera automatiquement
         },
         body: formData
     });
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Erreur du serveur:', errorData);
-        throw new Error('Erreur lors de la création du cours');
+    let data = null;
+    let errorText = '';
+    try {
+        data = await response.json();
+    } catch (jsonErr) {
+        errorText = await response.text();
     }
 
-    const data = await response.json();
-    console.log('Succès:', data);
-    // Rediriger ou afficher un message de succès
+    if (!response.ok) {
+        if (data && data.detail) {
+            alert('Erreur lors de la création du cours : ' + data.detail);
+        } else if (data) {
+            alert('Erreur lors de la création du cours : ' + JSON.stringify(data));
+        } else {
+            alert('Erreur lors de la création du cours : ' + errorText);
+        }
+        return;
+    }
+
+    alert('Cours ajouté avec succès !');
     window.location.href = 'mescours.html';
 } catch (error) {
-    console.error('Erreur:', error);
-    alert('Une erreur est survenue lors de la création du cours');
+    alert('Erreur réseau ou serveur : ' + error.message);
 }
+
     // Handle cancel button
     const cancelButton = document.querySelector('.cancel');
     cancelButton.addEventListener('click', function(e) {
@@ -119,13 +129,6 @@ try {
             }
         }
     });
+
 });
-
-
-
-
-
-
-
-
-})
+});
