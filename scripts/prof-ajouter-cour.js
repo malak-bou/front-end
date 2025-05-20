@@ -48,7 +48,7 @@ const token = localStorage.getItem('token');
 
 // Envoyez la requête
 try {
-    const response = await fetch('http://127.0.0.1:8000/courses/', {
+    const response = await fetch('https://backend-m6sm.onrender.com/courses/', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`
