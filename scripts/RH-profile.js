@@ -178,50 +178,86 @@ document.addEventListener("DOMContentLoaded", function () {
     const completedCourses = document.getElementById("completedCourses");
     const averageProgress = document.getElementById("averageProgress");
 
-    // Récupérer les cours stockés
-    let userCourses = JSON.parse(localStorage.getItem("userCourses")) || [];
+    async function fetchUserCourses() {
+        try {
+            const response = await fetch('https://backend-m6sm.onrender.com/users/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                }
+            });
 
-    function loadCourses() {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user courses');
+            }
+
+            const data = await response.json();
+            return data.courses || [];
+        } catch (error) {
+            console.error('Error fetching user courses:', error);
+            return [];
+        }
+    }
+
+    async function loadCourses() {
         courseTableBody.innerHTML = "";
         let completedCount = 0;
         let totalProgress = 0;
 
-        userCourses.forEach(course => {
+        const courses = await fetchUserCourses();
+
+        courses.forEach(course => {
             const row = document.createElement("tr");
+            const progress = parseFloat(course.progres) || 0;
+            const isCompleted = course.statut === "Terminé";
 
             row.innerHTML = `
-                <td>${course.title}</td>
+                <td>${course.nom_du_cours}</td>
                 <td>
                     <div class="progress-bar">
-                        <span style="width: ${course.progress}%;"></span>
+                        <span style="width: ${progress}%;"></span>
                     </div>
-                    ${course.progress}%
+                    ${progress}%
                 </td>
-                <td>${course.startDate}</td>
-                <td>${course.endDate}</td>
-                <td>${course.completed ? "✅ Terminé" : "⌛ En cours"}</td>
+                <td>${course.date_debut}</td>
+                <td>${course.date_fin}</td>
+                <td>${isCompleted ? "✅ Terminé" : "⌛ En cours"}</td>
             `;
 
             courseTableBody.appendChild(row);
 
-            if (course.completed) completedCount++;
-            totalProgress += course.progress;
+            if (isCompleted) completedCount++;
+            totalProgress += progress;
         });
 
-        totalCourses.textContent = userCourses.length;
+        totalCourses.textContent = courses.length;
         completedCourses.textContent = completedCount;
-        averageProgress.textContent = userCourses.length > 0 ? Math.round(totalProgress / userCourses.length) + "%" : "0%";
+        averageProgress.textContent = courses.length > 0 ? Math.round(totalProgress / courses.length) + "%" : "0%";
     }
 
     function loadSkills() {
         skillsList.innerHTML = "";
         const allSkills = new Set();
 
-        userCourses.forEach(course => {
-            if (course.completed) {
-                course.skills.forEach(skill => allSkills.add(skill));
+        // You can add skills based on completed courses here
+        // For example, if you have a mapping of courses to skills
+        const courseSkills = {
+            "Python Programming": ["Python", "Programming", "Data Analysis"],
+            "Web Development": ["HTML", "CSS", "JavaScript"],
+            // Add more course-skill mappings as needed
+        };
+
+        // Get completed courses from the table
+        const rows = courseTableBody.getElementsByTagName("tr");
+        for (let row of rows) {
+            const courseName = row.cells[0].textContent;
+            const isCompleted = row.cells[4].textContent.includes("Terminé");
+            
+            if (isCompleted && courseSkills[courseName]) {
+                courseSkills[courseName].forEach(skill => allSkills.add(skill));
             }
-        });
+        }
 
         allSkills.forEach(skill => {
             const li = document.createElement("li");
@@ -230,8 +266,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    loadCourses();
-    loadSkills();
+    // Load courses and skills when the page loads
+    loadCourses().then(() => {
+        loadSkills();
+    });
+
+    // Refresh courses every 5 minutes
+    setInterval(() => {
+        loadCourses().then(() => {
+            loadSkills();
+        });
+    }, 5 * 60 * 1000);
 });
 
 
