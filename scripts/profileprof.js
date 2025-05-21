@@ -46,7 +46,6 @@ async function initializeWithBackend(token) {
         setupProfileFeatures(token, userInfo);
     } catch (error) {
         console.error("Erreur de connexion au backend :", error);
-        alert("Erreur de chargement des données. Veuillez réessayer plus tard.");
     }
 }
 
