@@ -1,4 +1,4 @@
-# GIG PLATLEARN - Front-End Application
+# TAKWINI - Front-End Application
 
 ## Introduction
 
