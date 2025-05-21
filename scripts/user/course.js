@@ -1,4 +1,4 @@
- // --- Dynamic Course Logic using localStorage and robust selectors ---
+// --- Dynamic Course Logic using localStorage and robust selectors ---
 const course = JSON.parse(localStorage.getItem('selectedCourse'));
 console.log("course:", course);
 
@@ -29,14 +29,27 @@ async function fetchCourseMaterials(courseId) {
         materials.forEach((material) => {
             if (material.file_category === "material" && material.file_type === "application/pdf") {
                 container.innerHTML += `
-                <div style="margin-bottom: 20px;">
-                    <a href="${material.file_path}" target="_blank" class="btn-download">Télécharger Support du cour 📄</a>
+                <div style="margin-bottom: 20px; width: 100%; max-width: 800px;">
+                    <div class="pdf-viewer">
+                        <embed
+                            src="${material.file_path}"
+                            type="application/pdf"
+                            width="100%"
+                            height="500px"
+                            style="border: 1px solid #ddd; border-radius: 8px;"
+                        />
+                    </div>
+                    <div style="margin-top: 10px; text-align: center;">
+                        <a href="${material.file_path}" target="_blank" class="btn-download">
+                            <i class="fas fa-download"></i> Télécharger Support du cours 📄
+                        </a>
+                    </div>
                     <hr>
                 </div>
                 `;
             } else if (material.file_category === "record" && material.file_type.startsWith("video")) {
                 container.innerHTML += `
-                    <video controls width="100%" style="margin-bottom: 20px;">
+                    <video controls width="70%" max-height="600px" style="margin-bottom: 20px;">
                         <source src="${material.file_path}" type="${material.file_type}">
                         Votre navigateur ne supporte pas la lecture vidéo.
                     </video>    
@@ -46,6 +59,48 @@ async function fetchCourseMaterials(courseId) {
     } catch (error) {
         console.error("Erreur:", error);
         document.getElementById("course-resources").innerHTML = "<p>Erreur de chargement du contenu du cours.</p>";
+    }
+}
+
+async function fetchCourseProgress(courseId) {
+    try {
+        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}/progress`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch course progress');
+        }
+
+        const data = await response.json();
+        
+        // Update progress in UI
+        const progressElement = document.getElementById('course-progress');
+        if (progressElement) {
+            progressElement.innerHTML = `
+                <div class="progress-info">
+                    <p><strong>Progression:</strong> ${data.progress_details.progress_percent}</p>
+                    <p><strong>Statut:</strong> ${data.progress_details.status}</p>
+                    <p><strong>Dernier accès:</strong> ${data.progress_details.last_accessed}</p>
+                </div>
+            `;
+        }
+
+        // Update progress bar if it exists
+        const progressBar = document.getElementById('progress-bar');
+        if (progressBar) {
+            progressBar.style.width = `${data.progress_details.progress_value}%`;
+            progressBar.setAttribute('aria-valuenow', data.progress_details.progress_value);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching course progress:', error);
+        throw error;
     }
 }
 
@@ -82,14 +137,41 @@ function renderCourseDetails(course) {
 const startCourseBtn = document.getElementById('start-course-btn');
 const maincontent = document.getElementById('course-content');
 
-startCourseBtn.addEventListener('click', function() {
+startCourseBtn.addEventListener('click', async function() {
+    // Show course content
     maincontent.style.display = 'block';
     startCourseBtn.style.display = 'none';
     document.getElementById('course-description').style.display = 'none';
     document.getElementById('course-image').style.display = 'none';
     document.getElementById('course-teacher').style.display = 'none';
     this.style.display = 'none';
-    fetchCourseMaterials(courseId);
+    try {
+        // Call the enrollment API
+        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}/enroll`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to enroll in course');
+        }
+
+        const data = await response.json();
+
+        console.log('Enrollment response:', data);
+
+        // Fetch course materials and progress
+        await Promise.all([
+            fetchCourseMaterials(courseId),
+            fetchCourseProgress(courseId)
+        ]);
+    } catch (error) {
+        console.log('Error enrolling in course:', error);
+    }
 });
 
 const quitCourseBtn = document.getElementById('quit-course-btn');

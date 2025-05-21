@@ -140,48 +140,72 @@ function displayCourseTable(courses) {
     const tbody = document.getElementById("courseTableBody");
     tbody.innerHTML = "";
 
-    courses.forEach(course => {
-        const title = course.nom_du_cours || "Cours sans nom";
-        
-        // Strip % if necessary
-        const progressStr = course.progres || "0%";
-        const progress = parseFloat(progressStr.replace('%', '')) || 0;
 
-        const startDate = course.date_debut || "N/A";
-        const endDate = course.date_fin || "En cours...";
-        const completed = progress === 100;
-
-        const status = completed ? "✅ Terminé" : "📚 En cours";
-
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${title}</td>
-            <td>
-                <div style="width: 100%; background: #f0f0f0; border-radius: 10px; overflow: hidden;">
-                    <div style="width: ${progress}%; background: #4CAF50; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">
-                        ${progress}%
-                    </div>
-                </div>
-            </td>
-            <td>${startDate}</td>
-            <td>${endDate}</td>
-            <td>${status}</td>
-        `;
-        tbody.appendChild(row);
-    });
-}
-
-
-function displaySkills(courses) {
+document.addEventListener("DOMContentLoaded", function () {
+    const courseTableBody = document.getElementById("courseTableBody");
     const skillsList = document.getElementById("skillsList");
-    skillsList.innerHTML = "";
-    
-    const allSkills = courses.flatMap(course => course.skills || []).filter(skill => skill);
-    const uniqueSkills = [...new Set(allSkills)];
-    
-    if (uniqueSkills.length === 0) {
-        skillsList.innerHTML = "<li>Aucune compétence enregistrée</li>";
-        return;
+    const totalCourses = document.getElementById("totalCourses");
+    const completedCourses = document.getElementById("completedCourses");
+    const averageProgress = document.getElementById("averageProgress");
+
+    async function fetchUserCourses() {
+        try {
+            const response = await fetch('https://backend-m6sm.onrender.com/users/me', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch user courses');
+            }
+
+            const data = await response.json();
+            return data.courses || [];
+        } catch (error) {
+            console.error('Error fetching user courses:', error);
+            return [];
+        }
+    }
+
+    async function loadCourses() {
+        courseTableBody.innerHTML = "";
+        let completedCount = 0;
+        let totalProgress = 0;
+
+        const courses = await fetchUserCourses();
+
+        courses.forEach(course => {
+            const row = document.createElement("tr");
+            const progress = parseFloat(course.progres) || 0;
+            const isCompleted = course.statut === "Terminé";
+
+            row.innerHTML = `
+                <td>${course.nom_du_cours}</td>
+                <td>
+                    <div class="progress-bar">
+                        <span style="width: ${progress}%;"></span>
+                    </div>
+                    ${progress}%
+                </td>
+                <td>${course.date_debut}</td>
+                <td>${course.date_fin}</td>
+                <td>${isCompleted ? "✅ Terminé" : "⌛ En cours"}</td>
+            `;
+
+
+
+
+            if (isCompleted) completedCount++;
+            totalProgress += progress;
+        });
+
+        totalCourses.textContent = courses.length;
+        completedCourses.textContent = completedCount;
+        averageProgress.textContent = courses.length > 0 ? Math.round(totalProgress / courses.length) + "%" : "0%";
+
     }
     
     uniqueSkills.forEach(skill => {
@@ -191,21 +215,30 @@ function displaySkills(courses) {
     });
 }
 
-function loadFromLocalStorage() {
-    console.log("Loading user data from localStorage");
-    
-    // Load user data from localStorage
-    const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-    
-    document.getElementById("nom").value = userData.nom || "";
-    document.getElementById("prenom").value = userData.prenom || "";
-    document.getElementById("email").value = userData.email || "";
-    document.getElementById("telephone").value = userData.telephone || "";
-    document.getElementById("departement").value = userData.departement || "";
-    document.getElementById("fonction").value = userData.fonction || "";
-    
-    loadCoursesFromLocalStorage();
-}
+
+    function loadSkills() {
+        skillsList.innerHTML = "";
+        const allSkills = new Set();
+
+        // You can add skills based on completed courses here
+        // For example, if you have a mapping of courses to skills
+        const courseSkills = {
+            "Python Programming": ["Python", "Programming", "Data Analysis"],
+            "Web Development": ["HTML", "CSS", "JavaScript"],
+            // Add more course-skill mappings as needed
+        };
+
+        // Get completed courses from the table
+        const rows = courseTableBody.getElementsByTagName("tr");
+        for (let row of rows) {
+            const courseName = row.cells[0].textContent;
+            const isCompleted = row.cells[4].textContent.includes("Terminé");
+            
+            if (isCompleted && courseSkills[courseName]) {
+                courseSkills[courseName].forEach(skill => allSkills.add(skill));
+            }
+        }
+
 
 function loadCoursesFromLocalStorage() {
     const userCourses = JSON.parse(localStorage.getItem("userCourses") || "[]");
@@ -225,12 +258,21 @@ function loadCoursesFromLocalStorage() {
     displaySkills(userCourses);
 }
 
-function setupProfileFeatures(token = null, userInfo = null) {
-    const profilePic = document.getElementById("profilePic");
-    const uploadInput = document.getElementById("uploadProfilePic");
-    const changePicBtn = document.getElementById("changePicBtn");
-    const deletePicBtn = document.getElementById("deletePicBtn");
-    const defaultImage = "../assets/images/profil-pic.png";
+
+    // Load courses and skills when the page loads
+    loadCourses().then(() => {
+        loadSkills();
+    });
+
+    // Refresh courses every 5 minutes
+    setInterval(() => {
+        loadCourses().then(() => {
+            loadSkills();
+        });
+    }, 5 * 60 * 1000);
+});
+
+
 
     // Load saved profile picture
     const savedPic = localStorage.getItem("profilePicture");

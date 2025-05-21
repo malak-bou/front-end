@@ -102,43 +102,39 @@
               </div>
             </div>
 
-            
-                  <!-- 🟢 Statistiques Générales -->
-        <section class="stats">
-          <h3>📊 Statistiques Globales</h3>
-          <p><strong>Total des Cours Suivis :</strong> <span id="totalCourses">0</span></p>
-          <p><strong>Cours Terminés :</strong> <span id="completedCourses">0</span></p>
-          <p><strong>Progression Moyenne :</strong> <span id="averageProgress">0%</span></p>
-        </section>
-
-      
-
-      <!-- 🟢 Suivi des Cours -->
+         <!-- 🟢 Suivi des Cours -->
       <section class="course-tracking">
-          <h3>📚 Mes Cours Suivis</h3>
-          <table>
-              <thead>
-                  <tr>
-                      <th>Nom du Cours</th>
-                      <th>Progrès</th>
-                      <th>Date de Début</th>
-                      <th>Date de Fin</th>
-                      <th>Statut</th>
-                  </tr>
-              </thead>
-              <tbody id="courseTableBody">
-                  <!-- Les cours seront ajoutés dynamiquement avec JavaScript -->
-              </tbody>
-          </table>
-      </section>
+        <h3>📚 Mes Cours Suivis</h3>
+        <div class="course-stats">
+            <div class="stat-box">
+                <span class="stat-label">Total des Cours</span>
+                <span id="totalCourses" class="stat-value">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Cours Terminés</span>
+                <span id="completedCourses" class="stat-value">0</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Progression Moyenne</span>
+                <span id="averageProgress" class="stat-value">0%</span>
+            </div>
+        </div>
+        <table class="course-table">
+            <thead>
+                <tr>
+                    <th>Nom du Cours</th>
+                    <th>Progrès</th>
+                    <th>Date de Début</th>
+                    <th>Date de Fin</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody id="courseTableBody">
+                <!-- Les cours seront ajoutés dynamiquement avec JavaScript -->
+            </tbody>
+        </table>
+    </section>
 
-      <!-- 🟢 Compétences Acquises -->
-      <section class="skills">
-          <h3>🎯 Compétences Acquises</h3>
-          <ul id="skillsList">
-              <!-- Les compétences seront ajoutées dynamiquement -->
-          </ul>
-      </section>
       </form>
     
     </main>
@@ -258,5 +254,83 @@
       </div>
   </section>
     <script src="../scripts/RH-profile.js"></script>
+    <style>
+      .course-tracking {
+          background: white;
+          border-radius: 10px;
+          padding: 20px;
+          margin: 20px 0;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          width: auto;
+      }
+  
+      .course-stats {
+          display: flex;
+          justify-content: space-between;
+          margin: 20px 0;
+          gap: 20px;
+      }
+  
+      .stat-box {
+          flex: 1;
+          background: #f8f9fa;
+          padding: 15px;
+          border-radius: 8px;
+          text-align: center;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      }
+  
+      .stat-label {
+          display: block;
+          color: #666;
+          font-size: 0.9em;
+          margin-bottom: 5px;
+      }
+  
+      .stat-value {
+          display: block;
+          font-size: 1.5em;
+          font-weight: bold;
+          color: #7c3aed;
+      }
+  
+      .course-table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+      }
+  
+      .course-table th,
+      .course-table td {
+          padding: 12px;
+          text-align: left;
+          border-bottom: 1px solid #eee;
+      }
+  
+      .course-table th {
+          background-color: #f8f9fa;
+          font-weight: 600;
+          color: #333;
+      }
+  
+      .progress-bar {
+          width: 100%;
+          height: 8px;
+          background-color: #e9ecef;
+          border-radius: 4px;
+          overflow: hidden;
+      }
+  
+      .progress-bar span {
+          display: block;
+          height: 100%;
+          background-color: #7c3aed;
+          transition: width 0.3s ease;
+      }
+  
+      .course-table tr:hover {
+          background-color: #f8f9fa;
+      }
+      </style>
 </body>
 </html>
