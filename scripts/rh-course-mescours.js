@@ -30,15 +30,6 @@ async function fetchCourseMaterials(courseId) {
             if (material.file_category === "material" && material.file_type === "application/pdf") {
                 container.innerHTML += `
                 <div style="margin-bottom: 20px; width: 100%; max-width: 800px;">
-                    <div class="pdf-viewer">
-                        <embed
-                            src="${material.file_path}"
-                            type="application/pdf"
-                            width="100%"
-                            height="500px"
-                            style="border: 1px solid #ddd; border-radius: 8px;"
-                        />
-                    </div>
                     <div style="margin-top: 10px; text-align: center;">
                         <a href="${material.file_path}" target="_blank" class="btn-download">
                             <i class="fas fa-download"></i> Télécharger Support du cours 📄
