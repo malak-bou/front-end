@@ -1,4 +1,4 @@
-# TAKWINI - Front-End Application
+# TAKWINI - Web Application
 
 ## Introduction
 
