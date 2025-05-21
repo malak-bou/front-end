@@ -120,98 +120,143 @@ function displayCourseTable(courses) {
 
 function displaySkills(courses) {
     const skillsList = document.getElementById("skillsList");
-
-  
-    const totalCourses = document.getElementById("totalCourses");
-    const completedCourses = document.getElementById("completedCourses");
-    const averageProgress = document.getElementById("averageProgress");
-
-    async function fetchUserCourses() {
-        try {
-            const response = await fetch('https://backend-m6sm.onrender.com/users/me', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch user courses');
-            }
-
-            const data = await response.json();
-            return data.courses || [];
-        } catch (error) {
-            console.error('Error fetching user courses:', error);
-            return [];
-        }
-    }
-
-    async function loadCourses() {
-        courseTableBody.innerHTML = "";
-        let completedCount = 0;
-        let totalProgress = 0;
-
-        const courses = await fetchUserCourses();
-
-        courses.forEach(course => {
-            const row = document.createElement("tr");
-            const progress = parseFloat(course.progres) || 0;
-            const isCompleted = course.statut === "Terminé";
-
-            row.innerHTML = `
-                <td>${course.nom_du_cours}</td>
-                <td>
-                    <div class="progress-bar">
-                        <span style="width: ${progress}%;"></span>
-                    </div>
-                    ${progress}%
-                </td>
-                <td>${course.date_debut}</td>
-                <td>${course.date_fin}</td>
-                <td>${isCompleted ? "✅ Terminé" : "⌛ En cours"}</td>
-            `;
-
+    skillsList.innerHTML = "";
 
     const allSkills = courses.flatMap(course => course.skills || []).filter(skill => skill);
     const uniqueSkills = [...new Set(allSkills)];
 
+    if (uniqueSkills.length === 0) {
+        skillsList.innerHTML = "<li>Aucune compétence enregistrée</li>";
+        return;
+    }
 
-            if (isCompleted) completedCount++;
-            totalProgress += progress;
+    uniqueSkills.forEach(skill => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span style="background: #e1f5fe; padding: 5px 10px; border-radius: 15px; display: inline-block; margin: 2px;">🎯 ${skill}</span>`;
+        skillsList.appendChild(li);
+    });
+}
+
+function setupProfileFeatures(token = null, userInfo = null) {
+    const profilePic = document.getElementById("profilePic");
+    const uploadInput = document.getElementById("uploadProfilePic");
+    const changePicBtn = document.getElementById("changePicBtn");
+    const deletePicBtn = document.getElementById("deletePicBtn");
+    const defaultImage = "../assets/images/profil-pic.png";
+
+    if (profilePic) {
+        profilePic.addEventListener("click", function () {
+            const existingOverlay = document.getElementById("imgOverlay");
+            if (existingOverlay) existingOverlay.remove();
+
+            const overlay = document.createElement("div");
+            overlay.id = "imgOverlay";
+            Object.assign(overlay.style, {
+                position: "fixed",
+                top: "0",
+                left: "0",
+                width: "100vw",
+                height: "100vh",
+                background: "rgba(0, 0, 0, 0.7)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: "1000"
+            });
+
+            const enlargedImg = document.createElement("img");
+            enlargedImg.src = profilePic.src;
+            Object.assign(enlargedImg.style, {
+                width: "300px",
+                height: "300px",
+                borderRadius: "50%",
+                border: "5px solid white",
+                cursor: "pointer"
+            });
+
+            const btnContainer = document.createElement("div");
+            Object.assign(btnContainer.style, {
+                display: "flex",
+                gap: "10px",
+                marginTop: "10px"
+            });
+
+            const newChangePicBtn = document.createElement("button");
+            newChangePicBtn.textContent = "Modifier";
+            Object.assign(newChangePicBtn.style, {
+                backgroundColor: "#7c3aed",
+                color: "white",
+                padding: "10px 15px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer"
+            });
+            newChangePicBtn.addEventListener("click", () => {
+                overlay.remove();
+                uploadInput.click();
+            });
+
+            const newDeletePicBtn = document.createElement("button");
+            newDeletePicBtn.textContent = "Supprimer";
+            Object.assign(newDeletePicBtn.style, {
+                backgroundColor: "red",
+                color: "white",
+                padding: "10px 15px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer"
+            });
+            newDeletePicBtn.addEventListener("click", async () => {
+                overlay.remove();
+                if (token) {
+                    await deleteProfilePictureFromBackend(token);
+                } else {
+                    profilePic.src = defaultImage;
+                }
+            });
+
+            const closeBtn = document.createElement("button");
+            closeBtn.textContent = "✖";
+            Object.assign(closeBtn.style, {
+                backgroundColor: "gray",
+                color: "white",
+                padding: "10px 15px",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                position: "absolute",
+                top: "20px",
+                right: "20px"
+            });
+            closeBtn.addEventListener("click", () => overlay.remove());
+
+            btnContainer.appendChild(newChangePicBtn);
+            btnContainer.appendChild(newDeletePicBtn);
+            overlay.appendChild(enlargedImg);
+            overlay.appendChild(btnContainer);
+            overlay.appendChild(closeBtn);
+            document.body.appendChild(overlay);
+
+            overlay.addEventListener("click", (e) => {
+                if (e.target === overlay) overlay.remove();
+            });
         });
-
-        totalCourses.textContent = courses.length;
-        completedCourses.textContent = completedCount;
-        averageProgress.textContent = courses.length > 0 ? Math.round(totalProgress / courses.length) + "%" : "0%";
-
     }
 
     if (changePicBtn) {
         changePicBtn.addEventListener("click", () => uploadInput.click());
     }
 
-
-        // You can add skills based on completed courses here
-        // For example, if you have a mapping of courses to skills
-        const courseSkills = {
-            "Python Programming": ["Python", "Programming", "Data Analysis"],
-            "Web Development": ["HTML", "CSS", "JavaScript"],
-            // Add more course-skill mappings as needed
-        };
-
-        // Get completed courses from the table
-        const rows = courseTableBody.getElementsByTagName("tr");
-        for (let row of rows) {
-            const courseName = row.cells[0].textContent;
-            const isCompleted = row.cells[4].textContent.includes("Terminé");
-            
-            if (isCompleted && courseSkills[courseName]) {
-                courseSkills[courseName].forEach(skill => allSkills.add(skill));
+    if (deletePicBtn) {
+        deletePicBtn.addEventListener("click", async () => {
+            if (token) {
+                await deleteProfilePictureFromBackend(token);
+            } else {
+                profilePic.src = defaultImage;
             }
-        }
-
+        });
+    }
 
     if (uploadInput) {
         uploadInput.addEventListener("change", async function (event) {
@@ -243,17 +288,33 @@ async function uploadProfilePictureToBackend(token, file) {
             body: formData
         });
 
+        if (response.ok) {
+            console.log("Profile picture uploaded successfully");
+        } else {
+            console.error("Failed to upload profile picture");
+        }
+    } catch (error) {
+        console.error("Error uploading profile picture:", error);
+    }
+}
 
-    // Load courses and skills when the page loads
-    loadCourses().then(() => {
-    loadSkills();
-});
-
-    // Refresh courses every 5 minutes
-    setInterval(() => {
-        loadCourses().then(() => {
-            loadSkills();
+async function deleteProfilePictureFromBackend(token) {
+    try {
+        const response = await fetch(`${BACKEND_URL}/users/delete-profile-picture`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
         });
-    }, 5 * 60 * 1000);
-});
 
+        if (response.ok) {
+            document.getElementById("profilePic").src = "../assets/images/profil-pic.png";
+            console.log("Profile picture deleted successfully");
+        } else {
+            console.error("Failed to delete profile picture");
+        }
+    } catch (error) {
+        console.error("Error deleting profile picture:", error);
+    }
+}
