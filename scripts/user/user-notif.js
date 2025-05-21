@@ -93,4 +93,128 @@ function HideNotif() {
     contentArea.classList.remove("visible");
 }
 
+// Function to fetch notifications from the backend
+async function fetchNotifications() {
+    try {
+        // Check if user is authenticated
+        const token = localStorage.getItem('token');
+        if (!token) {
+            showListErrorMessage('Veuillez vous connecter pour voir vos notifications');
+            return;
+        }
+
+        const response = await fetch('https://backend-m6sm.onrender.com/notifications/?unread_only=false&sort_by=created_at&sort_order=desc', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (response.status === 401) {
+            showListErrorMessage('Session expirée. Veuillez vous reconnecter.');
+            return;
+        }
+
+        if (response.status === 403) {
+            showListErrorMessage('Accès non autorisé aux notifications.');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error(`Erreur serveur: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const notificationsList = document.querySelector('.notifications');
+        notificationsList.innerHTML = ''; // Clear existing notifications
+
+        if (data.notifications.length === 0) {
+            notificationsList.innerHTML = `
+                <li class="no-notifications">
+                    <i class="fas fa-bell-slash"></i>
+                    <p>Aucune notification</p>
+                </li>
+            `;
+            return;
+        }
+
+        // Update notification count in the UI
+        updateNotificationCount(data.unread_count);
+
+        data.notifications.forEach(notif => {
+            const li = document.createElement('li');
+            li.className = `notification ${notif.is_read ? '' : 'unread'}`;
+            li.dataset.type = notif.type || 'general';
+            li.dataset.content = notif.message;
+            li.onclick = () => showNotification(li);
+            
+            const timestamp = document.createElement('span');
+            timestamp.className = 'timestamp';
+            timestamp.textContent = new Date(notif.created_at).toLocaleTimeString();
+            
+            li.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-text">
+                        <div class="notification-title">${notif.title}</div>
+                    </div>
+                </div>
+            `;
+            li.appendChild(timestamp);
+            notificationsList.appendChild(li);
+        });
+
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+        if (error.message.includes('Failed to fetch')) {
+            showListErrorMessage('Impossible de se connecter au serveur. Vérifiez votre connexion internet.');
+        } else {
+            showListErrorMessage('Une erreur est survenue lors du chargement des notifications.');
+        }
+    }
+}
+
+// Function to update notification count in the UI
+function updateNotificationCount(count) {
+    const notificationDot = document.querySelector('.notification-dot');
+    if (notificationDot) {
+        if (count > 0) {
+            notificationDot.style.display = 'block';
+            notificationDot.textContent = count > 99 ? '99+' : count;
+        } else {
+            notificationDot.style.display = 'none';
+        }
+    }
+}
+
+// Function to show error message in the main content area
+function showErrorMessage(message) {
+    const mainContent = document.querySelector('.main-content');
+    mainContent.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>${message}</p>
+            <button onclick="fetchNotifications()">Réessayer</button>
+        </div>
+    `;
+}
+
+// Function to show error message in the notifications list
+function showListErrorMessage(message) {
+    const notificationsList = document.querySelector('.notifications');
+    notificationsList.innerHTML = `
+        <li class="error-notification">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>${message}</p>
+            <button onclick="fetchNotifications()">Réessayer</button>
+        </li>
+    `;
+}
+
+// Update the DOMContentLoaded event listener
+document.addEventListener("DOMContentLoaded", () => {
+    fetchNotifications(); // Fetch notifications when page loads
+    // Set up periodic refresh every 30 seconds
+    setInterval(fetchNotifications, 30000);
+});
+
 
