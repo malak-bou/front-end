@@ -246,8 +246,8 @@ async function uploadProfilePictureToBackend(token, file) {
 
     // Load courses and skills when the page loads
     loadCourses().then(() => {
-        loadSkills();
-    });
+    loadSkills();
+});
 
     // Refresh courses every 5 minutes
     setInterval(() => {
