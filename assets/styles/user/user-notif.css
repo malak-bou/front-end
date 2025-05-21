@@ -486,7 +486,7 @@ footer {
     pointer-events: none;
 }
 .sidebar ul li a i {
-    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l’icône */
+    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l'icône */
   }
   
   .notification-dot {
@@ -501,4 +501,83 @@ footer {
     border: 1.5px solid #ffffff;
     z-index: 10;
   }
+  
+/* Error message styles */
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    margin: 1rem;
+}
+
+.error-message i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.error-message button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.error-message button:hover {
+    background-color: #c82333;
+}
+
+/* Error notification in list */
+.error-notification {
+    text-align: center;
+    padding: 1rem;
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    margin: 0.5rem;
+    list-style: none;
+}
+
+.error-notification i {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.error-notification button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.error-notification button:hover {
+    background-color: #c82333;
+}
+
+/* No notifications state */
+.no-notifications {
+    text-align: center;
+    padding: 2rem;
+    color: #6c757d;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin: 0.5rem;
+    list-style: none;
+}
+
+.no-notifications i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #adb5bd;
+}
   
