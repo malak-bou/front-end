@@ -1,9 +1,81 @@
 document.addEventListener("DOMContentLoaded", function () {
     const token = localStorage.getItem("token");
-    if (!token) {
-        window.location.href = "../index.html";
-        return;
+if (!token) {
+  window.location.href = "../index.html";
+  return;
+}
+
+// Ouvrir modal et préremplir avec données utilisateur
+async function openEditUserModal(id) {
+    try {
+      const response = await fetch('https://backend-m6sm.onrender.com/public/users', {
+        headers: { "Authorization": `Bearer ${token}` } // si besoin, sinon enlève cette ligne
+      });
+      if (!response.ok) throw new Error("Erreur lors du chargement des utilisateurs");
+      const users = await response.json();
+  
+      const user = users.find(u => u.id == id);
+      if (!user) throw new Error("Utilisateur non trouvé");
+  
+      document.getElementById("editUserId").value = user.id;
+      document.getElementById("editNom").value = user.nom;
+      document.getElementById("editPrenom").value = user.prenom;
+      document.getElementById("editDepartement").value = user.departement;
+      document.getElementById("editRole").value = user.role;
+  
+      document.getElementById("editUserModal").style.display = "flex";
+    } catch (error) {
+      alert(error.message);
     }
+  }
+  
+
+// Fermer modal
+function closeEditUserModal() {
+  document.getElementById("editUserModal").style.display = "none";
+}
+
+document.getElementById("closeModalBtn").addEventListener("click", closeEditUserModal);
+
+// Soumettre formulaire modif
+document.getElementById("editUserForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const id = document.getElementById("editUserId").value;
+  const nom = document.getElementById("editNom").value.trim();
+  const prenom = document.getElementById("editPrenom").value.trim();
+  const departement = document.getElementById("editDepartement").value.trim();
+  const role = document.getElementById("editRole").value.trim();
+
+  try {
+    const res = await fetch(`https://backend-m6sm.onrender.com/admin/users/${id}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ nom, prenom, departement, role })
+    });
+    if (!res.ok) throw new Error("Erreur lors de la mise à jour");
+
+    alert("Modification réussie !");
+    closeEditUserModal();
+    loadExistingAccounts();  // Recharge la liste
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
+// Attacher événement aux boutons Modifier (à appeler après affichage des comptes)
+function attachModifyButtons() {
+  document.querySelectorAll(".modify").forEach(button => {
+    button.addEventListener("click", function() {
+      const id = this.getAttribute("data-user-id");
+      openEditUserModal(id);
+    });
+  });
+}
+
 
     // Charger les demandes en attente et les comptes existants
     loadPendingRequests();
@@ -146,6 +218,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const users = await response.json();
             displayExistingAccounts(users);
+            attachModifyButtons();
+
         } catch (error) {
             console.error("Erreur:", error);
             showError("Impossible de charger les comptes existants");
@@ -219,7 +293,29 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".modify").forEach(button => {
             button.addEventListener("click", function () {
                 const userId = this.getAttribute("data-user-id");
-                openEditUserModal({ id: userId });
+                async function openEditUserModal(id) {
+                    try {
+                      const response = await fetch('https://backend-m6sm.onrender.com/public/users', {
+                        headers: { "Authorization": `Bearer ${token}` } // si besoin, sinon enlève cette ligne
+                      });
+                      if (!response.ok) throw new Error("Erreur lors du chargement des utilisateurs");
+                      const users = await response.json();
+                  
+                      const user = users.find(u => u.id == id);
+                      if (!user) throw new Error("Utilisateur non trouvé");
+                  
+                      document.getElementById("editUserId").value = user.id;
+                      document.getElementById("editNom").value = user.nom;
+                      document.getElementById("editPrenom").value = user.prenom;
+                      document.getElementById("editDepartement").value = user.departement;
+                      document.getElementById("editRole").value = user.role;
+                  
+                      document.getElementById("editUserModal").style.display = "flex";
+                    } catch (error) {
+                      alert(error.message);
+                    }
+                  }
+                  
             });
         });
 

@@ -1,16 +1,15 @@
 /* Styles généraux */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     background: linear-gradient(to right, #342D67, #6759CD);
     color: white;
     width: 100%;
 }
-*{
-    font-family: 'Poppins', sans-serif;
-}
+
 /* Barre supérieure */
 
 .top-bar {
@@ -171,233 +170,6 @@ body {
 .sidebar.active {
     left: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.sidebar {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    
-    background-color: #fff;
-    overflow-x: hidden;
-    transition: 0.5s;
-    color: #333;
-    transition: left 0.3s ease-in-out;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
-    border-right: 1px solid #ddd;
-}
-
-
-/* Style for icons */
-.sidebar ul li a i,
-.sidebar-footer a i {
-    margin-right: 10px;
-    font-size: 18px;
-    color: #555;
-    transition: color 0.3s ease-in-out;
-    gap: 10p;
-}
-
-
-
-/* Change icon color on hover */
-.sidebar ul li a:hover i,
-.sidebar-footer a:hover i {
-    color: blue;
-}
-.sidebar-footer .logout:hover i{
-    color: red;
-}
-
-
-
-
-/* ✖ Close Button */
-.close-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: #333;
-    font-size: 22px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-
-.close-btn:hover {
-
-    color: red;
-}
-
-/* 📌 Sidebar Navigation Links */
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-}
-
-.sidebar ul li {
-    padding: 15px;
-    transition: all 0.3s ease-in-out;
-    cursor: pointer;
-}
-
-.sidebar ul li:hover {
-    background: #f0f0f0;
-}
-
-/* 🌟 Sidebar Links */
-.sidebar ul li a {
-    display: flex;
-    align-items: center;
-    color: #333;
-    text-decoration: none;
-    padding: 12px;
-    
-    font-weight: 600;
-    transition: all 0.3s ease-in-out;
-    border-radius: 5px;
-}
-
-.sidebar ul li a:hover {
-    background: rgba(0, 0, 255, 0.1);
-    color: blue;
-    transform: translateX(5px);
-}
-
-/* 🔵 Active Link */
-.sidebar ul li a.active {
-    color: blue;
-    border-left: 4px solid blue;
-    background: rgba(0, 0, 255, 0.1);
-}
-
-/* ⚙ Sidebar Footer (Settings & Logout) */
-.sidebar-footer {
-    padding: 15px;
-    border-top: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-footer a {
-    display: flex;
-    align-items: center;
-    color: #333;
-    text-decoration: none;
-    font-size: 18px;
-    padding: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease-in-out;
-}
-
-.sidebar-footer a:hover {
-    background: rgba(0, 0, 255, 0.1);
-    color: blue;
-    transform: translateX(5px);
-}
-
-/* 🔴 Logout Button */
-.sidebar-footer .logout {
-    color: red;
-    font-weight: bold;
-}
-
-.sidebar-footer .logout:hover {
-    background: rgba(255, 0, 0, 0.1);
-    color: darkred;
-}
-
-/* 📌 Sidebar Visibility */
-.sidebar.active {
-    left: 0;
-}
-
-
-
-
-
-
-
-
-.active {
-    color: #000;
-
-}
-
-.sidebar h2, .sidebar p {
-    padding: 8px 10px;
-}
-/* Close button */
-/* .close-btn {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 36px;
-    color: black;
-    background: none;
-    border: none;
-    cursor: pointer;
-} */
-
-
-
-.upperbare{
-    margin-top: 40px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .profile-picture {
     position: relative;
     display: flex;
@@ -443,8 +215,8 @@ body {
 
 
 .profile-picture img {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     padding-right: 10px;
 }
@@ -642,12 +414,10 @@ th {
 
 /* Pied de page */
 /* Section contact */
-
-
 .contact {
     background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
-    padding: 1rem;
+
 }
 ul {
     list-style: none;
@@ -788,17 +558,11 @@ footer {
 }
 
 
-
 /* Responsive */
 
 
 @media (max-width: 768px) {
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        
-    }
+   
     .profile-container{
         width: 90%;
     }
@@ -817,11 +581,9 @@ footer {
     
     .container-contact {
         flex-direction: column;
-        width: 100%;
+  
     }
-    .contact{
-        width: 100%;
-    }
+  
     
 
 }
@@ -852,8 +614,8 @@ footer {
 
     /* Ajuster la taille de la photo */
     .profile-picture img {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
         padding-right: 5px;
         background-color: transparent;
     }
@@ -863,18 +625,39 @@ footer {
 
 
 }
-.notification-dot {
-position: absolute;
-top: -5px;
-right: -5px;
-width: 8px;
-height: 8px;
-background-color: red;
-border-radius: 50%;
-display: none;
+.has-unread .notification-dot,
+.sidebar-link.has-unread .notification-dot {
+    display: block !important;
 }
 
-.sidebar ul li i {
-position: relative;
-display: inline-block;
+
+.notification-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    display: none;
+    border: 1.5px solid #ffffff;
+    z-index: 2;
+    pointer-events: none;
 }
+.sidebar ul li a i {
+    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l’icône */
+  }
+  
+  .notification-dot {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+    border-radius: 50%;
+    display: none;
+    border: 1.5px solid #ffffff;
+    z-index: 10;
+  }
+  

@@ -64,7 +64,7 @@
                   </label>
                   <label>
                     <input type="radio" name="type" value="Prof" >
-                    <span>user</span>
+                    <span>prof</span>
                   </label>
                   <label>
                     <input type="radio" name="type" value="Chat" checked>
@@ -159,137 +159,128 @@
                     </div>
                 </div>
                 <div class="messages" id="rh-messages" style="display: none;">
-                  <div class="message supconvo" data-name="RH Manager" data-avatar="profil-pic.png">
-                      <span class="avatar"><img src="../assets/images/profil-pic.png" alt="profil-pic"></span>
+                    <div class="filter-buttons">
+                        <button class="filter-btn" data-filter="all">Tous</button>
+                        <button class="filter-btn" data-filter="unread">Non lus</button>
+                        <button class="filter-btn" data-filter="important">Important</button>
+                    </div>
+                    <div class="messages-list">
+                        <!-- Messages will be loaded dynamically -->
+                    </div>
+                </div>
+                <div class="messages" id="prof-messages" style="display: none;">
+                    <div class="message supconvo" data-name="sellami amine" data-avatar="profil-pic.png">
+                        <span class="avatar"><img src="../assets/images/profil-pic.png" alt="profil-pic"></span>
+                        <div class="message-content">
+                            <strong>sellami amine</strong>
+                            <span class="timestamp">10:15am</span>
+                            <p class="supp-msg">Nous avons mis à jour les politiques internes de l'entreprise.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="message supconvo" data-name="alem mohamed" data-avatar="profil-pic.png">
+                        <span class="avatar"><img src="../assets/images/profil-pic.png" alt="profil-pic"></span>
+                        <div class="message-content">
+                            <strong>alem mohamed</strong>
+                            <span class="timestamp">10:45am</span>
+                            <p class="supp-msg">N'oubliez pas de remplir votre formulaire de congé avant vendredi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-container">
+              <!-- Header -->
+              <div class="chat-header">
+                  <span class="material-symbols-outlined arrow" onclick="goback()">
+                  arrow_back
+                  </span>
+                  <div class="avatar"><img src="../assets/images/profil-pic.png" alt="profil-pic"></div>
+                  <span class="username">Nesrine</span>
+              </div>
+              
+              <!-- Chat Box -->
+              <div class="chat-box">
+                  <div class="message received">
                       <div class="message-content">
-                          <strong>RH Manager</strong>
-                          <span class="timestamp">9:15am</span>
-                          <p class="supp-msg">Nous avons mis à jour les politiques internes de l'entreprise.</p>
+                          <p>Bonjour madame !</p>
+                          <p>Madame, j'ai une question concernant la sécurité...</p>
                       </div>
                   </div>
                   
-                  <div class="message supconvo" data-name="Service RH" data-avatar="profil-pic.png">
-                      <span class="avatar"><img src="-../assets/images/profil-pic.png" alt="profil-pic"></span>
+                  <div class="message sent">
                       <div class="message-content">
-                          <strong>Service RH</strong>
-                          <span class="timestamp">10:45am</span>
-                          <p class="supp-msg">N'oubliez pas de remplir votre formulaire de congé avant vendredi.</p>
+                          <p>Bonsoir à vous !</p>
+                          <p>Bonne question ! Il est difficile de garantir une protection totale...</p>
                       </div>
                   </div>
               </div>
-              <div class="messages" id="prof-messages" style="display: none;">
-                <div class="message supconvo" data-name="sellami amine" data-avatar="profil-pic.png">
-                    <span class="avatar"><img src="../assets/images/profil-pic.png" alt="profil-pic"></span>
-                    <div class="message-content">
-                        <strong>sellami amine</strong>
-                        <span class="timestamp">10:15am</span>
-                        <p class="supp-msg">Nous avons mis à jour les politiques internes de l'entreprise.</p>
-                    </div>
+              
+              <!-- Input Box -->
+              <div class="input-box">
+                <div class="messageBox">
+                  <div class="fileUploadWrapper">
+                    <label for="file">
+                      <svg viewBox="0 0 337 337" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle
+                          cx="168.5"
+                          cy="168.5"
+                          r="158.5"
+                          fill="none"
+                          stroke="#6c6c6c"
+                          stroke-width="20"
+                        ></circle>
+                        <path
+                          d="M167.759 79V259"
+                          stroke="#6c6c6c"
+                          stroke-width="25"
+                          stroke-linecap="round"
+                        ></path>
+                        <path
+                          d="M79 167.138H259"
+                          stroke="#6c6c6c"
+                          stroke-width="25"
+                          stroke-linecap="round"
+                        ></path>
+                      </svg>
+                      <span class="tooltip">Add an image</span>
+                    </label>
+                    <input name="file" id="file" type="file" />
+                  </div>
+                  <input id="messageInput" type="text" placeholder="Message..." required="" />
+                  <button id="sendButton">
+                    <svg viewBox="0 0 664 663" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+                        fill="none"
+                      ></path>
+                      <path
+                        d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+                        stroke="#6c6c6c"
+                        stroke-width="33.67"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                    </svg>
+                  </button>
                 </div>
                 
-                <div class="message supconvo" data-name="alem mohamed" data-avatar="profil-pic.png">
-                    <span class="avatar"><img src="../assets/images/profil-pic.png" alt="profil-pic"></span>
-                    <div class="message-content">
-                        <strong>alem mohamed</strong>
-                        <span class="timestamp">10:45am</span>
-                        <p class="supp-msg">N'oubliez pas de remplir votre formulaire de congé avant vendredi.</p>
-                    </div>
+              </div>
+            </div>
+            <aside class="profile-sidebar">
+     
+              <div class="card-client">
+                <div class="user-picture">
+                    <img src="../assets/images/profil-pic.png" alt="profile" class="profile-image">
+                    </img>
                 </div>
-            </div>
-        </div>
-
-        <div class="chat-container">
-          <!-- Header -->
-          <div class="chat-header">
-              <span class="material-symbols-outlined arrow" onclick="goback()">
-              arrow_back
-              </span>
-              <div class="avatar"><img src="../assets/images/profil-pic.png" alt="profil-pic"></div>
-              <span class="username">Nesrine</span>
-          </div>
-          
-          <!-- Chat Box -->
-          <div class="chat-box">
-              <div class="message received">
-                  <div class="message-content">
-                      <p>Bonjour madame !</p>
-                      <p>Madame, j’ai une question concernant la sécurité...</p>
-                  </div>
+                <p class="name-client"> Bazouzi
+                    <span>IT departement</span>
+                    <span>Bazouzi@gig.com</span>
+                </p>
               </div>
-              
-              <div class="message sent">
-                  <div class="message-content">
-                      <p>Bonsoir à vous !</p>
-                      <p>Bonne question ! Il est difficile de garantir une protection totale...</p>
-                  </div>
-              </div>
-          </div>
-          
-          <!-- Input Box -->
-          <div class="input-box">
-            <div class="messageBox">
-              <div class="fileUploadWrapper">
-                <label for="file">
-                  <svg viewBox="0 0 337 337" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle
-                      cx="168.5"
-                      cy="168.5"
-                      r="158.5"
-                      fill="none"
-                      stroke="#6c6c6c"
-                      stroke-width="20"
-                    ></circle>
-                    <path
-                      d="M167.759 79V259"
-                      stroke="#6c6c6c"
-                      stroke-width="25"
-                      stroke-linecap="round"
-                    ></path>
-                    <path
-                      d="M79 167.138H259"
-                      stroke="#6c6c6c"
-                      stroke-width="25"
-                      stroke-linecap="round"
-                    ></path>
-                  </svg>
-                  <span class="tooltip">Add an image</span>
-                </label>
-                <input name="file" id="file" type="file" />
-              </div>
-              <input id="messageInput" type="text" placeholder="Message..." required="" />
-              <button id="sendButton">
-                <svg viewBox="0 0 664 663" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
-                    fill="none"
-                  ></path>
-                  <path
-                    d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
-                    stroke="#6c6c6c"
-                    stroke-width="33.67"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-            
-          </div>
-        </div>
-        <aside class="profile-sidebar">
- 
-          <div class="card-client">
-            <div class="user-picture">
-                <img src="../assets/images/profil-pic.png" alt="profile" class="profile-image">
-                </img>
-            </div>
-            <p class="name-client"> Bazouzi
-                <span>IT departement</span>
-                <span>Bazouzi@gig.com</span>
-            </p>
-          </div>
-    
-      </aside>
+        
+        </aside>
     </div>
 
 
@@ -411,5 +402,6 @@
     </div>
 </section>
 <script src="../scripts/messagesprof.js"></script>
+<script src="../scripts/rhMessages.js"></script>
 </body>
 </html>

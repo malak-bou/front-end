@@ -20,7 +20,7 @@
     <img src="../assets/images/profil-pic.png" class="profileimg" >
     </a>
 
-  </header>
+  </header>  
            
              <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
@@ -78,7 +78,12 @@
                               <th>Supprimer</th>
                           </tr>
                       </thead>
-                      <tbody id="requests-body"></tbody>
+                      <tbody id="requests-body">
+
+
+
+
+                      </tbody>
                     </table>
               </div>
        </section>
@@ -100,76 +105,15 @@
                    </tr>
                </thead>
                <tbody id="accounts-body">
-                   <tr>
-                       <td>Alami</td>
-                       <td>Mohamed</td>
-                       <td>Information Technology</td>
-                       <td>Employé</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>Alaoui</td>
-                       <td>Fouad</td>
-                       <td>Marketing</td>
-                       <td>Employé</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>A</td>
-                       <td>Ama</td>
-                       <td>Information Technology</td>
-                       <td>Employé</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>Akdet</td>
-                       <td>Anfal</td>
-                       <td>Network</td>
-                       <td>Professeur</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>Bardi</td>
-                       <td>Anfal</td>
-                       <td>Marketing</td>
-                       <td>Professeur</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>Chayli</td>
-                       <td>Hassen</td>
-                       <td>Business Development</td>
-                       <td>Professeur</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>Cheriti</td>
-                       <td>Mohamed</td>
-                       <td>Information Technology</td>
-                       <td>Employé</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
-                   <tr>
-                       <td>Doudi</td>
-                       <td>Fouzi</td>
-                       <td>Information Technology</td>
-                       <td>Employé</td>
-                       <td><button class="modify">Modifier</button></td>
-                       <td><button class="delete">Supprimer</button></td>
-                   </tr>
+                   
                </tbody>
            </table>
           </div>
        </section>
       
    </main>
+
+
 <!-- code contact -->
 <section class="contact" id="contact">
   <div class="container-contact">
@@ -286,32 +230,27 @@
   </div>
 </section>
 <script src="../scripts/RH-demande-compte.js"></script>
-<div id="confirmationModal" class="modal">
+
+<!-- Modal édition utilisateur -->
+<div id="editUserModal" class="modal" style="display:none;">
   <div class="modal-content">
-    <p class="textS">Voulez-vous vraiment valider cette demande et créer le compte ?</p>
-    <div class="modal-buttons">
-      <button id="confirmBtn">Valider</button>
-      <button id="cancelBtn">Annuler</button>
-    </div>
+    <h3>Modifier un compte</h3>
+    <form id="editUserForm">
+      <input type="hidden" id="editUserId" />
+      <label for="editNom">Nom :</label>
+      <input type="text" id="editNom" required />
+      <label for="editPrenom">Prénom :</label>
+      <input type="text" id="editPrenom" required />
+      <label for="editDepartement">Département :</label>
+      <input type="text" id="editDepartement" required />
+      <label for="editRole">Fonction :</label>
+      <input type="text" id="editRole" required />
+      <button type="submit">Modifier</button>
+      <button type="button" id="closeModalBtn">Annuler</button>
+    </form>
   </div>
 </div>
-<div class="popup-overlay" id="confirmEditPopup">
-  <div class="popup-box">
-    <h3>Confirmer la modification</h3>
-    <p>Êtes-vous sûr de vouloir modifier ces informations ?</p>
-    <button id="confirmEditBtn">Modifier</button>
-    <button onclick="closeEditConfirmPopup() " id="dontmodifybotton">Annuler</button>
-  </div>
-</div>
-<div id="confirmDeletePopup" class="popup">
-  <div class="popup-content">
-    <p class="text-delet">Êtes-vous sûr de vouloir supprimer cette ligne ?</p>
-    <div class="popup-buttons">
-      <button id="confirmDeleteBtn">Supprimer</button>
-      <button onclick="closeDeleteConfirmPopup()">Annuler</button>
-    </div>
-  </div>
-</div>
+
 
 </body>
 </html>

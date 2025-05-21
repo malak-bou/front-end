@@ -1,157 +1,127 @@
+// SIDEBAR TOGGLE
+function toggleNav() {
+    const sidebar = document.getElementById("sidebar");
+    const currentLeft = window.getComputedStyle(sidebar).left;
+    sidebar.style.left = currentLeft === "0px" ? "-250px" : "0px";
+}
+
+const BACKEND_URL = "https://backend-m6sm.onrender.com";
+
 document.addEventListener("DOMContentLoaded", function () {
-    // Sidebar toggle function
-    function toggleNav() {
-        let sidebar = document.getElementById("sidebar");
-        sidebar.style.left = sidebar.style.left === "0px" ? "-250px" : "0px";
+    console.log("Starting with backend integration...");
+
+    const menuIcon = document.querySelector(".menu-icon");
+    const closeBtn = document.querySelector(".close-btn");
+    const sidebar = document.getElementById("sidebar");
+
+    if (menuIcon) menuIcon.addEventListener("click", toggleNav);
+    if (closeBtn) closeBtn.addEventListener("click", toggleNav);
+
+    document.addEventListener("click", function (event) {
+        if (sidebar && menuIcon && 
+            !sidebar.contains(event.target) && 
+            !menuIcon.contains(event.target) &&
+            sidebar.style.left === "0px") {
+            sidebar.style.left = "-250px";
+        }
+    });
+
+    const token = localStorage.getItem("token") || localStorage.getItem("access_token");
+    
+    if (!token) {
+        console.error("Token non trouvé. Rediriger ou afficher une erreur.");
+        return;
     }
 
-    document.querySelector(".menu-icon").addEventListener("click", toggleNav);
-    document.querySelector(".close-btn").addEventListener("click", toggleNav);
-
-    document.addEventListener("DOMContentLoaded", () => {
-        function loadProfileData() {
-            document.getElementById("nom").textContent = localStorage.getItem("nom") || "Nom inconnu";
-            document.getElementById("prenom").textContent = localStorage.getItem("prenom") || "Prénom inconnu";
-            document.getElementById("email").textContent = localStorage.getItem("email") || "Email inconnu";
-            document.getElementById("telephone").textContent = localStorage.getItem("telephone") || "Numéro inconnu";
-        }
-    
-        loadProfileData(); 
-    
-        // Listen for changes in localStorage (when settings are updated)
-        window.addEventListener("storage", loadProfileData);
-    });
-    
-
-    // Profile picture handling
-    const profilePic = document.getElementById("profilePic");
-    const uploadInput = document.getElementById("uploadProfilePic");
-    const changePicBtn = document.getElementById("changePicBtn");
-    const deletePicBtn = document.getElementById("deletePicBtn");
-    const defaultImage = "./profil-pic.png"; // Default image path
-
-    // Function to open overlay with enlarged image
-    profilePic.addEventListener("click", function () {
-        // Remove existing overlay if it exists
-        const existingOverlay = document.getElementById("imgOverlay");
-        if (existingOverlay) {
-            existingOverlay.remove();
-        }
-
-        // Create overlay
-        const overlay = document.createElement("div");
-        overlay.id = "imgOverlay";
-        overlay.style.position = "fixed";
-        overlay.style.top = "0";
-        overlay.style.left = "0";
-        overlay.style.width = "100vw";
-        overlay.style.height = "100vh";
-        overlay.style.background = "rgba(0, 0, 0, 0.7)";
-        overlay.style.display = "flex";
-        overlay.style.flexDirection = "column";
-        overlay.style.alignItems = "center";
-        overlay.style.justifyContent = "center";
-        overlay.style.zIndex = "1000";
-
-        // Create enlarged image
-        const enlargedImg = document.createElement("img");
-        enlargedImg.src = profilePic.src;
-        enlargedImg.style.width = "300px";
-        enlargedImg.style.height = "300px";
-        enlargedImg.style.borderRadius = "50%";
-        enlargedImg.style.border = "5px solid white";
-        enlargedImg.style.cursor = "pointer";
-
-        // Create button container
-        const btnContainer = document.createElement("div");
-        btnContainer.style.display = "flex";
-        btnContainer.style.gap = "10px";
-        btnContainer.style.marginTop = "10px";
-
-        // Create new buttons
-        const newChangePicBtn = document.createElement("button");
-        newChangePicBtn.textContent = "Modifier";
-        newChangePicBtn.style.backgroundColor = "#7c3aed";
-        newChangePicBtn.style.color = "white";
-        newChangePicBtn.style.padding = "10px 15px";
-        newChangePicBtn.style.border = "none";
-        newChangePicBtn.style.borderRadius = "5px";
-        newChangePicBtn.style.cursor = "pointer";
-        newChangePicBtn.addEventListener("click", function () {
-            uploadInput.click();
-        });
-
-        const newDeletePicBtn = document.createElement("button");
-        newDeletePicBtn.textContent = "Supprimer";
-        newDeletePicBtn.style.backgroundColor = "red";
-        newDeletePicBtn.style.color = "white";
-        newDeletePicBtn.style.padding = "10px 15px";
-        newDeletePicBtn.style.border = "none";
-        newDeletePicBtn.style.borderRadius = "5px";
-        newDeletePicBtn.style.cursor = "pointer";
-        newDeletePicBtn.addEventListener("click", function () {
-            const confirmDelete = confirm("Êtes-vous sûr de vouloir supprimer votre photo de profil ?");
-            if (confirmDelete) {
-                profilePic.src = defaultImage; // Reset profile image
-                enlargedImg.src = defaultImage; // Update enlarged image
-                localStorage.removeItem("profileImage"); // Remove from local storage
-                overlay.remove(); // Close overlay after deleting
-            }
-        });
-        
-
-        // Append buttons to the button container
-        btnContainer.appendChild(newChangePicBtn);
-        btnContainer.appendChild(newDeletePicBtn);
-
-        // Append everything to overlay
-        overlay.appendChild(enlargedImg);
-        overlay.appendChild(btnContainer);
-        document.body.appendChild(overlay);
-
-        // Close overlay when clicking outside
-        overlay.addEventListener("click", function (event) {
-            if (event.target === overlay) {
-                overlay.remove();
-            }
-        });
-    });
-
-    // Upload profile picture
-    uploadInput.addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                profilePic.src = e.target.result; // Update profile picture
-                localStorage.setItem("profileImage", e.target.result); // Save to local storage
-
-                // Also update enlarged image if overlay is open
-                const enlargedImg = document.querySelector("#imgOverlay img");
-                if (enlargedImg) {
-                    enlargedImg.src = e.target.result;
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    // Load saved profile picture from local storage
-    const savedImage = localStorage.getItem("profileImage");
-    if (savedImage) {
-        profilePic.src = savedImage;
-    }
-
-
-    loadProfileData();  
+    initializeWithBackend(token);
 });
 
+async function initializeWithBackend(token) {
+    try {
+        const userInfo = await fetchUserInfo(token);
+        populateUserForm(userInfo.profile);
+        displayCourseStats(userInfo.courses || []);
+        displayCourseTable(userInfo.courses || []);
+        displaySkills(userInfo.courses || []);
+        setupProfileFeatures(token, userInfo);
+    } catch (error) {
+        console.error("Erreur de connexion au backend :", error);
+        alert("Erreur de chargement des données. Veuillez réessayer plus tard.");
+    }
+}
 
+async function fetchUserInfo(token) {
+    const response = await fetch(`${BACKEND_URL}/users/me`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    });
 
+    if (!response.ok) {
+        throw new Error(`Échec de la récupération : ${response.status}`);
+    }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const courseTableBody = document.getElementById("courseTableBody");
+    return await response.json();
+}
+
+function populateUserForm(userInfo) {
+    document.getElementById("nom").value = userInfo.nom || "";
+    document.getElementById("prenom").value = userInfo.prenom || "";
+    document.getElementById("email").value = userInfo.email || "";
+    document.getElementById("telephone").value = userInfo.telephone || "";
+    document.getElementById("departement").value = userInfo.departement || "";
+    document.getElementById("fonction").value = userInfo.fonction || "";
+}
+
+function displayCourseStats(courses) {
+    const totalCourses = courses.length;
+    const completedCourses = courses.filter(course => course.completed || course.progress === 100).length;
+    const avgProgress = totalCourses > 0 
+        ? Math.round(courses.reduce((sum, course) => sum + (course.progress || 0), 0) / totalCourses)
+        : 0;
+
+    document.getElementById("totalCourses").textContent = totalCourses;
+    document.getElementById("completedCourses").textContent = completedCourses;
+    document.getElementById("averageProgress").textContent = avgProgress + "%";
+}
+
+function displayCourseTable(courses) {
+    const tbody = document.getElementById("courseTableBody");
+    tbody.innerHTML = "";
+
+    courses.forEach(course => {
+        const title = course.nom_du_cours || "Cours sans nom";
+        const progressStr = course.progres || "0%";
+        const progress = parseFloat(progressStr.replace('%', '')) || 0;
+        const startDate = course.date_debut || "N/A";
+        const endDate = course.date_fin || "En cours...";
+        const completed = progress === 100;
+        const status = completed ? "✅ Terminé" : "📚 En cours";
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${title}</td>
+            <td>
+                <div style="width: 100%; background: #f0f0f0; border-radius: 10px; overflow: hidden;">
+                    <div style="width: ${progress}%; background: #4CAF50; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px;">
+                        ${progress}%
+                    </div>
+                </div>
+            </td>
+            <td>${startDate}</td>
+            <td>${endDate}</td>
+            <td>${status}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function displaySkills(courses) {
     const skillsList = document.getElementById("skillsList");
+
+  
     const totalCourses = document.getElementById("totalCourses");
     const completedCourses = document.getElementById("completedCourses");
     const averageProgress = document.getElementById("averageProgress");
@@ -203,7 +173,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${isCompleted ? "✅ Terminé" : "⌛ En cours"}</td>
             `;
 
-            courseTableBody.appendChild(row);
+
+    const allSkills = courses.flatMap(course => course.skills || []).filter(skill => skill);
+    const uniqueSkills = [...new Set(allSkills)];
+
 
             if (isCompleted) completedCount++;
             totalProgress += progress;
@@ -212,11 +185,13 @@ document.addEventListener("DOMContentLoaded", function () {
         totalCourses.textContent = courses.length;
         completedCourses.textContent = completedCount;
         averageProgress.textContent = courses.length > 0 ? Math.round(totalProgress / courses.length) + "%" : "0%";
+
     }
 
-    function loadSkills() {
-        skillsList.innerHTML = "";
-        const allSkills = new Set();
+    if (changePicBtn) {
+        changePicBtn.addEventListener("click", () => uploadInput.click());
+    }
+
 
         // You can add skills based on completed courses here
         // For example, if you have a mapping of courses to skills
@@ -237,12 +212,37 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-        allSkills.forEach(skill => {
-            const li = document.createElement("li");
-            li.textContent = skill;
-            skillsList.appendChild(li);
+
+    if (uploadInput) {
+        uploadInput.addEventListener("change", async function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = async function (e) {
+                    profilePic.src = e.target.result;
+                    if (token) {
+                        await uploadProfilePictureToBackend(token, file);
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
         });
     }
+}
+
+async function uploadProfilePictureToBackend(token, file) {
+    try {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const response = await fetch(`${BACKEND_URL}/users/upload-profile-picture`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            },
+            body: formData
+        });
+
 
     // Load courses and skills when the page loads
     loadCourses().then(() => {
@@ -256,3 +256,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }, 5 * 60 * 1000);
 });
+

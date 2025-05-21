@@ -170,11 +170,17 @@ body {
 
 /* main content */
 
-.main-content{
-    height: 80vh;
+.main-content {
     display: flex;
-    align-items: center;
+    justify-content: center;
+    padding: 40px 0;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
+.settings-container {
+    padding-bottom: 80px; /* Pour éviter le collage au footer */
+}
+
 
 .settings-container {
     max-width: 600px;
@@ -224,16 +230,24 @@ input {
     font-size: 14px;
     width: 100%;
 }
-.btn-save{
-    margin-top: 10px;
-    padding: 8px 12px;
+.btn-save {
+    margin-top: 15px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease-in-out;
     background-color: #7c3aed;
     color: white;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
 }
+
+.btn-save:hover {
+    background-color: #5b21b6;
+}
+
 
 
 /* Mot de passe avec icône */

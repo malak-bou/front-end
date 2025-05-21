@@ -51,45 +51,46 @@
   <section class="main-content">
     <section class="settings-container">
       <h2>Paramètres</h2>
-  
-      <div class="menu">
-          <div class="option" data-target="info">
-              <span>Modifier les informations personnelles</span>
-              <span class="arrow">▼</span>
+  <div class="option" data-target="info">
+            <span>Modifier le numéro de téléphone</span>
+            <span class="arrow">▼</span>
           </div>
           <div id="info" class="section hidden">
             <div class="form-group">
               <div class="input-box">
-                  <label>Nom</label>
-                  <input type="text" id="nom" value="nom">
-              </div>
-              <div class="input-box">
-                  <label>Prénom</label>
-                  <input type="text" id="prenom" value="prenom">
+                <label>Numéro de Téléphone</label>
+                <input type="text" id="telephone" value="">
               </div>
             </div>
-          
-            <div class="form-group">
-              <div class="input-box">
-                  <label>Email</label>
-                  <input type="email" id="email" value="moumouhalem6@gmail.com">
-              </div>
-            </div>
-          
-            <div class="form-group">
-              <div class="input-box">
-                  <label>Numéro de Téléphone</label>
-                  <input type="text" id="telephone" value="0555555555">
-              </div>
-            </div>
-            <label for="password">Mot de passe</label>
-                <div class="password-container">
-                    <input type="password" id="password" placeholder="Mot de passe" value="abcd12345">
-                    <span class="toggle-password"><img src="../assets/images/Vector.png" alt="password"></span>
-                </div>
             <button onclick="saveUserInfo()" class="btn-save">Enregistrer</button>
           </div>
-  
+          
+          <div class="option" data-target="password-change">
+            <span>Changer le mot de passe</span>
+            <span class="arrow">▼</span>
+          </div>
+          <div id="password-change" class="section hidden">
+            <div class="form-group">
+              <div class="input-box">
+                <label for="current_password">Mot de passe actuel</label>
+                <input type="password" id="current_password" placeholder="Mot de passe actuel">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-box">
+                <label for="new_password">Nouveau mot de passe</label>
+                <input type="password" id="new_password" placeholder="Nouveau mot de passe">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-box">
+                <label for="confirm_password">Confirmer le mot de passe</label>
+                <input type="password" id="confirm_password" placeholder="Confirmez le mot de passe">
+              </div>
+            </div>
+            <button class="btn-save" onclick="changePassword()">Mettre à jour le mot de passe</button>
+          </div>
+          
           <div class="option" data-target="mode">
               <span>Changer le mode</span>
               <span class="arrow">▼</span>
