@@ -89,28 +89,45 @@ document.addEventListener('DOMContentLoaded', function () {
             const endHourStr = endHourNum.toString().padStart(2, '0') + ":00";
             const timeRange = `${startHour} - ${endHourStr}`;
 
-            // Chercher la cellule correspondante
             eventCells.forEach(cell => {
                 if (cell.dataset.date === eventDateStr && cell.dataset.time === timeRange) {
-                    // Afficher l'event dans la cellule
                     if(event.link){
-                      cell.innerHTML = `<a href="${event.link}" target="_blank" style="color: black; font-weight: bold; text-decoration: none;">${event.name}</a>`;
+                        cell.innerHTML = `<a href="${event.link}" target="_blank" style="color: black; font-weight: bold; text-decoration: none;">${event.name}</a>`;
                     } else {
-                      cell.textContent = event.name;
-                      cell.style.fontWeight = "bold";
+                        cell.textContent = event.name;
+                        cell.style.fontWeight = "bold";
                     }
                     cell.style.backgroundColor = "#ADD8E6";
                     cell.style.textAlign = "center";
                     cell.style.cursor = "pointer";
-                    cell.onclick = () => showPopup({
-                      title: event.name,
-                      prof: `${event.requested_by.prenom} ${event.requested_by.nom}`,
-                      dept: event.departement,
-                      time: timeRange,
-                      link: event.link
-                    });
+            
+                    // Intercepter le clic sur le lien pour empêcher navigation directe
+                    const link = cell.querySelector('a');
+                    if(link) {
+                        link.addEventListener('click', (e) => {
+                            e.preventDefault();  // Empêche l’ouverture immédiate du lien
+                            showPopup({
+                                title: event.name,
+                                prof: `${event.requested_by.prenom} ${event.requested_by.nom}`,
+                                dept: event.departement,
+                                time: timeRange,
+                                link: event.link
+                            });
+                        });
+                    } else {
+                        // Pas de lien, clic sur la cellule ouvre la popup
+                        cell.onclick = () => showPopup({
+                            title: event.name,
+                            prof: `${event.requested_by.prenom} ${event.requested_by.nom}`,
+                            dept: event.departement,
+                            time: timeRange,
+                            link: event.link
+                        });
+                    }
                 }
             });
+            
+            
         });
     }
 
