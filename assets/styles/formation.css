@@ -961,3 +961,67 @@ footer {
 *{
     font-family: 'Poppins', sans-serif;
 }
+/* Table: meilleure visibilité et gestion des colonnes */
+.agenda-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+#agenda-table {
+    table-layout: fixed;
+    min-width: 950px; /* largeur minimale plus raisonnable */
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#agenda-table th,
+#agenda-table td {
+    padding: 10px 8px;
+    font-size: 14px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    text-align: center;
+}
+
+/* Ajustement spécifique aux colonnes jours */
+#agenda-table th.day-header {
+    min-width: 120px;
+    max-width: 140px;
+}
+
+#agenda-table td.event-cell {
+    min-width: 120px;
+    max-width: 140px;
+}
+
+/* En-têtes actifs (ex: jour sélectionné) */
+th.active,
+.day-header.active {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Amélioration mobile */
+@media (max-width: 768px) {
+    #agenda-table th,
+    #agenda-table td {
+        font-size: 12px;
+        padding: 6px 4px;
+    }
+
+    #agenda-table {
+        min-width: 800px;
+    }
+
+    .agenda-container {
+        padding: 10px;
+    }
+}
+
+html, body {
+    overflow-x: hidden;
+  }
+  
