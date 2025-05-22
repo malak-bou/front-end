@@ -38,27 +38,39 @@
         </div>
     </header>
     <div class="content">
-    <div class="container">
-        <!-- Sidebar -->
-        <aside class="sidebar1">
-            <div class="filter-buttons">
-                <button onclick="filterMentions()">Mentions</button>
-                <button onclick="filterUnread()">Non lues</button>
-                <button onclick="showAllNotifications()">Tout</button>
-            </div>
-            <ul class="notifications">
-                <!-- Notifications will be dynamically inserted here -->
-            </ul>
-        </aside>
+        <div class="container">
+            <!-- Sidebar -->
+            <aside class="sidebar1">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="showAllNotifications()">
+                        <i class="fas fa-bell"></i>
+                        Tout
+                    </button>
+                    <button class="filter-btn" onclick="filterUnread()">
+                        <i class="fas fa-envelope"></i>
+                        Non lues
+                    </button>
+                </div>
+                <div class="notifications-container">
+                    <ul class="notifications">
+                        <!-- Notifications will be dynamically inserted here -->
+                    </ul>
+                </div>
+            </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-          <span id="backButton" class="material-symbols-outlined" style="display: none; cursor: pointer;" onclick="HideNotif()">
-            arrow_back
-          </span>
-            <p>Sélectionnez une notification pour afficher son contenu.</p>
-        </main>
-    </div>
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="notification-detail">
+                    <span id="backButton" class="material-symbols-outlined" style="display: none; cursor: pointer;" onclick="HideNotif()">
+                        arrow_back
+                    </span>
+                    <div class="empty-state">
+                        <i class="fas fa-bell-slash"></i>
+                        <p>Sélectionnez une notification pour afficher son contenu.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
     </div>
    
     <section class="contact" id="contact">
