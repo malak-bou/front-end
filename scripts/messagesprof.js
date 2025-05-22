@@ -79,11 +79,19 @@ document.addEventListener("DOMContentLoaded", function () {
    
 });
 
-// Fonction pour gérer l'affichage des messages de chat et RH
+
+let activeContact = null;
+let activeContactId = null;
+
+function getCurrentUserId() {
+    return "11"; // Pour test
+}
+
 const typeButtons = document.querySelectorAll("input[name='type']");
-const chatMessagesContainer = document.getElementById("chat-message"); // Correction ici
+const chatMessagesContainer = document.getElementById("chat-message");
 const rhMessagesContainer = document.getElementById("rh-messages");
 const profMessagesContainer = document.getElementById("prof-messages");
+
 typeButtons.forEach(button => {
     button.addEventListener("change", function () {
         let value = this.value;
@@ -91,7 +99,6 @@ typeButtons.forEach(button => {
         renderUserList(value);
     });
 });
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const messagesContainer = document.querySelector(".chat-box");
@@ -102,7 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const sendButton = document.getElementById("sendButton");
     const fileInput = document.getElementById("file");
 
-    let activeContact = "Nesrine Fettal";
+    // Suppression de la déclaration locale activeContact pour utiliser la globale
+    // let activeContact = "Nesrine Fettal";  // <-- supprimé ici, on utilise variable globale
+
     let chatData = JSON.parse(localStorage.getItem("chatMessages")) || {};
 
     function loadMessages() {
@@ -181,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     recentMessages.forEach(msg => {
         msg.addEventListener("click", function () {
-            activeContact = this.dataset.name;
+            activeContact = this.dataset.name;    // MODIF : Met à jour la variable globale activeContact
             chatHeader.innerText = activeContact;
             chatAvatar.src = this.dataset.avatar;
             loadMessages();
@@ -199,24 +208,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fileInput.addEventListener("change", sendFile);
 
-    loadMessages();
+    // Appel initial pour charger les messages du premier contact (si défini)
+    if (activeContact) {
+        loadMessages();
+    }
 });
 
-    
 const searchIcon = document.getElementById("searchIcon");
 const searchInput = document.getElementById("searchInput");
 const hide = document.getElementById("hide-msg");
 
-// Quand on clique sur la loupe, alterner l'affichage du champ de recherche
 searchIcon.addEventListener("click", function () {
     if (searchInput.style.display === "none" || searchInput.style.display === "") {
         searchInput.style.display = "block";
-        hide.style.display = "none"; // Masquer "Recent Messages"
-        searchInput.focus(); // Mettre le focus dans l'input
+        hide.style.display = "none";
+        searchInput.focus();
     } else {
         searchInput.style.display = "none";
-        hide.style.display = "block"; // Réafficher "Recent Messages"
-        searchInput.value = ""; // Optionnel : Effacer le texte dans l'input
+        hide.style.display = "block";
+        searchInput.value = "";
     }
 });
 
@@ -231,15 +241,12 @@ searchInput.addEventListener("keyup", function() {
     });
 });
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
     const messages = document.querySelectorAll(".message"); 
     const chatContainer = document.querySelector(".chat-container"); 
     const container1 = document.querySelector(".container1"); 
     const backButton = document.querySelector(".chat-header .material-symbols-outlined"); 
 
-    // Cache le bouton retour au début
     backButton.style.display = "none"; 
 
     messages.forEach(message => {
@@ -247,18 +254,16 @@ document.addEventListener("DOMContentLoaded", function () {
             if (window.innerWidth < 768) {
                 container1.classList.add("hidden"); 
                 chatContainer.classList.add("active"); 
-                backButton.style.display = "block";  // Afficher le bouton retour
+                backButton.style.display = "block";
             }
         });
     });
 
-    // Fonction goback maintenant globale
     window.goback = function () {
         container1.classList.remove("hidden");
         chatContainer.classList.remove("active");
         backButton.style.display = "none"; 
     };
-   
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -272,40 +277,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Fonction pour récupérer les demandes depuis localStorage
     function getRequestsFromStorage() {
         const stored = localStorage.getItem('formationRequests');
         return stored ? JSON.parse(stored) : {};
     }
 
-    // Fonction pour vérifier s'il y a des demandes de formation
     function checkFormationRequests() {
         const notificationDot = document.getElementById('formationNotificationDot');
         const requests = getRequestsFromStorage();
-        
-        // Vérifie si au moins un département a des demandes
         const hasRequests = Object.values(requests).some(count => count > 0);
-        
-        // Affiche ou cache la notification en fonction des demandes
+
         if (notificationDot) {
             notificationDot.style.display = hasRequests ? 'block' : 'none';
         }
     }
 
-    // Vérifie les demandes au chargement de la page
     checkFormationRequests();
-
-    // Vérifie périodiquement les nouvelles demandes
     setInterval(checkFormationRequests, 1000);
-}); 
+});
 
 localStorage.setItem('formationRequests', JSON.stringify({
     "Informatique": 2,
     "Marketing": 0
-  }));
-  
+}));
+
 const usersEndpoint = "https://backend-m6sm.onrender.com/public/users";
 let allUsers = [];
 
@@ -335,16 +331,26 @@ function renderUserList(roleFilter) {
             </div>
         `;
         div.addEventListener("click", function () {
+            activeContactId = user.id;                  // Stocke l’ID du contact cliqué
+            activeContact = `${user.prenom} ${user.nom}`; // Stocke le nom complet (optionnel)
             showUserProfile(user);
             updateChatHeader(user);
-            loadConversationWith(user.id);
+            console.log("Contact cliqué :", activeContact);
+            console.log("ID contact actif :", activeContactId);
+            loadReceivedMessages();                     // Charge et affiche la conversation
         });
+        
+        
+        
         messagesContainer.appendChild(div);
     });
 
-    if (allUsers.length > 0) {
-        showUserProfile(allUsers[0]);
-        updateChatHeader(allUsers[0]);
+    if (filtered.length > 0) {
+        activeContact = `${filtered[0].prenom} ${filtered[0].nom}`;
+        activeContactId = filtered[0].id;  // initialisation du premier contact
+        showUserProfile(filtered[0]);
+        updateChatHeader(filtered[0]);
+        loadReceivedMessages();
     }
 }
 
@@ -356,14 +362,14 @@ document.addEventListener("DOMContentLoaded", function () {
             renderUserList("User");
         });
 });
-  // pour filtrageeee  kol role wplasstouu
+
 function getUsersByRole(role) {
     if (role === "Prof") return allUsers.filter(user => user.role === "prof");
     if (role === "User" || role === "Chat") return allUsers.filter(user => user.role === "employer");
     if (role === "RH") return allUsers.filter(user => user.role === "admin");
     return allUsers;
 }
-  
+
 function showUserProfile(user) {
     const card = document.querySelector('.card-client');
     if (!card) return;
@@ -381,8 +387,6 @@ function updateChatHeader(user) {
     if (chatHeader) chatHeader.textContent = `${user.prenom} ${user.nom}`;
     if (chatAvatar) chatAvatar.src = "../assets/images/profil-pic.png";
 }
-  
-// nsyou ndirou fct tae post send message 
 
 function sendMessageToBackend() {
     const token = localStorage.getItem("token");
@@ -391,7 +395,6 @@ function sendMessageToBackend() {
     const content = messageInput.value.trim();
     const file = fileInput.files[0] || null;
 
-    // Trouver l'utilisateur sélectionné (destinataire)
     const chatHeader = document.querySelector('.chat-header .username');
     const receiverName = chatHeader.textContent.trim();
     const receiver = allUsers.find(u => `${u.prenom} ${u.nom}` === receiverName);
@@ -416,7 +419,6 @@ function sendMessageToBackend() {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + token
-            // NE PAS mettre 'Content-Type' ici avec FormData !
         },
         body: formData
     })
@@ -426,7 +428,7 @@ function sendMessageToBackend() {
         alert("Message envoyé !");
         messageInput.value = "";
         fileInput.value = "";
-        loadReceivedMessages();
+        loadReceivedMessages();  // MODIF : recharge la conversation après envoi
     })
     .catch(error => {
         console.error("Erreur lors de l'envoi du message :", error);
@@ -434,73 +436,82 @@ function sendMessageToBackend() {
     });
 }
 
-// nsyou ndirou fct bach nchargiw les msg li beatnahom deja 
 function loadReceivedMessages() {
     const token = localStorage.getItem("token");
     if (!token) {
         console.error("Pas de token trouvé");
         return;
     }
-
-    const chatHeader = document.querySelector('.chat-header .username');
-    if (!chatHeader) {
-        console.error("Chat header introuvable");
+    if (!activeContactId) {
+        console.error("Aucun contact sélectionné");
+        return;
+    }
+    const userId = getCurrentUserId();
+    if (!userId) {
+        console.error("Utilisateur connecté non identifié");
         return;
     }
 
-    const receiverName = chatHeader.textContent.trim();
-    const receiver = allUsers.find(u => `${u.prenom} ${u.nom}` === receiverName);
+    // Promesses pour fetch received + sent
+    const fetchReceived = fetch(`https://backend-m6sm.onrender.com/messages/?message_type=received&skip=0&limit=100`, {
+        headers: { 'Authorization': 'Bearer ' + token, 'accept': 'application/json' }
+    }).then(res => {
+        if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+        return res.json();
+    });
 
-    if (!receiver) {
-        console.error("Aucun destinataire sélectionné");
-        return;
-    }
+    const fetchSent = fetch(`https://backend-m6sm.onrender.com/messages/?message_type=sent&skip=0&limit=100`, {
+        headers: { 'Authorization': 'Bearer ' + token, 'accept': 'application/json' }
+    }).then(res => {
+        if (!res.ok) throw new Error("Erreur HTTP " + res.status);
+        return res.json();
+    });
 
-    fetch('https://backend-m6sm.onrender.com/messages/', {
-        headers: {
-            'Authorization': 'Bearer ' + token,
-            'accept': 'application/json'
-        }
-    })
-    .then(res => res.json())
-    .then(allMessages => {
-        // Filtrer les messages envoyés au destinataire actif
-        const sentToContact = allMessages.filter(msg => msg.sender_id === getCurrentUserId() && String(msg.receiver_id) === String(receiver.id));
-        // Filtrer les messages reçus du destinataire actif
-        const receivedFromContact = allMessages.filter(msg => msg.receiver_id === getCurrentUserId() && String(msg.sender_id) === String(receiver.id));
-
-        const conversation = [...sentToContact, ...receivedFromContact].sort(
-            (a, b) => new Date(a.created_at) - new Date(b.created_at)
+    Promise.all([fetchReceived, fetchSent])
+    .then(([receivedMessages, sentMessages]) => {
+        // Filtrer uniquement messages liés au contact actif
+        const filteredReceived = receivedMessages.filter(msg =>
+            String(msg.sender_id) === String(activeContactId) &&
+            String(msg.receiver_id) === String(userId)
         );
+
+        const filteredSent = sentMessages.filter(msg =>
+            String(msg.receiver_id) === String(activeContactId) &&
+            String(msg.sender_id) === String(userId)
+        );
+
+        // Fusionner et trier par date
+        const allMessages = [...filteredReceived, ...filteredSent];
+        allMessages.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
 
         const chatBox = document.querySelector('.chat-box');
         chatBox.innerHTML = "";
 
-        if (conversation.length > 0) {
-            conversation.forEach(msg => {
-                const isSent = msg.sender_id === getCurrentUserId();
-                const messageDate = new Date(msg.created_at);
-                const formattedDate = messageDate.toLocaleString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-
-                const messageHTML = `
-                    <div class="message ${isSent ? "sent" : "received"}">
-                        <div class="message-content">
-                            <p class="message-text">${msg.content}</p>
-                            <p class="timestamp">${formattedDate}</p>
-                        </div>
-                    </div>
-                `;
-                chatBox.innerHTML += messageHTML;
-            });
-        } else {
-            chatBox.innerHTML = "<p>Aucun message dans cette conversation.</p>";
+        if (allMessages.length === 0) {
+            chatBox.innerHTML = "<p>Aucun message avec ce contact.</p>";
+            return;
         }
+
+        // Construire HTML des messages
+        allMessages.forEach(msg => {
+            const formattedDate = new Date(msg.created_at).toLocaleString('fr-FR', {
+                day: '2-digit', month: '2-digit', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        
+            // Déterminer si message reçu ou envoyé
+            const isSent = String(msg.sender_id) === String(userId);
+            const messageClass = isSent ? "sent" : "received";
+        
+            const messageHTML = `
+                <div class="message ${messageClass}">
+                    <p>${msg.content}</p>
+                    <p><small>${formattedDate}</small></p>
+                </div>
+            `;
+            chatBox.innerHTML += messageHTML;
+        });
+        
     })
     .catch(error => {
         console.error("Erreur lors du chargement des messages :", error);
