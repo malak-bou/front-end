@@ -13,13 +13,7 @@ function showNotification(element) {
     element.dataset.read = "true"; // Store read status in data attribute
 }
 
-// Function to filter only mentions
-function filterMentions() {
-    let notifications = document.querySelectorAll(".notification");
-    notifications.forEach((notif) => {
-        notif.style.display = notif.dataset.type === "mention" ? "block" : "none";
-    });
-}
+
 
 // Function to filter only unread notifications
 function filterUnread() {
