@@ -76,10 +76,28 @@ function populateUserForm(userInfo) {
 
 function displayCourseStats(courses) {
     const totalCourses = courses.length;
-    const completedCourses = courses.filter(course => course.completed || course.progress === 100).length;
-    const avgProgress = totalCourses > 0 
-        ? Math.round(courses.reduce((sum, course) => sum + (course.progress || 0), 0) / totalCourses)
-        : 0;
+    let completedCourses = 0;
+    let totalProgress = 0;
+
+    courses.forEach(course => {
+        // Supporte plusieurs formats de propriétés
+        let progress = 0;
+        if (typeof course.progress !== 'undefined') {
+            progress = typeof course.progress === 'string' ? parseFloat(course.progress.replace('%', '')) : course.progress;
+        } else if (typeof course.progres !== 'undefined') {
+            progress = typeof course.progres === 'string' ? parseFloat(course.progres.replace('%', '')) : course.progres;
+        }
+        // Si la progression n'est pas un nombre valide, on met 0
+        if (isNaN(progress)) progress = 0;
+        totalProgress += progress;
+
+        // Terminé si progress 100, ou completed, ou is_completed
+        if (progress === 100 || course.completed === true || course.is_completed === true) {
+            completedCourses++;
+        }
+    });
+
+    const avgProgress = totalCourses > 0 ? Math.round(totalProgress / totalCourses) : 0;
 
     document.getElementById("totalCourses").textContent = totalCourses;
     document.getElementById("completedCourses").textContent = completedCourses;
