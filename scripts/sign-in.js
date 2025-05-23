@@ -39,7 +39,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     
         emailError.style.display = 'none';
+        
+        // Validation du téléphone
+        const phoneInput = document.getElementById('telephone');
+        const phone = phoneInput.value.trim();
+        const phoneRegex = /^(05|06|07)\d{8}$/;
 
+        if (!phoneRegex.test(phone)) {
+        alert("Le numéro de téléphone doit contenir 10 chiffres et commencer par 05, 06 ou 07.");
+        phoneInput.focus();
+        return;
+        }
         // Validation des mots de passe
         if (passwordInput.value !== passwordInput2.value) {
             alert("Les mots de passe ne correspondent pas!");
