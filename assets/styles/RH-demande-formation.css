@@ -1,14 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primary-color: #7162E1;
+  --primary-dark: #564BAB;
+  --primary-light: #6759CD;
+  --accent-color: #D28C64;
+  --text-light: #ffffff;
+  --text-dark: #333333;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s ease;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 body {
-  background: linear-gradient(to bottom, #6c52d9, #5a46ba);
-  color: white;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  color: var(--text-light);
+  min-height: 100vh;
 }
+
 .upbar, .departments, .calendar-section, .message-section{
   padding: 20px;
 }
@@ -31,6 +48,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .departments button.active {
   background-color: white;
@@ -75,7 +96,7 @@ body {
   background: white;
   color: black;
   width: 80%;
-  margin: auto;
+  margin: 20px auto;
   padding: 20px;
   border-radius: 10px;
   text-align: left;
@@ -486,35 +507,46 @@ header .current-date{
 
 /* number de demande style */
 .dept-btn {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); 
-  position: relative;
-  margin: 5px;
-  padding: 9px 15px;
-  border: none;
-  background-color: #eee;
-
-  border-radius: 35px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
 }
 
 .dept-btn:hover {
-  box-shadow: 0 4px 12px rgba(30, 64, 175, 0.4); /* Darker blue shadow */
-  transform: translateY(-1px);
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.dept-btn.active {
+  background: var(--text-light);
+  color: var(--primary-dark);
+  box-shadow: var(--shadow-lg);
 }
 
 .badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: #c53030;
-  color: white;
-  font-size: 0.7rem;
-  padding: 2px 6px;
+  top: -8px;
+  right: -8px;
+  background: var(--accent-color);
+  color: var(--text-light);
   border-radius: 50%;
-  display: none;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
 }
 /* to show the additional sections   */
 /* Initially hide the sections */
