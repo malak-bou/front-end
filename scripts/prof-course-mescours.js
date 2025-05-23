@@ -47,6 +47,9 @@ async function fetchCourseMaterials(courseId) {
                 `;
             }
         });
+
+        // Afficher les informations de progression après le chargement des matériaux
+        await displayCourseCompletionInfo(courseId);
     } catch (error) {
         console.error("Erreur:", error);
         document.getElementById("course-resources").innerHTML = "<p>Erreur de chargement du contenu du cours.</p>";
@@ -174,13 +177,85 @@ quitCourseBtn.addEventListener('click', function() {
     document.getElementById('course-image').style.display = '';
     document.getElementById('course-teacher').style.display = '';
 });
- 
- const finishCourseBtn = document.getElementById('finish-course-btn');
- // Finir le cours
- finishCourseBtn.addEventListener('click', function() {
-     alert('Vous avez terminé ce cours!');
-     window.location.href = 'mescours.html';
-     // Tu pourrais aussi ici envoyer une requête pour "marquer terminé" si tu as un backend
- });
- 
- 
+
+const finishCourseBtn = document.getElementById('finish-course-btn');
+// Finir le cours
+finishCourseBtn.addEventListener('click', async function() {
+    try {
+        const courseId = course.id;
+        
+
+        const response = await fetch(`http://127.0.0.1:8000/courses/${courseId}/complete`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la complétion du cours');
+        }
+
+        const data = await response.json();
+        alert('Félicitations ! Vous avez terminé ce cours !');
+        window.location.href = 'mescours.html';
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Une erreur est survenue lors de la complétion du cours');
+    }
+});
+
+async function displayCourseCompletionInfo(courseId) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8000/courses/${courseId}/progress`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des informations du cours');
+        }
+
+        const data = await response.json();
+        
+        // Créer ou mettre à jour l'élément d'affichage
+        let completionInfo = document.getElementById('completion-info');
+        if (!completionInfo) {
+            completionInfo = document.createElement('div');
+            completionInfo.id = 'completion-info';
+            completionInfo.style.cssText = `
+                background-color: #f8f9fa;
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            `;
+            document.getElementById('course-content').prepend(completionInfo);
+        }
+
+        completionInfo.innerHTML = `
+            <h3 style="color: #2c3e50; margin-bottom: 15px;">Progression du cours</h3>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                <div>
+                    <p><strong>Statut:</strong> <span style="color: ${data.progress_details.is_completed ? '#27ae60' : '#f39c12'}">${data.progress_details.status}</span></p>
+                    <p><strong>Progression:</strong> ${data.progress_details.progress_percent}</p>
+                </div>
+                <div>
+                    <p><strong>Date de début:</strong> ${data.progress_details.enrollment_date}</p>
+                    <p><strong>Dernier accès:</strong> ${data.progress_details.last_accessed}</p>
+                </div>
+            </div>
+            <div style="margin-top: 15px;">
+                <div style="width: 100%; background: #e9ecef; border-radius: 10px; overflow: hidden;">
+                    <div style="width: ${data.progress_details.progress_value}%; background: #4CAF50; height: 20px; border-radius: 10px; transition: width 0.3s ease;"></div>
+                </div>
+            </div>
+        `;
+    } catch (error) {
+        console.error('Erreur:', error);
+    }
+}
+
