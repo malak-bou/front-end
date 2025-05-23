@@ -1,14 +1,26 @@
 /* Styles globaux */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-body {
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to right, #342D67, #6759CD);
+:root {
+    --primary: #6759CD;
+    --primary-dark: #342D67;
+    --accent: #D28C64;
+    --text: #1F2937;
+    --text-light: #6B7280;
+    --background: #F9FAFB;
+    --white: #FFFFFF;
+    --border: #E5E7EB;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--white);
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    min-height: 100vh;
+}
 
 /* Barre supérieure */
 .top-bar {
@@ -18,7 +30,6 @@ body {
     padding: 15px;
 }
 
-
 .menu-icon {
     font-size: 35px;
     cursor: pointer;
@@ -26,7 +37,6 @@ body {
     border: none;
     box-shadow: none;
 }
-
 
 /* 🌟 Sidebar Container */
 .sidebar {
@@ -169,162 +179,225 @@ body {
 }
 
 /* main content */
-
 .main-content {
     display: flex;
     justify-content: center;
-    padding: 40px 0;
+    padding: 2rem 1rem;
     min-height: 100vh;
     box-sizing: border-box;
 }
+
+/* 🔵 Active Link */
+.sidebar ul li a.active {
+    color: blue;
+    border-left: 4px solid blue;
+    background: rgba(0, 0, 255, 0.1);
+}
+
 .settings-container {
-    padding-bottom: 80px; /* Pour éviter le collage au footer */
-}
-
-
-.settings-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    height: auto;
-    width: 70%;
-}
-
-
-form {
-    width: 60%;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    color: black;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.form-group {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.input-box {
-    display: flex;
-    flex-direction: column;
-    width: 48%;
-    position: relative;
-}
-
-label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-left: 5px;
-}
-
-input {
-    padding: 10px;
-    padding-right: 0%;
-    padding-left: 5px;
-    border: 1px solid #878787;
-    border-radius: 5px;
-    font-size: 14px;
+    max-width: 800px;
     width: 100%;
+    height: fit-content;
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    color: var(--text);
 }
-.btn-save {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    background-color: #7c3aed;
-    color: white;
+
+.settings-container h2 {
+    font-size: 1.75rem;
     font-weight: 600;
-    font-size: 14px;
-    display: inline-block;
+    color: var(--primary-dark);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border);
 }
 
-.btn-save:hover {
-    background-color: #5b21b6;
-}
-
-
-
-/* Mot de passe avec icône */
-.password-container {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.password-container input {
-    width: 100%;
-}
-
-.password-container .toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-
-.menu {
-    display: flex;
-    flex-direction: column;
-}
-
+/* Options */
 .option {
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem;
+    background: var(--background);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
 }
 
-.option .arrow {
-    transition: transform 0.3s;
+.option:hover {
+    background: rgba(103, 89, 205, 0.1);
 }
 
+.option span:first-child {
+    font-weight: 500;
+    color: var(--text);
+}
+
+.arrow {
+    color: var(--text-light);
+    transition: transform 0.3s ease;
+}
+
+.option.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* Sections */
 .section {
     display: none;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 1.5rem;
+    background: var(--white);
+    border-radius: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid var(--border);
 }
 
+.section.active {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Form elements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-box {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+}
+
+input[type="text"],
+input[type="password"],
+select {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text);
+    transition: all 0.3s ease;
+    background: var(--background);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(103, 89, 205, 0.1);
+}
+
+/* Checkbox styling */
 .fix {
     display: flex;
-    align-items: center; /* Centre les éléments verticalement */
-    justify-content: space-between; /* Espacement entre le label et la case à cocher */
-    width: 100%; /* Assure que la div prend toute la largeur disponible */
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0;
 }
 
-.fix label {
-    flex-grow: 1; /* Permet au label de prendre l'espace disponible */
-    min-width: 150px; /* Assure un bon alignement */
+.fix input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.25rem;
+    border: 2px solid var(--border);
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
-.fix input {
-    margin-left: 10px; /* Ajoute un petit espace entre le texte et la case */
+.fix input[type="checkbox"]:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
 }
 
-
-.hidden {
-    display: none !important;
-}
-
-
-.dark-mode {
-    background: #333;
+.fix input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
     color: white;
+    font-size: 0.75rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Button styling */
+.btn-save {
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+}
+
+.btn-save:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Dark mode */
+.dark-mode {
+    background: var(--text);
+    color: var(--white);
+}
+
+.dark-mode .settings-container {
+    background: var(--text);
+    color: var(--white);
+}
+
+.dark-mode .option {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode input,
+.dark-mode select {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .settings-container {
+        padding: 1.5rem;
+    }
+
+    .option {
+        padding: 0.75rem;
+    }
+
+    .section {
+        padding: 1rem;
+    }
 }
 
 /* Pied de page */
-
-
 .contact {
     background: linear-gradient(to right, #6759CD, #342D67);
     color: #ffffff;
@@ -417,7 +490,6 @@ ul {
     color:  #D28C64;
 }
 
-
 .container-contact {
     display: flex;
     flex-direction: row;
@@ -434,7 +506,6 @@ ul {
 
 .partie-g{
     flex: 1;
-    min-width: 300px;
     margin: 1rem;
     padding-right: 20%;
 }
@@ -445,14 +516,11 @@ ul {
     align-items: center;
 }
 
-
 .gauche img, footer {
     width: 200px;
     height: 150px;
     color: white;
 }
-
-
 
 .photo-reseau {
     width: 100%;
@@ -468,9 +536,7 @@ footer {
     height:auto ;
 }
 
-
 @media (max-width: 768px) {
-
     .container-contact {
         flex-direction: column;
         justify-content: center;
