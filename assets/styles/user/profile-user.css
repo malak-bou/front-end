@@ -239,16 +239,42 @@ body {
 form {
     width: 60%;
     background: white;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 30px;
+    border-radius: 15px;
     color: black;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+form:hover {
+    transform: translateY(-5px);
+}
+
+.mon-profile {
+    text-align: center;
+    color: #342D67;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    position: relative;
+}
+
+.mon-profile::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #6759CD;
+    border-radius: 2px;
 }
 
 .form-group {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .input-box {
@@ -259,19 +285,19 @@ form {
 }
 
 label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    margin-left: 5px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #342D67;
+    font-size: 14px;
 }
 
 input {
-    padding: 12px;
-    padding-right: 0%;
-    padding-left: 5px;
-    border: 1px solid #878787;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
 }
 
 
@@ -568,6 +594,7 @@ footer {
     }
     form {
         width: 90%;
+        padding: 20px;
     }
 
     .form-group {
@@ -576,7 +603,7 @@ footer {
 
     .input-box {
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
     
     .container-contact {
@@ -645,7 +672,7 @@ footer {
     pointer-events: none;
 }
 .sidebar ul li a i {
-    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l’icône */
+    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l'icône */
   }
   
   .notification-dot {
