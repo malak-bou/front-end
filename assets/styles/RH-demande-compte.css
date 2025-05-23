@@ -1060,3 +1060,89 @@ table {
     margin-bottom: 10px;
   }
 }
+
+/* Fond semi-transparent */
+#editUserModal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 15px;
+  overflow: auto;
+}
+
+/* Contenu modale compact */
+#editUserModal .modal-content {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 320px;    /* largeur plus petite */
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  padding: 20px 22px;  /* padding réduit */
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Labels et inputs plus compacts */
+#editUserForm label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  overflow: hidden;
+}
+
+#editUserForm input[type="text"],
+#editUserForm select {
+  width: 100%;
+  padding: 6px 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+#editUserForm input[type="text"]:focus,
+#editUserForm select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Boutons plus petits */
+#editUserForm button {
+  margin-top: 18px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+#editUserForm button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  margin-right: 8px;
+}
+
+#editUserForm button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#editUserForm button[type="button"] {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+#editUserForm button[type="button"]:hover {
+  background-color: #bdbdbd;
+}
