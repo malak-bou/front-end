@@ -218,4 +218,3 @@ async function changePassword() {
     alert("❌ Une erreur est survenue.");
   }
 }
-
