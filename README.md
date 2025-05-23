@@ -2,7 +2,7 @@
 
 ## Introduction
 
-GIG PLATLEARN est une plateforme e-learning privée conçue pour Gulf Insurance Group (GIG), avec l'objectif de booster les compétences de chaque collaborateur. Cette plateforme offre des cours en ligne, des modules interactifs et des ateliers animés par des experts pour accélérer la progression professionnelle des employés.
+TAKWINI est une plateforme e-learning privée conçue pour Gulf Insurance Group (GIG), avec l'objectif de booster les compétences de chaque collaborateur. Cette plateforme offre des cours en ligne, des modules interactifs et des ateliers animés par des experts pour accélérer la progression professionnelle des employés.
 
 ## Structure du projet
 
