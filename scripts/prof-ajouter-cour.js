@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'login.html'; // Redirect to login if no token
         return;
     }
-
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
