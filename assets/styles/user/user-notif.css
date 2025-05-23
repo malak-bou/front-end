@@ -6,7 +6,7 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-    background: #f5f7fa;
+    background: linear-gradient(to right, #342D67, #6759CD);
 }
 
 /* Barre supérieure */
@@ -20,6 +20,7 @@ body {
 .menu-icon {
     font-size: 35px;
     cursor: pointer;
+    color: white;
     background-color: transparent;
     border: none;
     box-shadow: none;
