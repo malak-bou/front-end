@@ -1,18 +1,27 @@
 /* Styles globaux */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+:root {
+    --primary: #6759CD;
+    --primary-dark: #342D67;
+    --accent: #D28C64;
+    --text: #1F2937;
+    --text-light: #6B7280;
+    --background: #F9FAFB;
+    --white: #FFFFFF;
+    --border: #E5E7EB;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #6759CD, #342D67);
-    color: white;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: var(--white);
     margin: 0;
     padding: 0;
+    min-height: 100vh;
 }
-*{
-    font-family: "Poppins", sans-serif;
-    
-      
-}
+
 /* Barre de navigation  */
 header {
     display: flex;
@@ -37,10 +46,15 @@ header {
     align-items: center;
   }
   
-.menuicon{
-    width: 30px;
+  .menu-icon {
+    font-size: 35px;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding-left: 10px;
 }
+
 .search-wrapper {
     position: relative;
     width: 40%;
@@ -248,27 +262,43 @@ header {
 /* Section de bienvenue */
 .welcome {
     text-align: center;
-
+    padding: 3rem 1rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .welcome h1 {
-    font-size: 45px;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
 }
 
 .welcome span {
-    color: #D28C64;
+    color: var(--accent);
+    position: relative;
 }
 
 .welcome p {
-    font-size: 16px;
+    font-size: 1.125rem;
+    color: var(--white);
+    opacity: 0.9;
+    margin-bottom: 1rem;
 }
 
 .welcome h2 {
-    margin-bottom: 20px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--white);
+    opacity: 0.8;
 }
+
 /* formation*/ 
 .formation{
-    background-color: #ffffff;
+    background-color: var(--white);
+    border-radius: 1.5rem 1.5rem 0 0;
+    padding: 2rem 0;
+    margin-top: -1.5rem;
 }
 
 /* Cours récents */
@@ -343,20 +373,19 @@ label:last-child span {
 }
 
 .course-card {
-    background: rgb(237, 237, 237);
-    color: black;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    width: 200px;
-    transition: transform 0.3s;
-    border: 0.5px solid lightgray;
-    cursor: pointer;
-    
+    background: var(--white);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
 }
 
 .course-card:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .formation img {
@@ -1007,7 +1036,7 @@ header .current-date2 {
     pointer-events: none;
 }
 .sidebar ul li a i {
-    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l’icône */
+    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l'icône */
   }
   
   .notification-dot {
@@ -1023,7 +1052,7 @@ header .current-date2 {
     z-index: 10;
   }
   .sidebar ul li a i {
-    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l’icône */
+    position: relative; /* nécessaire pour que .notification-dot soit positionné par rapport à l'icône */
   }
   
   .notification-dot {
@@ -1038,4 +1067,6 @@ header .current-date2 {
     border: 1.5px solid #ffffff;
     z-index: 10;
   }
+  
+
   
