@@ -117,8 +117,7 @@ async function loadUserInfo() {
   
   // ✅ Enregistrement du téléphone
   async function saveUserInfo() {
-    
-    const telephone = document.getElementById("telephone").value;
+    const telephone = document.getElementById("telephone").value.trim();
     const token = localStorage.getItem("token");
   
     if (!token) {
@@ -126,8 +125,16 @@ async function loadUserInfo() {
       return;
     }
   
-    if (!telephone ) {
-      alert("⚠️ Tous les champs sont requis !");
+    if (!telephone) {
+      alert("⚠️ Le numéro de téléphone est requis !");
+      return;
+    }
+  
+    // ✅ Validation du format du numéro de téléphone
+    const phoneRegex = /^(05|06|07)\d{8}$/;
+    if (!phoneRegex.test(telephone)) {
+      alert("❌ Le numéro de téléphone doit contenir 10 chiffres et commencer par 05, 06 ou 07.");
+      document.getElementById("telephone").focus();
       return;
     }
   
@@ -140,14 +147,13 @@ async function loadUserInfo() {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-         
           telephone: telephone
         })
       });
   
       const data = await res.json();
       if (res.ok) {
-        alert(" Mise à jour du téléphone effectuée !");
+        alert("📞 Mise à jour du téléphone effectuée !");
       } else {
         alert("❌ Erreur : " + (data.message || "Échec de mise à jour"));
       }
@@ -156,6 +162,7 @@ async function loadUserInfo() {
       alert("❌ Une erreur est survenue.");
     }
   }
+  
   
   // ✅ Changement de mot de passe
   async function changePassword() {
