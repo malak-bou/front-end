@@ -135,6 +135,7 @@ startCourseBtn.addEventListener('click', async function() {
     // Show course content
     maincontent.style.display = 'block';
     startCourseBtn.style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
     document.getElementById('course-description').style.display = 'none';
     document.getElementById('course-image').style.display = 'none';
     document.getElementById('course-teacher').style.display = 'none';
