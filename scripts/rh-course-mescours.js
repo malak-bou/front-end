@@ -172,6 +172,7 @@ const quitCourseBtn = document.getElementById('quit-course-btn');
 // Quitter le cours
 quitCourseBtn.addEventListener('click', function() {
     startCourseBtn.style.display = '';
+    document.getElementById('overlay').style.display = 'none';
     document.getElementById('course-content').style.display = 'none';
     document.getElementById('course-description').style.display = '';
     document.getElementById('course-image').style.display = '';
