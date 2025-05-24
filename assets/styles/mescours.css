@@ -14,7 +14,15 @@ body {
 
 /* Centrer la barre de recherche légèrement à droite */
 
+.course-card img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    object-fit: cover;      /* This makes the image cover the area and crop nicely */
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
 
+}
 
 /* Profil agrandi */
 
