@@ -10,7 +10,7 @@ let courseId = course.id ;
 
 async function fetchCourseMaterials(courseId) {
     try {
-        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}`);
+        const response = await fetch(`http://127.0.0.1:8000/courses/${courseId}`);
         if (!response.ok) {
             throw new Error("Échec de chargement du contenu.");
         }
@@ -27,15 +27,17 @@ async function fetchCourseMaterials(courseId) {
         }
 
         materials.forEach((material) => {
-            if (material.file_category === "material" && material.file_type === "application/pdf") {
+            if (material.file_type === "application/pdf") {
+               console.log("material.file_path", material.file_path);
                 container.innerHTML += `
                 <div style="margin-bottom: 20px; width: 100%; max-width: 800px;">
-                    <div style="margin-top: 10px; text-align: center;">
+                    <iframe src="${material.file_path}" width="100%" height="600px" style="border:1px solid #ccc; border-radius:8px; margin-top:20px;"></iframe>
+                    <hr>
+                </div>
+                <div style="margin-top: 10px; text-align: center;">
                         <a href="${material.file_path}" target="_blank" class="btn-download">
                             <i class="fas fa-download"></i> Télécharger Support du cours 📄
                         </a>
-                    </div>
-                    <hr>
                 </div>
                 `;
             } else if (material.file_category === "record" && material.file_type.startsWith("video")) {
@@ -58,7 +60,7 @@ async function fetchCourseMaterials(courseId) {
 
 async function fetchCourseProgress(courseId) {
     try {
-        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}/progress`, {
+        const response = await fetch(`http://127.0.0.1:8000/courses/${courseId}/progress`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -142,7 +144,7 @@ startCourseBtn.addEventListener('click', async function() {
     this.style.display = 'none';
     try {
         // Call the enrollment API
-        const response = await fetch(`https://backend-m6sm.onrender.com/courses/${courseId}/enroll`, {
+        const response = await fetch(`http://127.0.0.1:8000/courses/${courseId}/enroll`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -200,7 +202,7 @@ finishCourseBtn.addEventListener('click', async function() {
 
         const data = await response.json();
         alert('Félicitations ! Vous avez terminé ce cours !');
-        window.location.href = 'dashboardprof.html';
+        window.location.href = 'RH-dashboard.html';
     } catch (error) {
         console.error('Erreur:', error);
         alert('Une erreur est survenue lors de la complétion du cours');
