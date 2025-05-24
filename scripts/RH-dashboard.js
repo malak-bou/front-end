@@ -777,6 +777,7 @@ function createCourseCard(course) {
 
     card.innerHTML = `
         ${isNew ? '<span class="badge">new</span>' : ''}
+        <img src="${course.image_url}" alt="${course.title}">
         <span class="department">${course.departement}</span>
         <h3>${course.title}</h3>
         <p>By ${instructorName}</p>
